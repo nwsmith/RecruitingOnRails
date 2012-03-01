@@ -1,5 +1,8 @@
 development:
+    auth_type: none
 
 test:
+    auth_type: none
 
 production:
+    auth_type: ldap

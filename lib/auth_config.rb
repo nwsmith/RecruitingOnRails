@@ -1,9 +1,9 @@
 module AuthConfig
-  def config
+  def self.config
     @@config ||= {}
   end
 
-  def config=(hash)
+  def self.config=(hash)
     @@config = hash
   end
 end
