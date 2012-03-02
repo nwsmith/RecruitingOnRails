@@ -1,4 +1,5 @@
-<% form_tag(:controller => :login, :action => :login) do %>
+
+<%= form_tag('/login/attempt_login') do -%>
     <p>
       <label for="username">Username</label>
       <%=  text_field_tag 'username', params[:username] %>
@@ -8,4 +9,4 @@
       <%=  password_field_tag 'password' %>
     </p>
     <%=  submit_tag 'Log In' %>
-<% end %>
+<% end -%>
