@@ -1,0 +1,27 @@
+<h1>Listing candidate_sources</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @candidate_sources.each do |candidate_source| %>
+  <tr>
+    <td><%= candidate_source.code %></td>
+    <td><%= candidate_source.name %></td>
+    <td><%= candidate_source.description %></td>
+    <td><%= link_to 'Show', candidate_source %></td>
+    <td><%= link_to 'Edit', edit_candidate_source_path(candidate_source) %></td>
+    <td><%= link_to 'Destroy', candidate_source, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Candidate source', new_candidate_source_path %>

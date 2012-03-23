@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @candidate_source.code %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @candidate_source.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @candidate_source.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_candidate_source_path(@candidate_source) %> |
+<%= link_to 'Back', candidate_sources_path %>

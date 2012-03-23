@@ -1,0 +1,29 @@
+<%= form_for(@candidate_status) do |f| %>
+  <% if @candidate_status.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@candidate_status.errors.count, "error") %> prohibited this candidate_status from being saved:</h2>
+
+      <ul>
+      <% @candidate_status.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

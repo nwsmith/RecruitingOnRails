@@ -1,4 +1,10 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :candidates
+
+  resources :candidate_sources
+
+  resources :candidate_statuses
+
   resources :groups
 
   resources :users

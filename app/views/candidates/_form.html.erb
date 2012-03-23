@@ -1,0 +1,53 @@
+<%= form_for(@candidate) do |f| %>
+  <% if @candidate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@candidate.errors.count, "error") %> prohibited this candidate from being saved:</h2>
+
+      <ul>
+      <% @candidate.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :middle_name %><br />
+    <%= f.text_field :middle_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :candidate_status_id %><br />
+    <%= f.text_field :candidate_status_id %>
+  </div>
+  <div class="field">
+    <%= f.label :candidate_source_id %><br />
+    <%= f.text_field :candidate_source_id %>
+  </div>
+  <div class="field">
+    <%= f.label :application_date %><br />
+    <%= f.date_select :application_date %>
+  </div>
+  <div class="field">
+    <%= f.label :first_contact_date %><br />
+    <%= f.date_select :first_contact_date %>
+  </div>
+  <div class="field">
+    <%= f.label :is_referral %><br />
+    <%= f.check_box :is_referral %>
+  </div>
+  <div class="field">
+    <%= f.label :referred_by %><br />
+    <%= f.text_field :referred_by %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

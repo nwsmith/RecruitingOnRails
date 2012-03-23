@@ -11,7 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120302201136) do
+ActiveRecord::Schema.define(:version => 20120323171638) do
+
+  create_table "candidate_sources", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
+
+  create_table "candidate_statuses", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
+
+  create_table "candidates", :force => true do |t|
+    t.integer  "candidate_status_id"
+    t.integer  "candidate_source_id"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.date     "application_date"
+    t.date     "first_contact_date"
+    t.boolean  "is_referral"
+    t.string   "referred_by"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
+  add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
 
   create_table "groups", :force => true do |t|
     t.string   "name"

@@ -1,0 +1,27 @@
+<h1>Listing candidate_statuses</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @candidate_statuses.each do |candidate_status| %>
+  <tr>
+    <td><%= candidate_status.code %></td>
+    <td><%= candidate_status.name %></td>
+    <td><%= candidate_status.description %></td>
+    <td><%= link_to 'Show', candidate_status %></td>
+    <td><%= link_to 'Edit', edit_candidate_status_path(candidate_status) %></td>
+    <td><%= link_to 'Destroy', candidate_status, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Candidate status', new_candidate_status_path %>
