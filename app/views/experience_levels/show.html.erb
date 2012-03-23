@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @experience_level.code %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @experience_level.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @experience_level.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_experience_level_path(@experience_level) %> |
+<%= link_to 'Back', experience_levels_path %>

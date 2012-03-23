@@ -1,0 +1,27 @@
+<h1>Listing experience_levels</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @experience_levels.each do |experience_level| %>
+  <tr>
+    <td><%= experience_level.code %></td>
+    <td><%= experience_level.name %></td>
+    <td><%= experience_level.description %></td>
+    <td><%= link_to 'Show', experience_level %></td>
+    <td><%= link_to 'Edit', edit_experience_level_path(experience_level) %></td>
+    <td><%= link_to 'Destroy', experience_level, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Experience level', new_experience_level_path %>
