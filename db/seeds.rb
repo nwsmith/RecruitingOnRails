@@ -2,21 +2,30 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
-statuses = CandidateStatus.create([{code: 'HIRED', name: 'Hired'}, {code: 'FIRED', name: 'Fired'}])
+fired = CandidateStatus.create({code: 'HIRED', name: 'Hired'})
+hired = CandidateStatus.create({code: 'FIRED', name: 'Fired'})
+pending = CandidateStatus.create({code: 'PEND', name: 'Pending'})
+
 source = CandidateSource.create({code: 'WEB', name: 'Website'})
 experience_levels = ExperienceLevel.create([{code: 'NEWB', name: 'Noob'}, {code: 'NINJA', name: 'Ninja'}])
 
 hired = Candidate.create({first_name: 'Johnny',
                           last_name: 'fever',
-                          candidate_status: statuses.first,
+                          candidate_status: hired,
                           candidate_source: source,
                           experience_level: experience_levels[0]})
 fired = Candidate.create({first_name: 'Joey Joe Joe',
                           middle_name: 'Junior',
                           last_name: 'Shabadoo',
-                          candidate_status: statuses[-1],
+                          candidate_status: fired,
                           candidate_source: source,
                           experience_level: experience_levels[-1]})
+
+Candidate.create({first_name: 'Pending',
+                 last_name: 'Guy',
+                 candidate_status:  pending,
+                 candidate_source: source,
+                 experience_level: experience_levels[0]})
 
 chuck = User.create({first_name: 'Chuck', last_name: 'Norris', admin: true, active: true, auth_name: 'chuck.norris', user_name: 'chuck.norris'})
 bruce = User.create({first_name: 'Bruce', last_name: 'Lee', admin: false, active: true, auth_name: 'bruce.lee', user_name: 'bruce.lee'})

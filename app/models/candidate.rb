@@ -7,4 +7,10 @@ class Candidate < ActiveRecord::Base
   def name
     first_name + " " + last_name
   end
+
+  def Candidate.by_status_code(status_code)
+    status = CandidateStatus.first(:conditions => {:code => status_code})
+    id = status.nil? ? -1 : status.id
+    Candidate.all(:conditions => {:candidate_status_id => id})
+  end
 end
