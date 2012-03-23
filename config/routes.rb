@@ -1,4 +1,10 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :interview_reviews
+
+  resources :interviews
+
+  resources :interview_types
+
   resources :experience_levels
 
   resources :candidates

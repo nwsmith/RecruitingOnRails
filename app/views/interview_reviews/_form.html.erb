@@ -1,0 +1,36 @@
+<%= form_for(@interview_review) do |f| %>
+    <% if @interview_review.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@interview_review.errors.count, "error") %> prohibited this interview_review from being
+            saved:</h2>
+
+          <ul>
+            <% @interview_review.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :interview_id %>
+      <%= f.collection_select(:interview_id, Interview.all, :id, :name) %>
+    </div>
+    <div class="field">
+      <%= f.label :user_id %>
+      <%= f.collection_select(:user_id, User.all, :id, :name) %>
+    </div>
+    <div class="field">
+      <%= f.label :approved %>
+      <br/>
+      <%= f.check_box :approved %>
+    </div>
+    <div class="field">
+      <%= f.label :notes %>
+      <br/>
+      <%= f.text_field :notes %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

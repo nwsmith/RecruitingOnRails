@@ -28,3 +28,9 @@ bruce.groups << groups[-1]
 
 chuck.save
 bruce.save
+
+phone_interview = InterviewType.create({code: 'PHONE', name: 'Phone Interview'})
+
+interview = Interview.create({interview_type: phone_interview, candidate: hired, notes: 'awesome dude'})
+
+interview_review = InterviewReview.create({interview: interview, user: bruce, approved: true, notes: 'sweet interview'})

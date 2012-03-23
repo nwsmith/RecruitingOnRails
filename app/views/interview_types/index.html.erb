@@ -1,0 +1,27 @@
+<h1>Listing interview_types</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @interview_types.each do |interview_type| %>
+  <tr>
+    <td><%= interview_type.code %></td>
+    <td><%= interview_type.name %></td>
+    <td><%= interview_type.description %></td>
+    <td><%= link_to 'Show', interview_type %></td>
+    <td><%= link_to 'Edit', edit_interview_type_path(interview_type) %></td>
+    <td><%= link_to 'Destroy', interview_type, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Interview type', new_interview_type_path %>

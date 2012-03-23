@@ -5,6 +5,25 @@ body {
   font-size: 13px;
   line-height: 18px; }
 
+
+table {
+    border: 1px solid #600;
+}
+
+th {
+    border: 1px solid #600;
+    margin: 0;
+    padding: 4px;
+    background-color: #BBB;
+}
+
+td {
+    border: 1px solid #600;
+    margin: 0;
+    padding: 4px;
+    background-color: #EEE;
+}
+
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;

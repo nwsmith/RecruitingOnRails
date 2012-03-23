@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Interview:</b>
+  <%=  @interview_review.interview.name %>
+</p>
+
+<p>
+  <b>Reviewer:</b>
+  <%= @interview_review.user.name %>
+</p>
+<p>
+  <b>Approved:</b>
+  <%= @interview_review.approved %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @interview_review.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_interview_review_path(@interview_review) %> |
+<%= link_to 'Back', interview_reviews_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323183747) do
+ActiveRecord::Schema.define(:version => 20120323194616) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(:version => 20120323183747) do
     t.integer  "experience_level_id"
   end
 
-  add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
-  add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
-  add_index "candidates", ["experience_level_id"], :name => "fk_candidate_exp_lvls"
+  add_index "candidates", %W(candidate_source_id), :name => "fk_candidate_source"
+  add_index "candidates", %W(candidate_status_id), :name => "fk_candidate_status"
+  add_index "candidates", %W(experience_level_id), :name => "fk_candidate_exp_lvls"
 
   create_table "experience_levels", :force => true do |t|
     t.string "code"
@@ -61,6 +61,34 @@ ActiveRecord::Schema.define(:version => 20120323183747) do
     t.integer "group_id"
     t.integer "user_id"
   end
+
+  create_table "interview_reviews", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "interview_id"
+    t.boolean  "approved"
+    t.string   "notes"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "interview_reviews", %W(interview_id), :name => "fk_interview_review_interview"
+  add_index "interview_reviews", %W(user_id), :name => "fk_interview_review_user"
+
+  create_table "interview_types", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
+
+  create_table "interviews", :force => true do |t|
+    t.datetime "meeting_time"
+    t.string   "notes"
+    t.integer  "interview_type_id"
+    t.integer  "candidate_id"
+  end
+
+  add_index "interviews", %W(candidate_id), :name => "fk_interview_candidate"
+  add_index "interviews", %W(interview_type_id), :name => "fk_interview_type"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
