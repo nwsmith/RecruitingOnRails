@@ -1,4 +1,6 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :experience_levels
+
   resources :candidates
 
   resources :candidate_sources

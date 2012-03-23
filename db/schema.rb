@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323171638) do
+ActiveRecord::Schema.define(:version => 20120323183747) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -37,10 +37,18 @@ ActiveRecord::Schema.define(:version => 20120323171638) do
     t.string   "referred_by"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "experience_level_id"
   end
 
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
   add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
+  add_index "candidates", ["experience_level_id"], :name => "fk_candidate_exp_lvls"
+
+  create_table "experience_levels", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
 
   create_table "groups", :force => true do |t|
     t.string   "name"
