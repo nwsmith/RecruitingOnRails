@@ -1,13 +1,18 @@
 module DashboardHelper
-  def candidates_by_status_table(*args)
-    opts = args.first || {}
-    status = opts[:status]
+  def candidates_table(*args)
+    candidates = args.first
+    #opts = args.second || {}
 
-    candidates = Candidate.by_status_code(status)
-
+    out = "<table>"
+    out += "<th>Name</th>"
     candidates.each do |candidate|
-      candidate.name
+      out += "<tr>"
+      out += "<td>"
+      out += link_to candidate.name, candidate_path(candidate)
+      out += "</td>"
+      out += "</tr>"
     end
-
+    out += "</table>"
+    out.html_safe
   end
 end

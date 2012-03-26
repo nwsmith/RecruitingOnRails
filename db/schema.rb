@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323194616) do
+ActiveRecord::Schema.define(:version => 20120326225847) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(:version => 20120323194616) do
     t.integer  "experience_level_id"
   end
 
-  add_index "candidates", %W(candidate_source_id), :name => "fk_candidate_source"
-  add_index "candidates", %W(candidate_status_id), :name => "fk_candidate_status"
-  add_index "candidates", %W(experience_level_id), :name => "fk_candidate_exp_lvls"
+  add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
+  add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
+  add_index "candidates", ["experience_level_id"], :name => "fk_candidate_exp_lvls"
 
   create_table "experience_levels", :force => true do |t|
     t.string "code"
@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(:version => 20120323194616) do
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "interview_reviews", %W(interview_id), :name => "fk_interview_review_interview"
-  add_index "interview_reviews", %W(user_id), :name => "fk_interview_review_user"
+  add_index "interview_reviews", ["interview_id"], :name => "fk_interview_review_interview"
+  add_index "interview_reviews", ["user_id"], :name => "fk_interview_review_user"
 
   create_table "interview_types", :force => true do |t|
     t.string "code"
@@ -87,8 +87,15 @@ ActiveRecord::Schema.define(:version => 20120323194616) do
     t.integer  "candidate_id"
   end
 
-  add_index "interviews", %W(candidate_id), :name => "fk_interview_candidate"
-  add_index "interviews", %W(interview_type_id), :name => "fk_interview_type"
+  add_index "interviews", ["candidate_id"], :name => "fk_interview_candidate"
+  add_index "interviews", ["interview_type_id"], :name => "fk_interview_type"
+
+  create_table "registries", :force => true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

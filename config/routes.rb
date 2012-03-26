@@ -1,4 +1,6 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :registries
+
   resources :interview_reviews
 
   resources :interviews

@@ -2,6 +2,8 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
+Registry.create([{key: 'dashboard.default_status', value: 'PEND'}])
+
 fired = CandidateStatus.create({code: 'HIRED', name: 'Hired'})
 hired = CandidateStatus.create({code: 'FIRED', name: 'Fired'})
 pending = CandidateStatus.create({code: 'PEND', name: 'Pending'})

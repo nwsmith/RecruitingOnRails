@@ -1,3 +1,7 @@
-Dashboard
+<h1>Dashboard</h1>
 
-<%=  candidates_by_status_table :status => 'PEND' %>
+<%= link_to "New Candidate", new_candidate_path %>
+
+<p>
+
+<%= candidates_table @candidates_by_status %>
