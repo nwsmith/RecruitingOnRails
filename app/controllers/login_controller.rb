@@ -1,9 +1,11 @@
 class LoginController < ApplicationController
-  require 'net/ldap'
+  #require 'net/ldap'
 
   skip_before_filter(:check_login)
 
   def index
+    logger.error("shit")
+    logger.error("FUCK")
   end
 
   def attempt_login
