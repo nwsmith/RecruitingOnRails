@@ -20,7 +20,8 @@ class LoginController < ApplicationController
   end
 
   def authenticate(username, password)
-    auth_type = AuthConfig::config['auth_type']
+    #auth_type = AuthConfig::config['auth_type']
+    auth_type = 'none'
     return username if (auth_type.eql?('none'))
     if auth_type.eql?('ldap')
       # do ldap
