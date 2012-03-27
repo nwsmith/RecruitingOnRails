@@ -10,6 +10,13 @@
   <%= @interview.notes %>
 </p>
 
+<h1>Reviewers:</h1>
+<%  @interview.interview_reviews.each do |interview_review| %>
+    <%=  link_to interview_review.user.nil? ? 'Nil' : interview_review.user.name, interview_review_path(interview_review)%>|<%= interview_review.approved? %><br>
+<% end %>
+<br>
+<%=  link_to 'Add Reviewer', new_interview_review_path(:interview_id => @interview.id) %>
+<br>
 
 <%= link_to 'Edit', edit_interview_path(@interview) %> |
 <%= link_to 'Back', interviews_path %>

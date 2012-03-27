@@ -52,7 +52,7 @@
 
 <h1>Interviews</h1>
 <% @candidate.interviews.each do |interview| %>
-    <%= interview.name %>
+    <%= link_to interview.name, interview_path(interview) %>
 <% end %>
 
 <br>
