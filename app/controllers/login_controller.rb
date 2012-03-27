@@ -8,6 +8,7 @@ class LoginController < ApplicationController
 
   def attempt_login
     reset_session
+    logger.error("That's me, tryin'")
     username = params[:username]
     password = params[:password]
     user = authenticate(username, password)
