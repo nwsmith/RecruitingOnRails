@@ -10,12 +10,16 @@ pending = CandidateStatus.create({code: 'PEND', name: 'Pending'})
 
 source = CandidateSource.create({code: 'WEB', name: 'Website'})
 experience_levels = ExperienceLevel.create([{code: 'NEWB', name: 'Noob'}, {code: 'NINJA', name: 'Ninja'}])
+code_problem = CodeProblem.create({code: 'HELLO', name: 'Hello World'})
 
 hired = Candidate.create({first_name: 'Johnny',
                           last_name: 'fever',
-                          candidate_status: hired,
+                          candidate_status: pending,
                           candidate_source: source,
                           experience_level: experience_levels[0]})
+code_submission = CodeSubmission.create({candidate: hired,
+                                         code_problem: code_problem})
+
 fired = Candidate.create({first_name: 'Joey Joe Joe',
                           middle_name: 'Junior',
                           last_name: 'Shabadoo',

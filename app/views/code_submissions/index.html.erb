@@ -1,0 +1,25 @@
+<h1>Listing code_submissions</h1>
+
+<table>
+  <tr>
+    <th>Problem</th>
+    <th>Candidate</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @code_submissions.each do |code_submission| %>
+  <tr>
+    <td><%= code_submission.code_problem.nil? ? 'Nil' : code_submission.code_problem.name %></td>
+    <td><%= code_submission.candidate.nil? ? 'Nil' : code_submission.candidate.name %></td>
+    <td><%= link_to 'Show', code_submission %></td>
+    <td><%= link_to 'Edit', edit_code_submission_path(code_submission) %></td>
+    <td><%= link_to 'Destroy', code_submission, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Code submission', new_code_submission_path %>

@@ -1,0 +1,27 @@
+<h1>Listing code_problems</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @code_problems.each do |code_problem| %>
+  <tr>
+    <td><%= code_problem.code %></td>
+    <td><%= code_problem.name %></td>
+    <td><%= code_problem.description %></td>
+    <td><%= link_to 'Show', code_problem %></td>
+    <td><%= link_to 'Edit', edit_code_problem_path(code_problem) %></td>
+    <td><%= link_to 'Destroy', code_problem, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Code problem', new_code_problem_path %>

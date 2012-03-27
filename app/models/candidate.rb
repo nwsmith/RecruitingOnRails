@@ -3,6 +3,7 @@ class Candidate < ActiveRecord::Base
   belongs_to :candidate_source
   belongs_to :experience_level
   has_many :interviews
+  has_many :code_submissions
 
   def name
     first_name + " " + last_name

@@ -1,0 +1,31 @@
+<%= form_for(@code_submission) do |f| %>
+  <% if @code_submission.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@code_submission.errors.count, "error") %> prohibited this code_submission from being saved:</h2>
+
+      <ul>
+      <% @code_submission.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="field">
+      <%= f.label :candidate_id %>
+      <%= f.collection_select(:candidate_id, Candidate.all, :id, :name, :include_blank => true) %>
+    </div>
+    <div class="field">
+      <%= f.label :code_problem_id %>
+      <%= f.collection_select(:code_problem_id, CodeProblem.all, :id, :name, :include_blank => true) %>
+    </div>
+    <div class="field">
+      <%=  f.label :submission_date %>
+      <%=  f.date_select(:submission_date) %>
+    </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

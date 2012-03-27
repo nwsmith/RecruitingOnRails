@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326225847) do
+ActiveRecord::Schema.define(:version => 20120327181955) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -43,6 +43,23 @@ ActiveRecord::Schema.define(:version => 20120326225847) do
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
   add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
   add_index "candidates", ["experience_level_id"], :name => "fk_candidate_exp_lvls"
+
+  create_table "code_problems", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
+
+  create_table "code_submissions", :force => true do |t|
+    t.integer  "code_problem_id"
+    t.integer  "candidate_id"
+    t.date     "submission_date"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "code_submissions", ["candidate_id"], :name => "fk_code_submission_candidate"
+  add_index "code_submissions", ["code_problem_id"], :name => "fk_code_submission_problem"
 
   create_table "experience_levels", :force => true do |t|
     t.string "code"
