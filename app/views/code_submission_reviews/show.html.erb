@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Approved:</b>
+  <%= @code_submission_review.approved %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @code_submission_review.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_code_submission_review_path(@code_submission_review) %> |
+<%= link_to 'Back', code_submission_reviews_path %>

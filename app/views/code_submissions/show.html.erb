@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 
+<h1>Reviewers:</h1>
+<%  @code_submission.code_submission_reviews.each do |code_submission_review| %>
+    <%=  link_to code_submission_review.user.nil? ? 'Nil' : code_submission_review.user.name, interview_review_path(code_submission_review)%>|<%= code_submission_review.approved? %><br>
+<% end %>
+<br>
+<%=  link_to 'Add Reviewer', new_code_submission_review_path(:code_submission_id => @code_submission.id) %>
+<br>
+
 <%= link_to 'Edit', edit_code_submission_path(@code_submission) %> |
 <%= link_to 'Back', code_submissions_path %>

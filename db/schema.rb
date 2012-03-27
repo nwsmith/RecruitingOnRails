@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327181955) do
+ActiveRecord::Schema.define(:version => 20120327184454) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -49,6 +49,18 @@ ActiveRecord::Schema.define(:version => 20120327181955) do
     t.string "name"
     t.string "description"
   end
+
+  create_table "code_submission_reviews", :force => true do |t|
+    t.integer  "code_submission_id"
+    t.integer  "user_id"
+    t.boolean  "approved"
+    t.string   "notes"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "code_submission_reviews", ["code_submission_id"], :name => "fk_code_submission_review"
+  add_index "code_submission_reviews", ["user_id"], :name => "fk_code_submission_review_user"
 
   create_table "code_submissions", :force => true do |t|
     t.integer  "code_problem_id"
