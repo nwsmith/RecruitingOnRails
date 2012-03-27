@@ -50,6 +50,14 @@
   <%= @candidate.referred_by %>
 </p>
 
+<h1>Interviews</h1>
+<% @candidate.interviews.each do |interview| %>
+    <%= interview.name %>
+<% end %>
 
+<br>
+<%= link_to 'Add Interview', new_interview_path(:candidate_id => @candidate.id) %>
+
+<br>
 <%= link_to 'Edit', edit_candidate_path(@candidate) %> |
 <%= link_to 'Back', candidates_path %>

@@ -25,6 +25,7 @@ class InterviewsController < ApplicationController
   # GET /interviews/new.json
   def new
     @interview = Interview.new
+    @interview.candidate_id = params[:candidate_id]
 
     respond_to do |format|
       format.html # new.html.erb

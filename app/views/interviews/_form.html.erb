@@ -13,16 +13,16 @@
 
     <div class="field">
       <%= f.label :candidate_id %>
-      <%= f.collection_select(:candidate_id, Candidate.all, :id, :name) %>
+      <%= f.collection_select(:candidate_id, Candidate.all, :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%= f.label :interview_type_id %>
-      <%= f.collection_select(:interview_type_id, InterviewType.all, :id, :name) %>
+      <%= f.collection_select(:interview_type_id, InterviewType.all, :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%= f.label :meeting_time %>
       <br/>
-      <%= f.datetime_select :meeting_time %>
+      <%= f.datetime_select :meeting_time, :include_blank => true %>
     </div>
     <div class="field">
       <%= f.label :notes %>
