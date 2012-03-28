@@ -4,6 +4,6 @@ class CodeSubmission < ActiveRecord::Base
   has_many :code_submission_reviews
 
   def name
-    code_problem.name
+    code_problem.name.nil? ? 'N/A' : code_problem.name
   end
 end
