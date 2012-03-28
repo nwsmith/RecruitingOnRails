@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <b>Problem:</b>
-<%=  @code_submission.code_problem.name %>
+<%=  @code_submission.code_problem.nil? ? '' : @code_submission.code_problem.name %>
 <br>
 <b>Sent Date:</b>
 <%=  @code_submission.sent_date %>
