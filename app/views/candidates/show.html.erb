@@ -62,7 +62,7 @@
 
 <h1>Code Submissions</h1>
 <% @candidate.code_submissions.each do |code_submission| %>
-    <%= link_to code_submission.code_problem.name, code_submission_path(code_submission) %>
+    <%= link_to code_submission.code_problem.nil? ? 'N/A' : code_submission.code_problem.name, code_submission_path(code_submission) %>
 <% end %>
 <br>
 <%=  link_to 'Add Submission', new_code_submission_path(:candidate_id => @candidate.id) %>
