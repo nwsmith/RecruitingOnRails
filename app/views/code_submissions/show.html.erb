@@ -1,5 +1,14 @@
 <p id="notice"><%= notice %></p>
 
+<b>Problem:</b>
+<%=  @code_submission.code_problem.name %>
+<br>
+<b>Sent Date:</b>
+<%=  @code_submission.sent_date %>
+<br>
+<b>Submission Date:</b>
+<%=  @code_submission.submission_date %>
+
 
 <h1>Reviewers:</h1>
 <%  @code_submission.code_submission_reviews.each do |code_submission_review| %>

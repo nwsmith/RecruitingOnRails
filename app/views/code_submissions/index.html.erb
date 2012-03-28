@@ -4,6 +4,8 @@
   <tr>
     <th>Problem</th>
     <th>Candidate</th>
+    <th>Sent Date</th>
+    <th>Submission Date</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,6 +15,8 @@
   <tr>
     <td><%= code_submission.code_problem.nil? ? 'Nil' : code_submission.code_problem.name %></td>
     <td><%= code_submission.candidate.nil? ? 'Nil' : code_submission.candidate.name %></td>
+    <td><%= code_submission.sent_date %></td>
+    <td><%= code_submission.submission_date %></td>
     <td><%= link_to 'Show', code_submission %></td>
     <td><%= link_to 'Edit', edit_code_submission_path(code_submission) %></td>
     <td><%= link_to 'Destroy', code_submission, confirm: 'Are you sure?', method: :delete %></td>

@@ -20,8 +20,12 @@
       <%= f.collection_select(:code_problem_id, CodeProblem.all, :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
+      <%= f.label :sent_date %>
+      <%= f.date_select(:sent_date, :include_blank => true) %>
+    </div>
+    <div class="field">
       <%=  f.label :submission_date %>
-      <%=  f.date_select(:submission_date) %>
+      <%=  f.date_select(:submission_date, :include_blank => true) %>
     </div>
 
 
