@@ -25,6 +25,7 @@ class CodeSubmissionReviewsController < ApplicationController
   # GET /code_submission_reviews/new.json
   def new
     @code_submission_review = CodeSubmissionReview.new
+    @code_submission_review.code_submission_id = params[:code_submission_id]
 
     respond_to do |format|
       format.html # new.html.erb
