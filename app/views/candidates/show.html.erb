@@ -16,6 +16,10 @@
 </p>
 
 <p>
+  <b>Position:</b>
+  <%= @candidate.position.nil? ? 'N/A' : @candidate.position.name %>
+</p>
+<p>
   <b>Experience Level:</b>
   <%= @candidate.experience_level.name %>
 </p>

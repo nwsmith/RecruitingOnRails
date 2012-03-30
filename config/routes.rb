@@ -1,4 +1,6 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :positions
+
   resources :code_submission_reviews
 
   resources :code_submissions

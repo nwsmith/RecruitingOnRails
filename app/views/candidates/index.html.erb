@@ -5,6 +5,7 @@
     <th>First name</th>
     <th>Middle name</th>
     <th>Last name</th>
+    <th>Position</th>
     <th>Experience Level</th>
     <th>Candidate status</th>
     <th>Candidate source</th>
@@ -22,6 +23,7 @@
     <td><%= candidate.first_name %></td>
     <td><%= candidate.middle_name %></td>
     <td><%= candidate.last_name %></td>
+    <td><%= candidate.position.nil? ? 'N/A' : candidate.position.name %></td>
     <td><%= candidate.experience_level.name %></td>
     <td><%= candidate.candidate_status.name %></td>
     <td><%= candidate.candidate_source.name %></td>

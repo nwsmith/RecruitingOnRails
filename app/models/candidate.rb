@@ -2,6 +2,7 @@ class Candidate < ActiveRecord::Base
   belongs_to :candidate_status
   belongs_to :candidate_source
   belongs_to :experience_level
+  belongs_to :position
   has_many :interviews
   has_many :code_submissions
 

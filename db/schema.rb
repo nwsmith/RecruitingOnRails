@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120328193229) do
+ActiveRecord::Schema.define(:version => 20120330171226) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -38,11 +38,13 @@ ActiveRecord::Schema.define(:version => 20120328193229) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "experience_level_id"
+    t.integer  "position_id"
   end
 
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
   add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
   add_index "candidates", ["experience_level_id"], :name => "fk_candidate_exp_lvls"
+  add_index "candidates", ["position_id"], :name => "fk_candidate_position"
 
   create_table "code_problems", :force => true do |t|
     t.string "code"
@@ -119,6 +121,14 @@ ActiveRecord::Schema.define(:version => 20120328193229) do
 
   add_index "interviews", ["candidate_id"], :name => "fk_interview_candidate"
   add_index "interviews", ["interview_type_id"], :name => "fk_interview_type"
+
+  create_table "positions", :force => true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "registries", :force => true do |t|
     t.string   "key"

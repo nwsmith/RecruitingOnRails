@@ -4,6 +4,9 @@
 # Examples:
 Registry.create([{key: 'dashboard.default_status', value: 'PEND'}])
 
+developer = Position.create({code: 'DEV', name: 'Developer'})
+tester = Position.create({code: 'QA', name: 'Tester'})
+
 fired = CandidateStatus.create({code: 'HIRED', name: 'Hired'})
 hired = CandidateStatus.create({code: 'FIRED', name: 'Fired'})
 pending = CandidateStatus.create({code: 'PEND', name: 'Pending'})
@@ -16,7 +19,8 @@ hired = Candidate.create({first_name: 'Johnny',
                           last_name: 'fever',
                           candidate_status: pending,
                           candidate_source: source,
-                          experience_level: experience_levels[0]})
+                          experience_level: experience_levels[0],
+                          position: developer})
 code_submission = CodeSubmission.create({candidate: hired,
                                          code_problem: code_problem})
 
@@ -25,13 +29,15 @@ fired = Candidate.create({first_name: 'Joey Joe Joe',
                           last_name: 'Shabadoo',
                           candidate_status: fired,
                           candidate_source: source,
-                          experience_level: experience_levels[-1]})
+                          experience_level: experience_levels[-1],
+                          position: tester})
 
 Candidate.create({first_name: 'Pending',
                  last_name: 'Guy',
                  candidate_status:  pending,
                  candidate_source: source,
-                 experience_level: experience_levels[0]})
+                 experience_level: experience_levels[0],
+                 position: developer})
 
 chuck = User.create({first_name: 'Chuck', last_name: 'Norris', admin: true, active: true, auth_name: 'chuck.norris', user_name: 'chuck.norris'})
 bruce = User.create({first_name: 'Bruce', last_name: 'Lee', admin: false, active: true, auth_name: 'bruce.lee', user_name: 'bruce.lee'})

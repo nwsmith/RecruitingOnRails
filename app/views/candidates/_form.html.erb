@@ -32,6 +32,11 @@
       <%= f.collection_select(:experience_level_id, ExperienceLevel.all, :id, :name) %>
     </div>
     <div class="field">
+      <%=  f.label :position_id %>
+      <br/>
+      <%=  f.collection_select(:position_id, Position.all, :id, :name) %>
+    </div>
+    <div class="field">
       <%= f.label :candidate_status_id %>
       <br/>
       <%= f.collection_select(:candidate_status_id, CandidateStatus.all, :id, :name) %>

@@ -24,9 +24,7 @@ class CreateExperienceLevels < ActiveRecord::Migration
         DROP FOREIGN KEY fk_candidate_exp_lvls
     SQL
 
-    change_table :candidates do |t|
-      remove_column :experience_levels_id
-    end
+    remove_column :candidates, :experience_level_id
 
     drop_table :experience_levels
   end
