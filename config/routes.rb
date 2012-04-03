@@ -1,4 +1,8 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :education_levels
+
+  resources :schools
+
   resources :positions
 
   resources :code_submission_reviews

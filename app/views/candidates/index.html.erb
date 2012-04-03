@@ -8,6 +8,8 @@
     <th>Position</th>
     <th>Experience Level</th>
     <th>Candidate status</th>
+    <th>Education Level</th>
+    <th>School</th>
     <th>Candidate source</th>
     <th>Application date</th>
     <th>First contact date</th>
@@ -26,6 +28,8 @@
     <td><%= candidate.position.nil? ? 'N/A' : candidate.position.name %></td>
     <td><%= candidate.experience_level.name %></td>
     <td><%= candidate.candidate_status.name %></td>
+    <td><%= candidate.education_level.nil? ? 'N/A' : candidate.education_level.name %></td>
+    <td><%= candidate.school.nil? ? 'N/A' : candidate.school.name %></td>
     <td><%= candidate.candidate_source.name %></td>
     <td><%= candidate.application_date %></td>
     <td><%= candidate.first_contact_date %></td>

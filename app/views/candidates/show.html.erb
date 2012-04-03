@@ -30,6 +30,15 @@
 </p>
 
 <p>
+  <b>Education Level:</b>
+  <%= @candidate.education_level.nil? ? 'N/A' : @candidate.education_level.name %>
+</p>
+
+<p>
+  <b>School:</b>
+  <%= @candidate.school.nil? ? 'N/A' : @candidate.school.name %>
+</p>
+<p>
   <b>Candidate source:</b>
   <%= @candidate.candidate_source.name %>
 </p>

@@ -4,6 +4,11 @@
 # Examples:
 Registry.create([{key: 'dashboard.default_status', value: 'PEND'}])
 
+school = School.create({code: 'UofC', name: 'University of Calgary'})
+bsc = EducationLevel.create({code: 'BSC_CS', name: 'B.Sc. (Comp Sci)'})
+
+
+
 developer = Position.create({code: 'DEV', name: 'Developer'})
 tester = Position.create({code: 'QA', name: 'Tester'})
 
@@ -20,7 +25,8 @@ hired = Candidate.create({first_name: 'Johnny',
                           candidate_status: pending,
                           candidate_source: source,
                           experience_level: experience_levels[0],
-                          position: developer})
+                          position: developer,
+                          school: school})
 code_submission = CodeSubmission.create({candidate: hired,
                                          code_problem: code_problem})
 
