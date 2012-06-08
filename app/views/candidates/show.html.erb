@@ -17,30 +17,30 @@
 
 <p>
   <b>Position:</b>
-  <%= @candidate.position.nil? ? 'N/A' : @candidate.position.name %>
+  <%= code_name @candidate.position %>
 </p>
 <p>
   <b>Experience Level:</b>
-  <%= @candidate.experience_level.name %>
+  <%= code_name @candidate.experience_level %>
 </p>
 
 <p>
   <b>Candidate status:</b>
-  <%= @candidate.candidate_status.name %>
+  <%= code_name @candidate.candidate_status %>
 </p>
 
 <p>
   <b>Education Level:</b>
-  <%= @candidate.education_level.nil? ? 'N/A' : @candidate.education_level.name %>
+  <%= code_name @candidate.education_level %>
 </p>
 
 <p>
   <b>School:</b>
-  <%= @candidate.school.nil? ? 'N/A' : @candidate.school.name %>
+  <%= code_name @candidate.school %>
 </p>
 <p>
   <b>Candidate source:</b>
-  <%= @candidate.candidate_source.name %>
+  <%= code_name @candidate.candidate_source %>
 </p>
 
 <p>
