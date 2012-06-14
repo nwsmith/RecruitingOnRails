@@ -5,6 +5,7 @@
     <th>Interview</th>
     <th>Reviewer</th>
     <th>Approved</th>
+    <th>Unapproved</th>
     <th>Notes</th>
     <th></th>
     <th></th>
@@ -15,7 +16,8 @@
   <tr>
     <td><%= interview_review.interview.name %></td>
     <td><%= interview_review.user.name %></td>
-    <td><%= interview_review.approved %></td>
+    <td><%= interview_review.approved? %></td>
+    <td><%= interview_review.unapproved? %></td>
     <td><%= interview_review.notes %></td>
     <td><%= link_to 'Show', interview_review %></td>
     <td><%= link_to 'Edit', edit_interview_review_path(interview_review) %></td>

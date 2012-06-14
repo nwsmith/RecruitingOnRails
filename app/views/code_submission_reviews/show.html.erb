@@ -2,9 +2,13 @@
 
 <p>
   <b>Approved:</b>
-  <%= @code_submission_review.approved %>
+  <%= @code_submission_review.approved? %>
 </p>
 
+<p>
+  <b>Unapproved:</b>
+  <%=  @code_submission_review.unapproved? %>
+</p>
 <p>
   <b>Notes:</b>
   <%= @code_submission_review.notes %>

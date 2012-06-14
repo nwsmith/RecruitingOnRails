@@ -6,4 +6,8 @@ class CodeSubmission < ActiveRecord::Base
   def name
     "#{code_problem.nil? ? 'N/A' : code_problem.name} (#{candidate.name})"
   end
+
+  def reviews
+    code_submission_reviews
+  end
 end

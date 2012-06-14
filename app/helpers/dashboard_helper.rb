@@ -23,12 +23,12 @@ module DashboardHelper
       out += "</td>"
       0.upto(code_submission_column_count-1) do |i|
         out += "<td>"
-        out += candidate.code_submissions[i].nil? ? '&nbsp;' : (link_to candidate.code_submissions[i].name, code_submission_path(candidate.code_submissions[i]))
+        out += candidate.code_submissions[i].nil? ? '&nbsp;' : (link_to approved_span(candidate.code_submissions[i]), code_submission_path(candidate.code_submissions[i]))
         out += "</td>"
       end
       0.upto(interview_column_count-1) do |i|
         out += "<td>"
-        out += candidate.interviews[i].nil? ? '&nbsp;' : (link_to candidate.interviews[i].name, interview_path(candidate.interviews[i]))
+        out += candidate.interviews[i].nil? ? '&nbsp;' : (link_to approved_span(candidate.interviews[i]), interview_path(candidate.interviews[i]))
         out += "</td>"
       end
       out += "</tr>"

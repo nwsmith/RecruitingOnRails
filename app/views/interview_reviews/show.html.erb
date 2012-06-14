@@ -11,9 +11,12 @@
 </p>
 <p>
   <b>Approved:</b>
-  <%= @interview_review.approved %>
+  <%= @interview_review.approved? %>
 </p>
-
+<p>
+  <b>Unapproved:</b>
+  <%= @interview_review.unapproved? %>
+</p>
 <p>
   <b>Notes:</b>
   <%= @interview_review.notes %>

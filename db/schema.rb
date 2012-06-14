@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120403221423) do
+ActiveRecord::Schema.define(:version => 20120614200733) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20120403221423) do
     t.string   "notes"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.boolean  "unapproved"
   end
 
   add_index "code_submission_reviews", ["code_submission_id"], :name => "fk_code_submission_review"
@@ -113,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20120403221423) do
     t.string   "notes"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.boolean  "unapproved"
   end
 
   add_index "interview_reviews", ["interview_id"], :name => "fk_interview_review_interview"

@@ -6,4 +6,8 @@ class Interview < ActiveRecord::Base
   def name
     interview_type.name + "  w/ " + candidate.name
   end
+
+  def reviews
+    interview_reviews
+  end
 end
