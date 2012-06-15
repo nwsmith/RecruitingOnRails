@@ -1,29 +1,38 @@
 <%= form_for(@experience_level) do |f| %>
-  <% if @experience_level.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@experience_level.errors.count, "error") %> prohibited this experience_level from being saved:</h2>
+    <% if @experience_level.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@experience_level.errors.count, "error") %> prohibited this experience_level from being
+            saved:</h2>
 
-      <ul>
-      <% @experience_level.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @experience_level.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :code %>
+      <br/>
+      <%= f.text_field :code %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+      <%= f.label :name %>
+      <br/>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :color %>
+      <br/>
+      <%= f.text_field :color %>
+    </div>
+    <div class="field">
+      <%= f.label :description %>
+      <br/>
+      <%= f.text_field :description %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>

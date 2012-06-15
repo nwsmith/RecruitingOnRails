@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120614200733) do
+ActiveRecord::Schema.define(:version => 20120615185350) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20120614200733) do
     t.string "code"
     t.string "name"
     t.string "description"
+    t.string "color"
   end
 
   create_table "groups", :force => true do |t|

@@ -19,7 +19,7 @@ module DashboardHelper
     candidates.each do |candidate|
       out += "<tr>"
       out += "<td>"
-      out += link_to candidate.name, candidate_path(candidate)
+      out += link_to(color_span(candidate.experience_level, candidate.name), candidate_path(candidate))
       out += "</td>"
       0.upto(code_submission_column_count-1) do |i|
         out += "<td>"

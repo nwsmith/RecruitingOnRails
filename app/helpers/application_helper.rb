@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def code_name(code)
+  def get_name(code)
     code.nil? ? 'N/A' : code.name
   end
 
@@ -13,5 +13,15 @@ module ApplicationHelper
     color_property = 'style="color: red;"' if is_unapproved
     color_property = 'style="color: green;"' if is_approved
     "<span #{color_property} >#{reviewable_element.name}</span>".html_safe
+  end
+
+  def color_span(colorable, text, bold = false)
+    color = colorable.respond_to?('color') ? colorable.color : ''
+    color ||= ''
+    style = "style='"
+    style += "color: #{color};" if (!color.nil? && !color.empty?)
+    style += "font-weight: bold;" if bold
+    style += "'"
+    "<span #{style}>#{text}</span.".html_safe
   end
 end

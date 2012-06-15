@@ -13,7 +13,7 @@
 <% @experience_levels.each do |experience_level| %>
   <tr>
     <td><%= experience_level.code %></td>
-    <td><%= experience_level.name %></td>
+    <td><%= color_span experience_level, experience_level.name %></td>
     <td><%= experience_level.description %></td>
     <td><%= link_to 'Show', experience_level %></td>
     <td><%= link_to 'Edit', edit_experience_level_path(experience_level) %></td>

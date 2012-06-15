@@ -17,30 +17,30 @@
 
 <p>
   <b>Position:</b>
-  <%= code_name @candidate.position %>
+  <%= get_name @candidate.position %>
 </p>
 <p>
   <b>Experience Level:</b>
-  <%= code_name @candidate.experience_level %>
+  <%= color_span(@candidate.experience_level, get_name(@candidate.experience_level)) %>
 </p>
 
 <p>
   <b>Candidate status:</b>
-  <%= code_name @candidate.candidate_status %>
+  <%= get_name @candidate.candidate_status %>
 </p>
 
 <p>
   <b>Education Level:</b>
-  <%= code_name @candidate.education_level %>
+  <%= get_name @candidate.education_level %>
 </p>
 
 <p>
   <b>School:</b>
-  <%= code_name @candidate.school %>
+  <%= get_name @candidate.school %>
 </p>
 <p>
   <b>Candidate source:</b>
-  <%= code_name @candidate.candidate_source %>
+  <%= get_name @candidate.candidate_source %>
 </p>
 
 <p>
