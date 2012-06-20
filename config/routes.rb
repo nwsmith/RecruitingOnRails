@@ -25,6 +25,8 @@ RecruitingOnRails::Application.routes.draw do
 
   resources :experience_levels
 
+  match "/candidates/list" => "candidates#list"
+
   resources :candidates
 
   resources :candidate_sources

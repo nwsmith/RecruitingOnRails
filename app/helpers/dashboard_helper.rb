@@ -9,6 +9,7 @@ module DashboardHelper
     candidates.each {|s| code_submission_column_count = s.code_submissions.length if s.code_submissions.length > code_submission_column_count}
 
     out = "<table>"
+    out += "<tr>"
     out += "<th>Name</th>"
     1.upto(code_submission_column_count) do |i|
       out += "<th>Code Submission #{i}</th>"
@@ -17,6 +18,7 @@ module DashboardHelper
       out += "<th>Interview #{i}</th>"
     end
     out += "<th>References?</th>"
+    out += "</tr>"
     candidates.each do |candidate|
       out += "<tr>"
       out += "<td>"
@@ -36,6 +38,20 @@ module DashboardHelper
       out += approved_span(candidate.reference_checks, :text => candidate.reference_checks.length)
       out += "</td>"
       out += "</tr>"
+    end
+    out += "</table>"
+    out.html_safe
+  end
+
+  def counts_by_status
+    candidates_by_status = Hash.new
+    CandidateStatus.all.each {|status| candidates_by_status[status] = 0}
+    Candidate.all.each {|candidate| candidates_by_status[candidate.candidate_status] += 1}
+
+    out = "<table>"
+    out += "<th>Status</th><th>Count</th>"
+    candidates_by_status.each_pair do |k,v|
+      out += "<tr><td>#{link_to k.name, :controller => 'candidates', :action => 'list', 'status' => k.code}</td><td>#{v}</td></tr>"  if v > 0
     end
     out += "</table>"
     out.html_safe

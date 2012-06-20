@@ -15,6 +15,11 @@
   <%= candidates_table @candidates_by_status %>
 
 <hr>
+
+<%= counts_by_status %>
+
+<hr>
+
 <table>
   <tr><th>Experience Legend</th></tr>
   <% ExperienceLevel.all.each do |experience_level| %>

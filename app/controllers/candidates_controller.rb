@@ -27,6 +27,11 @@ class CandidatesController < ApplicationController
     status = params[:status]
 
     @candidates = Candidate.by_status_code(status)
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @candidates}
+    end
   end
 
   # GET /candidates/1
