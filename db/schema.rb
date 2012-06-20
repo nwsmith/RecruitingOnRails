@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620152856) do
+ActiveRecord::Schema.define(:version => 20120620164839) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -144,6 +144,18 @@ ActiveRecord::Schema.define(:version => 20120620152856) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "reference_checks", :force => true do |t|
+    t.string  "name"
+    t.string  "email"
+    t.string  "phone"
+    t.string  "notes"
+    t.integer "candidate_id"
+    t.integer "review_result_id"
+  end
+
+  add_index "reference_checks", ["candidate_id"], :name => "fk_candidate"
+  add_index "reference_checks", ["review_result_id"], :name => "fk_ref_rev_res"
 
   create_table "registries", :force => true do |t|
     t.string   "key"

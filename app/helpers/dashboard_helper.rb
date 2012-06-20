@@ -16,6 +16,7 @@ module DashboardHelper
     1.upto(interview_column_count) do |i|
       out += "<th>Interview #{i}</th>"
     end
+    out += "<th>References?</th>"
     candidates.each do |candidate|
       out += "<tr>"
       out += "<td>"
@@ -31,6 +32,9 @@ module DashboardHelper
         out += candidate.interviews[i].nil? ? '&nbsp;' : (link_to approved_span(candidate.interviews[i]), interview_path(candidate.interviews[i]))
         out += "</td>"
       end
+      out += "<td>"
+      out += approved_span(candidate.reference_checks, :text => candidate.reference_checks.length)
+      out += "</td>"
       out += "</tr>"
     end
     out += "</table>"

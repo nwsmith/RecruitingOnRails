@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @reference_check.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @reference_check.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @reference_check.phone %>
+</p>
+
+<p>
+  <b>Result:</b>
+  <%= approved_span(@reference_check.review_result) %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @reference_check.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_reference_check_path(@reference_check) %> |
+<%= link_to 'Back', reference_checks_path %>

@@ -7,6 +7,7 @@ class Candidate < ActiveRecord::Base
   belongs_to :school
   has_many :interviews
   has_many :code_submissions
+  has_many :reference_checks
 
   def name
     first_name + " " + last_name

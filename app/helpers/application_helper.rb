@@ -14,24 +14,16 @@ module ApplicationHelper
     unapproved_text = options[:unapproved_text] || text
     unknown_text = options[:unknown_text] || text
 
-    is_unapproved, is_approved = false, false
-
-    if reviewable_element.respond_to?('reviews')
-      is_unapproved, is_approved = false, !reviewable_element.reviews.empty?
-      reviewable_element.reviews.each do |review|
-        is_unapproved = true if !review.review_result.nil? && review.review_result.is_disapproval?
-        is_approved = false unless !review.review_result.nil? && review.review_result.is_approval?
+    if reviewable_element.respond_to?('each')
+      is_approved = !reviewable_element.empty?
+      is_unapproved = false
+      reviewable_element.each do |reviewable|
+        tmp_approved, tmp_unapproved = approval_flags(reviewable)
+        is_approved &= tmp_approved
+        is_unapproved |= tmp_unapproved
       end
-    end
-
-    if reviewable_element.respond_to?('review_result')
-      is_approved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_approval
-      is_unapproved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_disapproval
-    end
-
-    if reviewable_element.respond_to?('is_approval')
-      is_approved = true if reviewable_element.is_approval?
-      is_unapproved = true if reviewable_element.is_disapproval?
+    else
+      is_approved, is_unapproved = approval_flags(reviewable_element)
     end
 
     color_property = ''
@@ -44,6 +36,32 @@ module ApplicationHelper
     out_text = unknown_text if !is_unapproved && !is_approved
 
     "<span #{color_property} >#{out_text}</span>".html_safe
+  end
+
+  def approval_flags(reviewable_element)
+    return false, false if reviewable_element.nil?
+
+    is_approved, is_unapproved = false, false
+
+    if reviewable_element.respond_to?('reviews')
+      is_approved, is_unapproved = !reviewable_element.reviews.empty?, false
+      reviewable_element.reviews.each do |review|
+        is_approved = false if !review.review_result.nil? && review.review_result.is_disapproval?
+        is_unapproved = true if !review.review_result.nil? && review.review_result.is_disapproval?
+      end
+    end
+
+    if reviewable_element.respond_to?('review_result')
+      is_approved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_approval?
+      is_unapproved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_disapproval?
+    end
+
+    if reviewable_element.respond_to?('is_approval')
+      is_approved = true if reviewable_element.is_approval?
+      is_unapproved = true if reviewable_element.is_disapproval?
+    end
+
+    return is_approved, is_unapproved
   end
 
   def color_span(colorable, text, bold = false)
