@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620210212) do
+ActiveRecord::Schema.define(:version => 20120620211752) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20120620210212) do
     t.date     "first_contact_date"
     t.boolean  "is_referral"
     t.string   "referred_by"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "experience_level_id"
     t.integer  "position_id"
     t.integer  "school_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20120620210212) do
     t.date     "fire_date"
     t.date     "quit_date"
     t.date     "end_date"
+    t.date     "rejection_notification_date"
   end
 
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"

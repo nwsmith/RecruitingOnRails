@@ -67,6 +67,12 @@
       <%= f.date_select :first_contact_date, :include_blank => true %>
     </div>
     <div class="field">
+      <%=  f.label :rejection_notification_date %>
+      <br/>
+      <%= f.date_select :rejection_notification_date, :include_blank => true %>
+    </div>
+
+    <div class="field">
       <%= f.label :offer_date%>
       <br/>
       <%= f.date_select :offer_date, :include_blank => true %>
