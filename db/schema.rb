@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620224502) do
+ActiveRecord::Schema.define(:version => 20120620230251) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20120620224502) do
     t.string  "title"
     t.string  "company"
     t.string  "relationship"
+    t.integer "years_known"
   end
 
   add_index "reference_checks", ["candidate_id"], :name => "fk_candidate"
