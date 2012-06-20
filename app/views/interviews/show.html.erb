@@ -12,7 +12,7 @@
 
 <h1>Reviewers:</h1>
 <%  @interview.interview_reviews.each do |interview_review| %>
-    <%=  link_to interview_review.user.nil? ? 'Nil' : interview_review.user.name, interview_review_path(interview_review)%>|<%= interview_review.approved? %><br>
+    <%= interview_review.user.nil? ? 'Nil' : approved_span(interview_review, :text => interview_review.user.name) %>
 <% end %>
 <br>
 <%=  link_to 'Add Reviewer', new_interview_review_path(:interview_id => @interview.id) %>

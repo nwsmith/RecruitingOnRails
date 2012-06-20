@@ -7,8 +7,6 @@ Registry.create([{key: 'dashboard.default_status', value: 'PEND'}])
 school = School.create({code: 'UofC', name: 'University of Calgary'})
 bsc = EducationLevel.create({code: 'BSC_CS', name: 'B.Sc. (Comp Sci)'})
 
-
-
 developer = Position.create({code: 'DEV', name: 'Developer'})
 tester = Position.create({code: 'QA', name: 'Tester'})
 
@@ -30,7 +28,9 @@ hired = Candidate.create({first_name: 'Johnny',
 code_submission = CodeSubmission.create({candidate: hired,
                                          code_problem: code_problem})
 
-fired = Candidate.create({first_name: 'Joey Joe Joe',
+CodeSubmissionReview.create({code_submission: code_submission, user: bruce, approved: true, notes: 'nice code'})
+
+Candidate.create({first_name: 'Joey Joe Joe',
                           middle_name: 'Junior',
                           last_name: 'Shabadoo',
                           candidate_status: fired,
@@ -60,4 +60,5 @@ phone_interview = InterviewType.create({code: 'PHONE', name: 'Phone Interview'})
 
 interview = Interview.create({interview_type: phone_interview, candidate: hired, notes: 'awesome dude'})
 
-interview_review = InterviewReview.create({interview: interview, user: bruce, approved: true, notes: 'sweet interview'})
+InterviewReview.create({interview: interview, user: bruce, approved: true, notes: 'sweet interview'})
+InterviewReview.create({interview: interview, user: chuck, approved: false, notes: 'yeah right'})

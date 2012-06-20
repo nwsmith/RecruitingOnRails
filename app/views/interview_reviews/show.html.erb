@@ -10,12 +10,8 @@
   <%= @interview_review.user.name %>
 </p>
 <p>
-  <b>Approved:</b>
-  <%= @interview_review.approved? %>
-</p>
-<p>
-  <b>Unapproved:</b>
-  <%= @interview_review.unapproved? %>
+  <b>Result:</b>
+  <%= approved_span(@interview_review.review_result) %>
 </p>
 <p>
   <b>Notes:</b>

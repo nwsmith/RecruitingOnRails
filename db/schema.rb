@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120615185350) do
+ActiveRecord::Schema.define(:version => 20120618214308) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -59,14 +59,14 @@ ActiveRecord::Schema.define(:version => 20120615185350) do
   create_table "code_submission_reviews", :force => true do |t|
     t.integer  "code_submission_id"
     t.integer  "user_id"
-    t.boolean  "approved"
     t.string   "notes"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.boolean  "unapproved"
+    t.integer  "review_result_id"
   end
 
   add_index "code_submission_reviews", ["code_submission_id"], :name => "fk_code_submission_review"
+  add_index "code_submission_reviews", ["review_result_id"], :name => "fk_submission_rev_res"
   add_index "code_submission_reviews", ["user_id"], :name => "fk_code_submission_review_user"
 
   create_table "code_submissions", :force => true do |t|
@@ -111,14 +111,14 @@ ActiveRecord::Schema.define(:version => 20120615185350) do
   create_table "interview_reviews", :force => true do |t|
     t.integer  "user_id"
     t.integer  "interview_id"
-    t.boolean  "approved"
     t.string   "notes"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.boolean  "unapproved"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "review_result_id"
   end
 
   add_index "interview_reviews", ["interview_id"], :name => "fk_interview_review_interview"
+  add_index "interview_reviews", ["review_result_id"], :name => "fk_interview_rev_res"
   add_index "interview_reviews", ["user_id"], :name => "fk_interview_review_user"
 
   create_table "interview_types", :force => true do |t|
@@ -150,6 +150,14 @@ ActiveRecord::Schema.define(:version => 20120615185350) do
     t.string   "value"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "review_results", :force => true do |t|
+    t.string  "code"
+    t.string  "name"
+    t.string  "description"
+    t.boolean "is_approval"
+    t.boolean "is_disapproval"
   end
 
   create_table "schools", :force => true do |t|

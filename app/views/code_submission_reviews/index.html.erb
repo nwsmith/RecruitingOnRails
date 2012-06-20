@@ -2,8 +2,7 @@
 
 <table>
   <tr>
-    <th>Approved</th>
-    <th>Unapproved</th>
+    <th>Result</th>
     <th>Notes</th>
     <th></th>
     <th></th>
@@ -12,8 +11,7 @@
 
 <% @code_submission_reviews.each do |code_submission_review| %>
   <tr>
-    <td><%= code_submission_review.approved? %></td>
-    <td><%= code_submission_review.unapproved? %></td>
+    <td><%= approved_span(code_submission_review.review_result) %></td>
     <td><%= code_submission_review.notes %></td>
     <td><%= link_to 'Show', code_submission_review %></td>
     <td><%= link_to 'Edit', edit_code_submission_review_path(code_submission_review) %></td>

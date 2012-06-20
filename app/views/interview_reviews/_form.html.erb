@@ -21,17 +21,9 @@
       <%= f.collection_select(:user_id, User.all, :id, :name) %>
     </div>
     <div class="field">
-      <%= f.label :approved %>
-      <br/>
-      <%= f.check_box :approved %>
+      <%= f.label :result %>
+      <%= f.collection_select(:review_result_id, ReviewResult.all, :id, :name) %>
     </div>
-
-    <div class="field">
-      <%=  f.label :unapproved %>
-      <br/>
-      <%=  f.check_box :unapproved %>
-    </div>
-
     <div class="field">
       <%= f.label :notes %>
       <br/>
