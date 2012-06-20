@@ -10,6 +10,25 @@ class CandidatesController < ApplicationController
     end
   end
 
+  def search
+    query = params[:q]
+    name = query.split(' ')
+    if name.length == 2
+      conditions = ["first_name = ? AND last_name = ?", name[0], name[1]]
+    else
+      conditions = ["first_name LIKE ? OR last_name LIKE ?", "%#{name[0]}%", "%#{name[0]}%"]
+    end
+
+    @candidates = Candidate.where(conditions)
+    render "list"
+  end
+
+  def list
+    status = params[:status]
+
+    @candidates = Candidate.by_status_code(status)
+  end
+
   # GET /candidates/1
   # GET /candidates/1.json
   def show

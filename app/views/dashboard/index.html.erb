@@ -1,6 +1,14 @@
-<h1>Dashboard</h1>
+<h1>Dashboard f</h1>
+
+
 
 <%= link_to "New Candidate", new_candidate_path %>
+
+<%= form_tag('/candidates/search') do -%>
+    <%= label_tag(:q, "Search by name:") %>
+    <%= text_field_tag(:q) %>
+    <%= submit_tag("Search") %>
+<% end -%>
 
 <p>
 
