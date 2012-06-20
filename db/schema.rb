@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620164839) do
+ActiveRecord::Schema.define(:version => 20120620210212) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(:version => 20120620164839) do
     t.integer  "position_id"
     t.integer  "school_id"
     t.integer  "education_level_id"
+    t.date     "offer_date"
+    t.date     "offer_accept_date"
+    t.date     "offer_turndown_date"
+    t.date     "start_date"
+    t.date     "fire_date"
+    t.date     "quit_date"
+    t.date     "end_date"
   end
 
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"

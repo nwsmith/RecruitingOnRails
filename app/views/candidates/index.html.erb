@@ -13,6 +13,13 @@
     <th>Candidate source</th>
     <th>Application date</th>
     <th>First contact date</th>
+    <th>Offer Date</th>
+    <th>Offer Accepted</th>
+    <th>Offer Rejected</th>
+    <th>Start Date</th>
+    <th>Fire Date</th>
+    <th>Quit Date</th>
+    <th>End Date</th>
     <th>Is referral</th>
     <th>Referred by</th>
     <th></th>
@@ -33,6 +40,13 @@
     <td><%= get_name candidate.candidate_source %></td>
     <td><%= candidate.application_date %></td>
     <td><%= candidate.first_contact_date %></td>
+    <td><%= candidate.offer_date %></td>
+    <td><%= candidate.offer_accept_date %></td>
+    <td><%= candidate.offer_turndown_date %></td>
+    <td><%= candidate.start_date %></td>
+    <td><%= candidate.fire_date %></td>
+    <td><%= candidate.quit_date %></td>
+    <td><%= candidate.end_date %></td>
     <td><%= candidate.is_referral %></td>
     <td><%= candidate.referred_by %></td>
     <td><%= link_to 'Show', candidate %></td>

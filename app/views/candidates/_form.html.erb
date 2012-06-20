@@ -67,6 +67,48 @@
       <%= f.date_select :first_contact_date, :include_blank => true %>
     </div>
     <div class="field">
+      <%= f.label :offer_date%>
+      <br/>
+      <%= f.date_select :offer_date, :include_blank => true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :offer_accept_date %>
+      <br/>
+      <%= f.date_select :offer_accept_date, :include_blank => true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :offer_turndown_date %>
+      <br/>
+      <%= f.date_select :offer_turndown_date, :include_blank => true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :start_date %>
+      <br/>
+      <%= f.date_select :start_date, :include_blank => true  %>
+    </div>
+
+    <div class="field">
+      <%= f.label :fire_date %>
+      <br/>
+      <%= f.date_select :fire_date, :include_blank => true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :quit_date %>
+      <br/>
+      <%= f.date_select :quit_date, :include_blank => true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :end_date %>
+      <br/>
+      <%= f.date_select :end_date, :include_blank => true %>
+    </div>
+
+    <div class="field">
       <%= f.label :is_referral %>
       <br/>
       <%= f.check_box :is_referral %>
