@@ -71,6 +71,6 @@ module ApplicationHelper
     style += "color: #{color};" if (!color.nil? && !color.empty?)
     style += "font-weight: bold;" if bold
     style += "'"
-    "<span #{style}>#{text}</span.".html_safe
+    "<span #{style}>#{text}</span>".html_safe
   end
 end

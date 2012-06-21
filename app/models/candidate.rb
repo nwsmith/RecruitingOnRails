@@ -13,6 +13,10 @@ class Candidate < ActiveRecord::Base
     first_name + " " + last_name
   end
 
+  def in_pipeline?
+    (!application_date.nil?) && (rejection_notification_date.nil? && start_date.nil?)
+  end
+
   def Candidate.by_status_code(status_code)
     status = CandidateStatus.first(:conditions => {:code => status_code})
     id = status.nil? ? -1 : status.id

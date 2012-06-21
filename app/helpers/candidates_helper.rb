@@ -22,7 +22,7 @@ module CandidatesHelper
     candidates.each do |candidate|
       out += "<tr>"
       out += "<td>"
-      out += link_to(color_span(candidate.experience_level, candidate.name), candidate_path(candidate))
+      out += format_candidate(candidate)
       out += "</td>"
       0.upto(code_submission_column_count-1) do |i|
         out += "<td>"
@@ -41,5 +41,18 @@ module CandidatesHelper
     end
     out += "</table>"
     out.html_safe
+  end
+
+  def format_candidate(*args)
+    candidate = args.first
+
+    out = color_span candidate.experience_level, "#{candidate.name}"
+    out += " (#{time_since_application(candidate)})" if candidate.in_pipeline?
+
+    link_to out, candidate_path(candidate)
+  end
+
+  def time_since_application(candidate)
+    distance_of_time_in_words_to_now(candidate.application_date)
   end
 end
