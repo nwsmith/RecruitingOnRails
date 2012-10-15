@@ -112,7 +112,7 @@
 
 <h1>Code Submissions</h1>
 <% @candidate.code_submissions.each do |code_submission| %>
-    <%= code_submission.code_problem.nil? ? 'N/A' : link_to(approved_span(code_submission, :text => code_submission.code_problem.name), code_submission_path(code_submission)) %><br>
+    <%= link_to(approved_span(code_submission, :text => code_submission.code_problem.nil? ? 'N/A' : code_submission.code_problem.name), code_submission_path(code_submission)) %><br>
 <% end %>
 <br>
 <%=  link_to 'Add Submission', new_code_submission_path(:candidate_id => @candidate.id) %>
