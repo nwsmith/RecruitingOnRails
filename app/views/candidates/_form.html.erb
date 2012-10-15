@@ -29,32 +29,32 @@
     <div class="field">
       <%= f.label :experience_level_id %>
       <br/>
-      <%= f.collection_select(:experience_level_id, ExperienceLevel.all, :id, :name) %>
+      <%= f.collection_select(:experience_level_id, ExperienceLevel.order('name'), :id, :name) %>
     </div>
     <div class="field">
       <%=  f.label :position_id %>
       <br/>
-      <%=  f.collection_select(:position_id, Position.all, :id, :name, :include_blank => true) %>
+      <%=  f.collection_select(:position_id, Position.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%= f.label :candidate_status_id %>
       <br/>
-      <%= f.collection_select(:candidate_status_id, CandidateStatus.all, :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:candidate_status_id, CandidateStatus.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%=  f.label :education_level_id %>
       <br/>
-      <%=  f.collection_select(:education_level_id, EducationLevel.all, :id, :name, :include_blank => true) %>
+      <%=  f.collection_select(:education_level_id, EducationLevel.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%=  f.label :school_id %>
       <br/>
-      <%=  f.collection_select(:school_id, School.all, :id, :name, :include_blank => true) %>
+      <%=  f.collection_select(:school_id, School.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%= f.label :candidate_source_id %>
       <br/>
-      <%= f.collection_select(:candidate_source_id, CandidateSource.all, :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:candidate_source_id, CandidateSource.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%= f.label :application_date %>
