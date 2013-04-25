@@ -42,6 +42,14 @@ a {
     color: #fff;
     background-color: #000; } }
 
+a.approved {
+  color: green;
+}
+
+a.unapproved {
+  color: red;
+}
+
 div {
   &.field, &.actions {
     margin-bottom: 10px; } }

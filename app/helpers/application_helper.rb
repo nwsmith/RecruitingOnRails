@@ -13,6 +13,7 @@ module ApplicationHelper
     approved_text = options[:approved_text] || text
     unapproved_text = options[:unapproved_text] || text
     unknown_text = options[:unknown_text] || text
+    link = options[:link]
 
     if reviewable_element.respond_to?('each')
       is_approved = !reviewable_element.empty?
@@ -30,12 +31,22 @@ module ApplicationHelper
     color_property = 'style="color: red;"' if is_unapproved
     color_property = 'style="color: green;"' if is_approved
 
-    out_text = text
+    out_text = ""
     out_text = approved_text if is_approved
     out_text = unapproved_text if is_unapproved
     out_text = unknown_text if !is_unapproved && !is_approved
 
-    "<span #{color_property} >#{out_text}</span>".html_safe
+    my_class = ''
+    my_class = 'approved' if is_approved
+    my_class = 'unapproved' if is_unapproved
+
+    if link
+      out_text = link_to(text, reviewable_element, :class => my_class)
+    else
+      out_text = "<span #{color_property}>#{out_text}</span>".html_safe
+    end
+
+    out_text
   end
 
   def approval_flags(reviewable_element)
