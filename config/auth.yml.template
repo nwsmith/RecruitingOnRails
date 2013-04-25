@@ -5,4 +5,8 @@ test:
     auth_type: none
 
 production:
-    auth_type: ldap
+    auth_type: ActiveDirectory
+    ad_server: XXX.XXX.XXX.XXX
+    ad_port: 999
+    ad_base: ldapBase
+    ad_domain: ldapDomain
