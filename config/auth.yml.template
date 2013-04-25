@@ -1,3 +1,4 @@
+# NOTE: The resulting auth.yml file must be copied to the shared directory for the server to get symlinked on deploy
 development:
     auth_type: none
 
