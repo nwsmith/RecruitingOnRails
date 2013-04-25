@@ -1,4 +1,5 @@
 require 'rvm-capistrano'
+ssh_options[:auth_methods] = ["publickey"]
 
 set :default_environment, {'PATH' => "/usr/bin:$PATH"}
 
