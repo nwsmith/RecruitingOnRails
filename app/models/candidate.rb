@@ -17,6 +17,10 @@ class Candidate < ActiveRecord::Base
     (!application_date.nil?) && (rejection_notification_date.nil? && start_date.nil?)
   end
 
+  def time_served
+
+  end
+
   def Candidate.by_status_code(status_code)
     status = CandidateStatus.first(:conditions => {:code => status_code})
     id = status.nil? ? -1 : status.id
