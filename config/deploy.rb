@@ -33,7 +33,7 @@ namespace :deploy do
    task :symlink_shared do
      run "ln -s #{shared_path}/auth.yml #{release_path}/config/"
    end
-   before "deploy:restart", "deploy:symlink_shared"
+   after "deploy:update_code", "deploy:symlink_shared"
    task :stop do ; end
    task :restart, :roles => :app, :except => { :no_release => true } do
      run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
