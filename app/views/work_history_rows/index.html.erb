@@ -1,0 +1,29 @@
+<h1>Listing work_history_rows</h1>
+
+<table>
+  <tr>
+    <th>Start</th>
+    <th>End</th>
+    <th>Previous employer</th>
+    <th>Candidate</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @work_history_rows.each do |work_history_row| %>
+  <tr>
+    <td><%= work_history_row.start_date %></td>
+    <td><%= work_history_row.end_date %></td>
+    <td><%= work_history_row.previous_employer %></td>
+    <td><%= work_history_row.candidate %></td>
+    <td><%= link_to 'Show', work_history_row %></td>
+    <td><%= link_to 'Edit', edit_work_history_row_path(work_history_row) %></td>
+    <td><%= link_to 'Destroy', work_history_row, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Work history row', new_work_history_row_path %>

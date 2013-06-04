@@ -1,4 +1,8 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :work_history_rows
+
+  resources :previous_employers
+
   resources :reference_checks
 
   resources :review_results

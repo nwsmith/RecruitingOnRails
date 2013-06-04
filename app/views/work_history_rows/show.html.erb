@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Start:</b>
+  <%= @work_history_row.start_date %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%= @work_history_row.end_date %>
+</p>
+
+<p>
+  <b>Previous employer:</b>
+  <%= @work_history_row.previous_employer.name %>
+</p>
+
+<p>
+  <b>Candidate:</b>
+  <%= @work_history_row.candidate.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_work_history_row_path(@work_history_row) %> |
+<%= link_to 'Back', work_history_rows_path %>

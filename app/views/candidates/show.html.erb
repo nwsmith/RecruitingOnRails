@@ -100,6 +100,14 @@
   <%= @candidate.referred_by %>
 </p>
 
+<h1>Work History</h1>
+<% @candidate.work_history_rows.each do |history_row| %>
+    <%=  link_to history_row.summary, work_history_row_path(history_row) %>
+<% end %>
+
+<br>
+<%=  link_to 'Add Work History Row', new_work_history_row_path(:candidate_id => @candidate.id) %>
+
 <h1>Interviews</h1>
 <% @candidate.interviews.each do |interview| %>
     <%= link_to approved_span(interview), interview_path(interview) %><br>

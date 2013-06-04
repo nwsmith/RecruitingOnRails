@@ -1,0 +1,39 @@
+<%= form_for(@work_history_row) do |f| %>
+    <% if @work_history_row.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@work_history_row.errors.count, "error") %> prohibited this work_history_row from being
+            saved:</h2>
+
+          <ul>
+            <% @work_history_row.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :candidate_id %>
+      <%= f.collection_select(:candidate_id, Candidate.all, :id, :name, :include_blank => true) %>
+    </div>
+
+    <div class="field">
+      <%= f.label :previous_employer_id %>
+      <%= f.collection_select(:previous_employer_id, PreviousEmployer.all, :id, :name, :include_blank => true) %>
+    </div>
+
+
+    <div class="field">
+      <%= f.label :start_date %>
+      <br/>
+      <%= f.date_select :start_date %>
+    </div>
+    <div class="field">
+      <%= f.label :end_date %>
+      <br/>
+      <%= f.date_select :end_date %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

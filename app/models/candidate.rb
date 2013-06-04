@@ -5,6 +5,7 @@ class Candidate < ActiveRecord::Base
   belongs_to :position
   belongs_to :education_level
   belongs_to :school
+  has_many :work_history_rows
   has_many :interviews
   has_many :code_submissions
   has_many :reference_checks

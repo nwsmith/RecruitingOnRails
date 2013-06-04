@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620230251) do
+ActiveRecord::Schema.define(:version => 20130604182709) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -153,6 +153,12 @@ ActiveRecord::Schema.define(:version => 20120620230251) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "previous_employers", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
+
   create_table "reference_checks", :force => true do |t|
     t.string  "name"
     t.string  "email"
@@ -202,5 +208,15 @@ ActiveRecord::Schema.define(:version => 20120620230251) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "work_history_rows", :force => true do |t|
+    t.date    "start_date"
+    t.date    "end_date"
+    t.integer "previous_employer_id"
+    t.integer "candidate_id"
+  end
+
+  add_index "work_history_rows", ["candidate_id"], :name => "fk_history_candidate"
+  add_index "work_history_rows", ["previous_employer_id"], :name => "fk_previous_employer"
 
 end

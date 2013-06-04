@@ -1,0 +1,27 @@
+<h1>Listing previous_employers</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @previous_employers.each do |previous_employer| %>
+  <tr>
+    <td><%= previous_employer.code %></td>
+    <td><%= previous_employer.name %></td>
+    <td><%= previous_employer.description %></td>
+    <td><%= link_to 'Show', previous_employer %></td>
+    <td><%= link_to 'Edit', edit_previous_employer_path(previous_employer) %></td>
+    <td><%= link_to 'Destroy', previous_employer, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Previous employer', new_previous_employer_path %>
