@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604182709) do
+ActiveRecord::Schema.define(:version => 20130809171553) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20130604182709) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.date     "sent_date"
+    t.string   "notes"
   end
 
   add_index "code_submissions", ["candidate_id"], :name => "fk_code_submission_candidate"
