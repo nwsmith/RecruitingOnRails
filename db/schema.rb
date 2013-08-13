@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809171553) do
+ActiveRecord::Schema.define(:version => 20130813184213) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20130809171553) do
     t.date     "quit_date"
     t.date     "end_date"
     t.date     "rejection_notification_date"
+    t.string   "notes"
   end
 
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
