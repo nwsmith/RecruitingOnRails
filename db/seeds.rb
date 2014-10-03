@@ -4,6 +4,17 @@
 # Examples:
 Registry.create([{key: 'dashboard.default_status', value: 'PEND'}])
 
+chuck = User.create({first_name: 'Chuck', last_name: 'Norris', admin: true, active: true, auth_name: 'chuck.norris', user_name: 'chuck.norris'})
+bruce = User.create({first_name: 'Bruce', last_name: 'Lee', admin: false, active: true, auth_name: 'bruce.lee', user_name: 'bruce.lee'})
+
+groups = Group.create([{name: 'Supermen', active: true}, {name: 'Wimps', active: true}])
+
+chuck.groups << groups.first
+bruce.groups << groups[-1]
+
+chuck.save
+bruce.save
+
 school = School.create({code: 'UofC', name: 'University of Calgary'})
 bsc = EducationLevel.create({code: 'BSC_CS', name: 'B.Sc. (Comp Sci)'})
 
@@ -28,7 +39,7 @@ hired = Candidate.create({first_name: 'Johnny',
 code_submission = CodeSubmission.create({candidate: hired,
                                          code_problem: code_problem})
 
-CodeSubmissionReview.create({code_submission: code_submission, user: bruce, approved: true, notes: 'nice code'})
+CodeSubmissionReview.create({code_submission: code_submission, user: bruce, notes: 'nice code'})
 
 Candidate.create({first_name: 'Joey Joe Joe',
                           middle_name: 'Junior',
@@ -45,20 +56,9 @@ Candidate.create({first_name: 'Pending',
                  experience_level: experience_levels[0],
                  position: developer})
 
-chuck = User.create({first_name: 'Chuck', last_name: 'Norris', admin: true, active: true, auth_name: 'chuck.norris', user_name: 'chuck.norris'})
-bruce = User.create({first_name: 'Bruce', last_name: 'Lee', admin: false, active: true, auth_name: 'bruce.lee', user_name: 'bruce.lee'})
-
-groups = Group.create([{name: 'Supermen', active: true}, {name: 'Wimps', active: true}])
-
-chuck.groups << groups.first
-bruce.groups << groups[-1]
-
-chuck.save
-bruce.save
-
 phone_interview = InterviewType.create({code: 'PHONE', name: 'Phone Interview'})
 
 interview = Interview.create({interview_type: phone_interview, candidate: hired, notes: 'awesome dude'})
 
-InterviewReview.create({interview: interview, user: bruce, approved: true, notes: 'sweet interview'})
-InterviewReview.create({interview: interview, user: chuck, approved: false, notes: 'yeah right'})
+InterviewReview.create({interview: interview, user: bruce, notes: 'sweet interview'})
+InterviewReview.create({interview: interview, user: chuck, notes: 'yeah right'})

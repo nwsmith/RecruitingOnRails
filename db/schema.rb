@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813184213) do
+ActiveRecord::Schema.define(:version => 20141003184549) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -50,12 +50,14 @@ ActiveRecord::Schema.define(:version => 20130813184213) do
     t.date     "end_date"
     t.date     "rejection_notification_date"
     t.string   "notes"
+    t.integer  "office_location_id"
   end
 
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
   add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
   add_index "candidates", ["education_level_id"], :name => "fk_candidate_edu_lvl"
   add_index "candidates", ["experience_level_id"], :name => "fk_candidate_exp_lvls"
+  add_index "candidates", ["office_location_id"], :name => "fk_candidate_off_loc"
   add_index "candidates", ["position_id"], :name => "fk_candidate_position"
   add_index "candidates", ["school_id"], :name => "fk_candidate_school"
 
@@ -146,6 +148,12 @@ ActiveRecord::Schema.define(:version => 20130813184213) do
 
   add_index "interviews", ["candidate_id"], :name => "fk_interview_candidate"
   add_index "interviews", ["interview_type_id"], :name => "fk_interview_type"
+
+  create_table "office_locations", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
 
   create_table "positions", :force => true do |t|
     t.string   "code"

@@ -1,4 +1,6 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :office_locations
+
   resources :work_history_rows
 
   resources :previous_employers

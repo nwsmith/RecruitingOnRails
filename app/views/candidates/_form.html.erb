@@ -27,6 +27,11 @@
       <%= f.text_field :last_name %>
     </div>
     <div class="field">
+      <%= f.label :office_location_id %>
+      <br/>
+      <%= f.collection_select(:office_location_id, OfficeLocation.order('name'), :id, :name) %>
+    </div>
+    <div class="field">
       <%= f.label :experience_level_id %>
       <br/>
       <%= f.collection_select(:experience_level_id, ExperienceLevel.order('name'), :id, :name) %>
