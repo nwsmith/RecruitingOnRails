@@ -38,6 +38,6 @@ production:
   reconnect: false
   database: RecruitingOnRails_production
   pool: 5
-  username: recruiting
-  password: recruiting
-  socket: /tmp/mysql.sock
+  username: root
+  password: root
+  socket: /var/run/mysqld/mysql.sock
