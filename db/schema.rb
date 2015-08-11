@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141003184549) do
+ActiveRecord::Schema.define(:version => 20150811230943) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(:version => 20141003184549) do
     t.date     "quit_date"
     t.date     "end_date"
     t.date     "rejection_notification_date"
-    t.string   "notes"
+    t.text     "notes"
     t.integer  "office_location_id"
   end
 
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20141003184549) do
   create_table "code_submission_reviews", :force => true do |t|
     t.integer  "code_submission_id"
     t.integer  "user_id"
-    t.string   "notes"
+    t.text     "notes"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.integer  "review_result_id"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20141003184549) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.date     "sent_date"
-    t.string   "notes"
+    t.text     "notes"
   end
 
   add_index "code_submissions", ["candidate_id"], :name => "fk_code_submission_candidate"
@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(:version => 20141003184549) do
     t.string  "name"
     t.string  "email"
     t.string  "phone"
-    t.string  "notes"
+    t.text    "notes"
     t.integer "candidate_id"
     t.integer "review_result_id"
     t.string  "title"
