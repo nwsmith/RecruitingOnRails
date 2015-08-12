@@ -1,4 +1,4 @@
-require 'rvm-capistrano'
+require 'rvm/capistrano'
 
 set :ssh_options, {config: false}
 
