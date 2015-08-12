@@ -1,3 +1,13 @@
 To get up and running:
 
 - copy auth.yml.template to auth.yml and configure as needed.
+
+To deploy:
+
+run the following command if you have migrations:
+
+bundle exec cap deploy:migrations
+
+Otherwise, for a strict code migration do:
+
+bundle exec cap deploy
