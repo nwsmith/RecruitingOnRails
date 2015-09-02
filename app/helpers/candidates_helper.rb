@@ -12,6 +12,9 @@ module CandidatesHelper
     out += "<tr>"
     out += "<th>Name</th>"
     out += "<th>Office</th>"
+    if opts[:include_source]
+      out += "<th>Source</th>"
+    end
     if opts[:include_code_submissions]
       1.upto(code_submission_column_count) do |i|
         out += "<th>Code Submission #{i}</th>"
@@ -38,6 +41,11 @@ module CandidatesHelper
       out += "<td>"
       out += get_name candidate.office_location
       out += "</td>"
+      if opts[:include_source]
+        out += "<td>"
+        out += get_name candidate.candidate_source
+        out += "</td>"
+      end
       if opts[:include_code_submissions]
         0.upto(code_submission_column_count-1) do |i|
           out += "<td>"
