@@ -84,7 +84,10 @@ module CandidatesHelper
   end
 
   def time_since_application(candidate)
-    distance_of_time_in_words_to_now(candidate.application_date)
+    date_to_use = candidate.application_date.nil? ? candidate.first_contact_date : candidate.application_date
+    unless date_to_use.nil?
+      distance_of_time_in_words_to_now(date_to_use)
+    end
   end
 
   def time_since_hire(candidate)

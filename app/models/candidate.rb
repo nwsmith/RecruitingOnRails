@@ -16,7 +16,7 @@ class Candidate < ActiveRecord::Base
   end
 
   def in_pipeline?
-    (!application_date.nil?) && (rejection_notification_date.nil? && start_date.nil?)
+    (!application_date.nil? || !first_contact_date.nil?) && (rejection_notification_date.nil? && start_date.nil?)
   end
 
   def time_served
