@@ -4,7 +4,7 @@ class Interview < ActiveRecord::Base
   has_many :interview_reviews
 
   def name
-    interview_type.name + "  w/ " + candidate.name
+    interview_type.name + '  w/ ' + candidate.name
   end
 
   def reviews

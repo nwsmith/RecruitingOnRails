@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def approved_span(*args, &block)
     reviewable_element ||= (args.nil? || args.first.nil?) ? nil : args.first
-    return "" if reviewable_element.nil?
+    return '' if reviewable_element.nil?
 
     options = args.second || {}
 
@@ -31,10 +31,10 @@ module ApplicationHelper
     color_property = 'style="color: red;"' if is_unapproved
     color_property = 'style="color: green;"' if is_approved
 
-    out_text = ""
+    out_text = ''
     out_text = approved_text if is_approved
     out_text = unapproved_text if is_unapproved
-    out_text = unknown_text if !is_unapproved && !is_approved
+    out_text = unknown_text unless is_unapproved && !is_approved
 
     my_class = ''
     my_class = 'approved' if is_approved
@@ -46,6 +46,8 @@ module ApplicationHelper
       out_text = "<span #{color_property}>#{out_text}</span>".html_safe
     end
 
+    yield block out_text
+
     out_text
   end
 
@@ -54,17 +56,18 @@ module ApplicationHelper
 
     is_approved, is_unapproved = false, false
 
+    #TODO: Clean up this mess
     if reviewable_element.respond_to?('reviews')
       is_approved, is_unapproved = !reviewable_element.reviews.empty?, false
       reviewable_element.reviews.each do |review|
-        is_approved = false if !review.review_result.nil? && review.review_result.is_disapproval?
-        is_unapproved = true if !review.review_result.nil? && review.review_result.is_disapproval?
+        is_approved = false unless review.review_result.nil? && review.review_result.is_disapproval?
+        is_unapproved = true unless review.review_result.nil? && review.review_result.is_disapproval?
       end
     end
 
     if reviewable_element.respond_to?('review_result')
-      is_approved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_approval?
-      is_unapproved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_disapproval?
+      is_approved = true unless reviewable_element.review_result.nil? && reviewable_element.review_result.is_approval?
+      is_unapproved = true unless reviewable_element.review_result.nil? && reviewable_element.review_result.is_disapproval?
     end
 
     if reviewable_element.respond_to?('is_approval')
@@ -80,7 +83,7 @@ module ApplicationHelper
     color ||= ''
     style = "style='"
     style += "color: #{color};" if (!color.nil? && !color.empty?)
-    style += "font-weight: bold;" if bold
+    style += 'font-weight: bold;' if bold
     style += "'"
     "<span #{style}>#{text}</span>".html_safe
   end

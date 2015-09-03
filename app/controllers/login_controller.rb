@@ -35,8 +35,8 @@ class LoginController < ApplicationController
                            :auth => {:username => ad_user,
                                      :password => password,
                                      :method => :simple}
-      user_filter = Net::LDAP::Filter.eq("sAMAccountName", username)
-      op_filter = Net::LDAP::Filter.eq("objectClass", "organizationalPerson")
+      user_filter = Net::LDAP::Filter.eq('sAMAccountName', username)
+      op_filter = Net::LDAP::Filter.eq('objectClass', 'organizationalPerson')
 
       conn.bind
       user = conn.search(:filter => op_filter & user_filter)
@@ -48,6 +48,6 @@ class LoginController < ApplicationController
       end
     end
   rescue Net::LDAP::LdapError => e
-    return nil
+    return e.message
   end
 end

@@ -14,13 +14,13 @@ class CandidatesController < ApplicationController
     query = params[:q]
     name = query.split(' ')
     if name.length == 2
-      conditions = ["first_name = ? AND last_name = ?", name[0], name[1]]
+      conditions = ['first_name = ? AND last_name = ?', name[0], name[1]]
     else
-      conditions = ["first_name LIKE ? OR last_name LIKE ?", "%#{name[0]}%", "%#{name[0]}%"]
+      conditions = ['first_name LIKE ? OR last_name LIKE ?', "%#{name[0]}%", "%#{name[0]}%"]
     end
 
     @candidates = Candidate.where(conditions)
-    render "list"
+    render 'list'
   end
 
   def list

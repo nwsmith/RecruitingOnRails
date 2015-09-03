@@ -1,7 +1,6 @@
 module CodeSubmissionsHelper
   def format_submission(*args)
     code_submission = args.first
-    #opts = args.second || {}
 
     return '' if code_submission.nil?
 

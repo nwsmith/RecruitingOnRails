@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     #TODO: Look in AD again
     username = session[:username]
     if username.nil? || username.empty?
-      redirect_to(:controller => "login", :action => "index")
+      redirect_to(:controller => 'login', :action => 'index')
     end
   end
 end

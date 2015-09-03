@@ -12,7 +12,7 @@ class Candidate < ActiveRecord::Base
   has_many :reference_checks
 
   def name
-    first_name + " " + last_name
+    first_name + ' ' + last_name
   end
 
   def in_pipeline?
