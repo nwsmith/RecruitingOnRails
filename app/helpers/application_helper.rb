@@ -54,18 +54,17 @@ module ApplicationHelper
 
     is_approved, is_unapproved = false, false
 
-    #TODO: Clean up this mess
     if reviewable_element.respond_to?('reviews')
       is_approved, is_unapproved = !reviewable_element.reviews.empty?, false
       reviewable_element.reviews.each do |review|
-        is_approved = false unless review.review_result.nil? && review.review_result.is_disapproval?
-        is_unapproved = true unless review.review_result.nil? && review.review_result.is_disapproval?
+        is_approved = false if !review.review_result.nil? && review.review_result.is_approval?
+        is_unapproved = true if !review.review_result.nil? && review.review_result.is_disapproval?
       end
     end
 
     if reviewable_element.respond_to?('review_result')
-      is_approved = true unless reviewable_element.review_result.nil? && reviewable_element.review_result.is_approval?
-      is_unapproved = true unless reviewable_element.review_result.nil? && reviewable_element.review_result.is_disapproval?
+      is_approved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_approval?
+      is_unapproved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_disapproval?
     end
 
     if reviewable_element.respond_to?('is_approval')
@@ -81,7 +80,7 @@ module ApplicationHelper
     color ||= ''
     style = "style='"
     style += "color: #{color};" if (!color.nil? && !color.empty?)
-    style += 'font-weight: bold;' if bold
+    style += "font-weight: bold;" if bold
     style += "'"
     "<span #{style}>#{text}</span>".html_safe
   end
