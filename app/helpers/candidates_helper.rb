@@ -3,6 +3,7 @@ module CandidatesHelper
     candidates = args.first
     opts = args.second || {}
 
+    candidates = candidates.sort {|a,b| (a.start_date.nil? ? Date.new(2020) : a.start_date) <=> (b.start_date.nil? ? Date.new(2020) : b.start_date)}
     interview_column_count = 0
     candidates.each { |c| interview_column_count = c.interviews.length if c.interviews.length > interview_column_count }
     code_submission_column_count = 0
