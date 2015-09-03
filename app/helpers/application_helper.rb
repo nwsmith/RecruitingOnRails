@@ -46,8 +46,6 @@ module ApplicationHelper
       out_text = "<span #{color_property}>#{out_text}</span>".html_safe
     end
 
-    yield block out_text
-
     out_text
   end
 
