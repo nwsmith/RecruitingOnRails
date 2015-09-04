@@ -15,30 +15,21 @@ module ApplicationHelper
     unknown_text = options[:unknown_text] || text
     link = options[:link]
 
-    if reviewable_element.respond_to?('each')
-      is_approved = !reviewable_element.empty?
-      is_unapproved = false
-      reviewable_element.each do |reviewable|
-        tmp_approved, tmp_unapproved = approval_flags(reviewable)
-        is_approved &= tmp_approved
-        is_unapproved |= tmp_unapproved
-      end
+    a_type = approval_type(reviewable_element)
+
+    if a_type.eql? :approved
+      color_property = 'style="color: red;"'
+      out_text = approved_text
+      my_class = 'approved'
+    elsif a_type.eql? :not_approved
+      color_property = 'style="color: green;"'
+      out_text = unapproved_text
+      my_class = 'unapproved'
     else
-      is_approved, is_unapproved = approval_flags(reviewable_element)
+      color_property = ''
+      out_text = unknown_text
+      my_class = ''
     end
-
-    color_property = ''
-    color_property = 'style="color: red;"' if is_unapproved
-    color_property = 'style="color: green;"' if is_approved
-
-    out_text = ''
-    out_text = approved_text if is_approved
-    out_text = unapproved_text if is_unapproved
-    out_text = unknown_text unless is_unapproved && !is_approved
-
-    my_class = ''
-    my_class = 'approved' if is_approved
-    my_class = 'unapproved' if is_unapproved
 
     if link
       out_text = link_to(text, reviewable_element, :class => my_class)
@@ -49,30 +40,36 @@ module ApplicationHelper
     out_text
   end
 
-  def approval_flags(reviewable_element)
-    return false, false if reviewable_element.nil?
+  def approval_type(reviewable_element)
+    a_type = :approval_unknown
 
-    is_approved, is_unapproved = false, false
+    return a_type if reviewable_element.nil?
 
-    if reviewable_element.respond_to?('reviews')
-      is_approved, is_unapproved = !reviewable_element.reviews.empty?, false
-      reviewable_element.reviews.each do |review|
-        is_approved = false if !review.review_result.nil? && review.review_result.is_approval?
-        is_unapproved = true if !review.review_result.nil? && review.review_result.is_disapproval?
+    if reviewable_element.respond_to?('is_approval')
+      if reviewable_element.is_approval?
+        a_type = :approved
+      end
+
+      if reviewable_element.is_disapproval?
+        a_type = :not_approved
       end
     end
 
     if reviewable_element.respond_to?('review_result')
-      is_approved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_approval?
-      is_unapproved = true if !reviewable_element.review_result.nil? && reviewable_element.review_result.is_disapproval?
+      a_type = approval_type(reviewable_element.review_result)
     end
 
-    if reviewable_element.respond_to?('is_approval')
-      is_approved = true if reviewable_element.is_approval?
-      is_unapproved = true if reviewable_element.is_disapproval?
+    if reviewable_element.respond_to?('reviews') && !reviewable_element.reviews.empty?
+      a_type = :approved
+      reviewable_element.reviews.each do |review|
+        tmp = approval_type(review)
+        next if a_type.eql?(tmp) && tmp.eql?(:approved)
+        a_type = tmp
+        break if a_type.eql? :not_approved
+      end
     end
 
-    return is_approved, is_unapproved
+    a_type
   end
 
   def color_span(colorable, text, bold = false)
