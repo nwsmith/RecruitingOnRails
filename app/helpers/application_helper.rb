@@ -18,11 +18,11 @@ module ApplicationHelper
     a_type = approval_type(reviewable_element)
 
     if a_type.eql? :approved
-      color_property = 'style="color: red;"'
+      color_property = 'style="color: green;"'
       out_text = approved_text
       my_class = 'approved'
     elsif a_type.eql? :not_approved
-      color_property = 'style="color: green;"'
+      color_property = 'style="color: red;"'
       out_text = unapproved_text
       my_class = 'unapproved'
     else
