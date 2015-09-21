@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150811230943) do
+ActiveRecord::Schema.define(:version => 20150921144635) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(:version => 20150811230943) do
   create_table "interview_reviews", :force => true do |t|
     t.integer  "user_id"
     t.integer  "interview_id"
-    t.string   "notes"
+    t.text     "notes"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.integer  "review_result_id"
@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(:version => 20150811230943) do
 
   create_table "interviews", :force => true do |t|
     t.datetime "meeting_time"
-    t.string   "notes"
+    t.text     "notes"
     t.integer  "interview_type_id"
     t.integer  "candidate_id"
   end
