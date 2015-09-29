@@ -103,7 +103,11 @@ module CandidatesHelper
     if candidate.start_date.nil?
       'N/A'
     else
-      distance_of_time_in_words_to_now(candidate.start_date)
+      if candidate.end_date.nil?
+        distance_of_time_in_words_to_now(candidate.start_date)
+      else
+        distance_of_time_in_words(candidate.start_date, candidate.end_date)
+      end
     end
   end
 end
