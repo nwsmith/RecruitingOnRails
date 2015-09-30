@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150930151335) do
+ActiveRecord::Schema.define(:version => 20150930195933) do
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -51,14 +51,14 @@ ActiveRecord::Schema.define(:version => 20150930151335) do
     t.date     "rejection_notification_date"
     t.text     "notes"
     t.integer  "office_location_id"
-    t.integer  "genders_id"
+    t.integer  "gender_id"
   end
 
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
   add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
   add_index "candidates", ["education_level_id"], :name => "fk_candidate_edu_lvl"
   add_index "candidates", ["experience_level_id"], :name => "fk_candidate_exp_lvls"
-  add_index "candidates", ["genders_id"], :name => "fk_genders"
+  add_index "candidates", ["gender_id"], :name => "fk_genders"
   add_index "candidates", ["office_location_id"], :name => "fk_candidate_off_loc"
   add_index "candidates", ["position_id"], :name => "fk_candidate_position"
   add_index "candidates", ["school_id"], :name => "fk_candidate_school"

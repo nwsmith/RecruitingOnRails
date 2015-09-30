@@ -24,7 +24,7 @@ class CreateGenders < ActiveRecord::Migration
         DROP FOREIGN KEY fk_genders
     SQL
 
-    remove_column :candidates, :gender_id
+    remove_column :candidates, :genders_id
 
     drop_table :genders
   end

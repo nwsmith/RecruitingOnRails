@@ -30,7 +30,7 @@
         <div class="field">
           <%= f.label :gender %>
           <br/>
-          <%= f.collection_select(:genders_id, Gender.order('name'), :id, :name) %>
+          <%= f.collection_select(:genders_id, Gender.order('name'), :id, :name, :include_blank => true) %>
         </div>
     <% end %>
     <div class="field">
