@@ -30,7 +30,7 @@ experience_levels = ExperienceLevel.create([{code: 'NEWB', name: 'Noob', color: 
 code_problem = CodeProblem.create({code: 'HELLO', name: 'Hello World'})
 
 hired_candidate = Candidate.create({first_name: 'Johnny',
-                                    last_name: 'fever',
+                                    last_name: 'Fever',
                                     candidate_status: hired,
                                     candidate_source: source,
                                     office_location: office_location,

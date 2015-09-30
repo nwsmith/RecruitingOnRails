@@ -26,6 +26,13 @@
       <br/>
       <%= f.text_field :last_name %>
     </div>
+    <% if session[:admin] %>
+        <div class="field">
+          <%= f.label :gender %>
+          <br/>
+          <%= f.collection_select(:genders_id, Gender.order('name'), :id, :name) %>
+        </div>
+    <% end %>
     <div class="field">
       <%= f.label :office_location_id %>
       <br/>
@@ -37,9 +44,9 @@
       <%= f.collection_select(:experience_level_id, ExperienceLevel.order('name'), :id, :name) %>
     </div>
     <div class="field">
-      <%=  f.label :position_id %>
+      <%= f.label :position_id %>
       <br/>
-      <%=  f.collection_select(:position_id, Position.order('name'), :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:position_id, Position.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%= f.label :candidate_status_id %>
@@ -47,14 +54,14 @@
       <%= f.collection_select(:candidate_status_id, CandidateStatus.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
-      <%=  f.label :education_level_id %>
+      <%= f.label :education_level_id %>
       <br/>
-      <%=  f.collection_select(:education_level_id, EducationLevel.order('name'), :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:education_level_id, EducationLevel.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
-      <%=  f.label :school_id %>
+      <%= f.label :school_id %>
       <br/>
-      <%=  f.collection_select(:school_id, School.order('name'), :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:school_id, School.order('name'), :id, :name, :include_blank => true) %>
     </div>
     <div class="field">
       <%= f.label :candidate_source_id %>
@@ -72,13 +79,13 @@
       <%= f.date_select :first_contact_date, :include_blank => true %>
     </div>
     <div class="field">
-      <%=  f.label :rejection_notification_date %>
+      <%= f.label :rejection_notification_date %>
       <br/>
       <%= f.date_select :rejection_notification_date, :include_blank => true %>
     </div>
 
     <div class="field">
-      <%= f.label :offer_date%>
+      <%= f.label :offer_date %>
       <br/>
       <%= f.date_select :offer_date, :include_blank => true %>
     </div>
@@ -98,7 +105,7 @@
     <div class="field">
       <%= f.label :start_date %>
       <br/>
-      <%= f.date_select :start_date, :include_blank => true  %>
+      <%= f.date_select :start_date, :include_blank => true %>
     </div>
 
     <div class="field">
@@ -130,9 +137,9 @@
       <%= f.text_field :referred_by %>
     </div>
     <div class="field">
-      <%=  f.label :notes %>
+      <%= f.label :notes %>
       <br/>
-      <%=  f.text_area :notes %>
+      <%= f.text_area :notes %>
     </div>
     <div class="actions">
       <%= f.submit %>

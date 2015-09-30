@@ -1,4 +1,5 @@
 class CandidatesController < ApplicationController
+
   # GET /candidates
   # GET /candidates.json
   def index
@@ -48,7 +49,7 @@ class CandidatesController < ApplicationController
   # GET /candidates/new
   # GET /candidates/new.json
   def new
-    @candidate = Candidate.new
+   @candidate = Candidate.new
 
     respond_to do |format|
       format.html # new.html.erb

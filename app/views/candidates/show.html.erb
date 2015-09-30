@@ -15,6 +15,14 @@
   <%= @candidate.last_name %>
 </p>
 
+<% if session[:admin] %>
+    <p>
+      <b>Gender:</b>
+      <%= get_name @candidate.gender %>
+    </p>
+<% end %>
+
+
 <p>
   <b>Office location:</b>
   <%= get_name @candidate.office_location %>
@@ -102,16 +110,16 @@
 </p>
 <hr>
 <b>Notes</b><br/>
-<%=  @candidate.notes %>
+<%= @candidate.notes %>
 <hr>
 
 <h1>Work History</h1>
 <% @candidate.work_history_rows.each do |history_row| %>
-    <%=  link_to history_row.summary, work_history_row_path(history_row) %>
+    <%= link_to history_row.summary, work_history_row_path(history_row) %>
 <% end %>
 
 <br>
-<%=  link_to 'Add Work History Row', new_work_history_row_path(:candidate_id => @candidate.id) %>
+<%= link_to 'Add Work History Row', new_work_history_row_path(:candidate_id => @candidate.id) %>
 
 <h1>Interviews</h1>
 <% @candidate.interviews.each do |interview| %>
@@ -125,18 +133,19 @@
 
 <h1>Code Submissions</h1>
 <% @candidate.code_submissions.each do |code_submission| %>
-    <%= link_to(approved_span(code_submission, :text => code_submission.code_problem.nil? ? 'N/A' : code_submission.code_problem.name), code_submission_path(code_submission)) %><br>
+    <%= link_to(approved_span(code_submission, :text => code_submission.code_problem.nil? ? 'N/A' : code_submission.code_problem.name), code_submission_path(code_submission)) %>
+    <br>
 <% end %>
 <br>
-<%=  link_to 'Add Submission', new_code_submission_path(:candidate_id => @candidate.id) %>
+<%= link_to 'Add Submission', new_code_submission_path(:candidate_id => @candidate.id) %>
 <br>
 
 <h1>Reference Checks</h1>
 <% @candidate.reference_checks.each do |reference_check| %>
-    <%=  link_to approved_span(reference_check), reference_check_path(reference_check) %><br>
+    <%= link_to approved_span(reference_check), reference_check_path(reference_check) %><br>
 <% end %>
 <br>
-<%=  link_to 'Add Reference Check', new_reference_check_path(:candidate_id => @candidate.id) %>
+<%= link_to 'Add Reference Check', new_reference_check_path(:candidate_id => @candidate.id) %>
 <hr>
 
 <%= link_to 'Edit', edit_candidate_path(@candidate) %> |

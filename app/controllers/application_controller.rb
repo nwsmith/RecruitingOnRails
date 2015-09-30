@@ -9,4 +9,10 @@ class ApplicationController < ActionController::Base
       redirect_to(:controller => 'login', :action => 'index')
     end
   end
+
+  def check_admin
+    if session[:admin].nil? || !session[:admin]
+      redirect_to(:controller => 'dashboard', :action => 'index')
+    end
+  end
 end

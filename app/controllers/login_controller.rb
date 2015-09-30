@@ -15,13 +15,15 @@ class LoginController < ApplicationController
       redirect_to(:action => :index)
       return
     end
-    session[:username] = username
+    session[:username] = user.auth_name
+    session[:admin] = user.admin?
+
     redirect_to :controller => :dashboard
   end
 
   def authenticate(username, password)
     auth_type = AuthConfig::config['auth_type'] || 'none'
-    return username if (auth_type.eql?('none'))
+
     if auth_type.eql?('ActiveDirectory')
       ad_server = AuthConfig::config['ad_server']
       ad_port = AuthConfig::config['ad_port']
@@ -41,12 +43,10 @@ class LoginController < ApplicationController
       conn.bind
       user = conn.search(:filter => op_filter & user_filter)
 
-      if user
-        return username
-      else
-        return nil
-      end
+      return nil if user.nil?
     end
+
+    User.find_all_by_auth_name(username)[0]
   rescue Net::LDAP::LdapError => e
     return e.message
   end
