@@ -11,7 +11,7 @@ class LoginController < ApplicationController
     password = params[:password]
     user = AuthenticationHelper::Authenticator.new.authenticate(username, password)
 
-    if user.nil?
+    if user.nil? || ~user.active?
       redirect_to(:action => :index)
       return
     end
