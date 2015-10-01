@@ -100,7 +100,7 @@ module CandidatesHelper
   end
 
   def time_since_hire(candidate)
-    if candidate.start_date.nil?
+    if candidate.start_date.nil? || candidate.start_date > Date.today
       'N/A'
     else
       if candidate.end_date.nil?
