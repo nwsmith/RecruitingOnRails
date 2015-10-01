@@ -1,41 +1,53 @@
 <%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :first_name %><br/>
+      <%= f.text_field :first_name %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :admin %><br />
-    <%= f.check_box :admin %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :auth_name %><br />
-    <%= f.text_field :auth_name %>
-  </div>
-  <div class="field">
-    <%= f.label :user_name %><br />
-    <%= f.text_field :user_name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+      <%= f.label :last_name %><br/>
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="field">
+      <%= f.label :admin %><br/>
+      <%= f.check_box :admin %>
+    </div>
+    <div class="field">
+      <%= f.label :active %><br/>
+      <%= f.check_box :active %>
+    </div>
+    <div class="field">
+      <%= f.label :auth_name %><br/>
+      <%= f.text_field :auth_name %>
+    </div>
+    <div class="field">
+      <%= f.label :user_name %><br/>
+      <%= f.text_field :user_name %>
+    </div>
+    <% if session[:admin] %>
+        <div class="field">
+          <%= f.label :password %><br/>
+          <%= f.password_field :password %>
+        </div>
+    <% end %>
+    <% if session[:admin] %>
+        <div class="field">
+          <%= f.label :auth_config %>
+          <%= f.collection_select(:auth_config_id, AuthConfig.order('name'), :id, :name) %>
+        </div>
+    <% end %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>

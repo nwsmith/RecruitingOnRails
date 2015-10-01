@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150930195933) do
+ActiveRecord::Schema.define(:version => 20151001164137) do
+
+  create_table "auth_config_types", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
+
+  create_table "auth_configs", :force => true do |t|
+    t.integer  "auth_config_type_id"
+    t.string   "name"
+    t.string   "server"
+    t.integer  "port"
+    t.string   "ldap_base"
+    t.string   "ldap_domain"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "auth_configs", ["auth_config_type_id"], :name => "fk_config_type"
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -223,9 +242,13 @@ ActiveRecord::Schema.define(:version => 20150930195933) do
     t.boolean  "active"
     t.string   "auth_name"
     t.string   "user_name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "auth_config_id"
+    t.string   "password"
   end
+
+  add_index "users", ["auth_config_id"], :name => "fk_auth_config"
 
   create_table "work_history_rows", :force => true do |t|
     t.date    "start_date"

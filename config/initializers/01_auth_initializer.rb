@@ -1,3 +1,3 @@
-require 'auth_config'
+require 'old_auth_config'
 
-AuthConfig.config = YAML.load_file("#{Rails.root}/config/auth.yml")[Rails.env]
+OldAuthConfig.config = YAML.load_file("#{Rails.root}/config/auth.yml")[Rails.env]

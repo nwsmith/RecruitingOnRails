@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @auth_config.name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= get_name @auth_config.auth_config_type %>
+</p>
+
+<p>
+  <b>Server:</b>
+  <%= @auth_config.server %>
+</p>
+
+<p>
+  <b>Port:</b>
+  <%= @auth_config.port %>
+</p>
+
+<p>
+  <b>Ldap base:</b>
+  <%= @auth_config.ldap_base %>
+</p>
+
+<p>
+  <b>Ldap domain:</b>
+  <%= @auth_config.ldap_domain %>
+</p>
+
+
+<%= link_to 'Edit', edit_auth_config_path(@auth_config) %> |
+<%= link_to 'Back', auth_configs_path %>

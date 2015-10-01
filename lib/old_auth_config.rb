@@ -1,4 +1,4 @@
-module AuthConfig
+module OldAuthConfig
   def self.config
     @@config ||= {}
   end

@@ -1,4 +1,8 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :auth_configs
+
+  resources :auth_config_types
+
   resources :genders
 
   resources :office_locations

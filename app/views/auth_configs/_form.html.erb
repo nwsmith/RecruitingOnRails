@@ -1,0 +1,41 @@
+<%= form_for(@auth_config) do |f| %>
+  <% if @auth_config.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@auth_config.errors.count, "error") %> prohibited this auth_config from being saved:</h2>
+
+      <ul>
+      <% @auth_config.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+    <div class="type">
+      <%= f.label :auth_config_type %>
+      <%= f.collection_select(:auth_config_type_id, AuthConfigType.order('name'), :id, :name) %>
+    </div>
+  <div class="field">
+    <%= f.label :server %><br />
+    <%= f.text_field :server %>
+  </div>
+  <div class="field">
+    <%= f.label :port %><br />
+    <%= f.number_field :port %>
+  </div>
+  <div class="field">
+    <%= f.label :ldap_base %><br />
+    <%= f.text_field :ldap_base %>
+  </div>
+  <div class="field">
+    <%= f.label :ldap_domain %><br />
+    <%= f.text_field :ldap_domain %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

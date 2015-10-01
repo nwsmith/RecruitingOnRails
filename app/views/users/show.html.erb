@@ -30,9 +30,21 @@
   <%= @user.user_name %>
 </p>
 
+<% if session[:admin] %>
+    <p>
+      <b>Password Hashed:</b>
+      <%= @user.password %>
+    </p>
+    <p>
+      <b>Auth Config</b>
+      <%= get_name @user.auth_config %>
+    </p>
+
+<% end %>
+
 <p>
   <b>Groups:</b>
-  <%=  @user.groups %>
+  <%= @user.groups %>
 </p>
 
 

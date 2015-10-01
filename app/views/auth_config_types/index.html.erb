@@ -1,0 +1,27 @@
+<h1>Listing auth_config_types</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @auth_config_types.each do |auth_config_type| %>
+  <tr>
+    <td><%= auth_config_type.code %></td>
+    <td><%= auth_config_type.name %></td>
+    <td><%= auth_config_type.description %></td>
+    <td><%= link_to 'Show', auth_config_type %></td>
+    <td><%= link_to 'Edit', edit_auth_config_type_path(auth_config_type) %></td>
+    <td><%= link_to 'Destroy', auth_config_type, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Auth config type', new_auth_config_type_path %>

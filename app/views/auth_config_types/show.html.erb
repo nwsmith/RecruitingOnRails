@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @auth_config_type.code %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @auth_config_type.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @auth_config_type.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_auth_config_type_path(@auth_config_type) %> |
+<%= link_to 'Back', auth_config_types_path %>
