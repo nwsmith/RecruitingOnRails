@@ -3,6 +3,10 @@ module ApplicationHelper
     code.nil? ? 'N/A' : code.name
   end
 
+  def user_select(f)
+    f.collection_select(:user_id, User.all_active.sort_by{|u| u.first_name}, :id, :name)
+  end
+
   def approved_span(*args, &block)
     reviewable_element ||= (args.nil? || args.first.nil?) ? nil : args.first
     return '' if reviewable_element.nil?

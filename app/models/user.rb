@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
   def User.fetch_by_auth_name(auth_name)
     User.find_all_by_auth_name(auth_name)[0]
   end
+
+  def User.all_active
+    User.find_all_by_active(true)
+  end
 end
