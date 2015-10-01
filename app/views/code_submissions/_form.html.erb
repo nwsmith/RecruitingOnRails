@@ -21,11 +21,11 @@
     </div>
     <div class="field">
       <%= f.label :sent_date %>
-      <%= f.date_select(:sent_date, :include_blank => true) %>
+      <%= f.text_field(:sent_date, :class => 'datepicker') %>
     </div>
     <div class="field">
       <%=  f.label :submission_date %>
-      <%=  f.date_select(:submission_date, :include_blank => true) %>
+      <%=  f.text_field(:submission_date, :class => 'datepicker') %>
     </div>
     <div class="field">
       <%=  f.label :notes %>

@@ -1,9 +1,3 @@
-<script>
-    $(function() {
-        $(".datepicker").datepicker();
-    });
-</script>
-
 <%= form_for(@candidate) do |f| %>
     <% if @candidate.errors.any? %>
         <div id="error_explanation">
