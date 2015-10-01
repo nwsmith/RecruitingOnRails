@@ -1,5 +1,6 @@
 require 'rvm/capistrano'
 
+set :use_sudo, false
 set :ssh_options, {config: false}
 
 set :default_environment, {'PATH' => "/usr/bin:$PATH"}
