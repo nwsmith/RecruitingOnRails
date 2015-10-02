@@ -95,8 +95,6 @@ GEM
     rake (10.4.2)
     rdoc (3.12.2)
       json (~> 1.4)
-    rvm-capistrano (1.2.7)
-      capistrano (>= 2.0.0)
     sass (3.4.18)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -128,7 +126,6 @@ DEPENDENCIES
   mysql2 (~> 0.3.11)
   net-ldap
   rails (= 3.2.22)
-  rvm-capistrano (~> 1.2.3)
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)
 

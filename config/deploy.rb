@@ -1,5 +1,3 @@
-require 'rvm/capistrano'
-
 set :use_sudo, false
 set :ssh_options, {config: false}
 
