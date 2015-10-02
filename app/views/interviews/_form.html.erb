@@ -22,7 +22,7 @@
     <div class="field">
       <%= f.label :meeting_time %>
       <br/>
-      <%= f.datetime_select :meeting_time, :include_blank => true %>
+      <%= f.text_field :meeting_time, :class => 'datepicker' %>
     </div>
     <div class="field">
       <%= f.label :notes %>
