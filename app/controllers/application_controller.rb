@@ -3,10 +3,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def check_login
-    #TODO: Look in AD again
     username = session[:username]
-    if username.nil? || username.empty?
-      redirect_to(:controller => 'login', :action => 'index')
+    return unless username.nil? || username.empty?
+
+    api_key = params[:api_key] || ''
+    user = User.find_all_by_api_key(api_key)[0]
+
+    if user.nil?
+      redirect_to(:controller => 'login', :action => 'index') if user.nil?
+    else
+      session[:username] = user.user_name
+      session[:admin] = user.admin?
     end
   end
 

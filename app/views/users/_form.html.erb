@@ -35,12 +35,10 @@
       <%= f.label :user_name %><br/>
       <%= f.text_field :user_name %>
     </div>
-    <% if session[:admin] %>
-        <div class="field">
-          <%= f.label :password %><br/>
-          <%= f.password_field :password %>
-        </div>
-    <% end %>
+    <div class="field">
+      <%= f.label :api_key %><br/>
+      <%= f.text_field :api_key %>
+    </div>
     <% if session[:admin] %>
         <div class="field">
           <%= f.label :auth_config %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151001164137) do
+ActiveRecord::Schema.define(:version => 20151006215749) do
 
   create_table "auth_config_types", :force => true do |t|
     t.string "code"
@@ -167,10 +167,10 @@ ActiveRecord::Schema.define(:version => 20151001164137) do
   end
 
   create_table "interviews", :force => true do |t|
-    t.datetime "meeting_time"
-    t.text     "notes"
-    t.integer  "interview_type_id"
-    t.integer  "candidate_id"
+    t.date    "meeting_time"
+    t.text    "notes"
+    t.integer "interview_type_id"
+    t.integer "candidate_id"
   end
 
   add_index "interviews", ["candidate_id"], :name => "fk_interview_candidate"
@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(:version => 20151001164137) do
     t.datetime "updated_at",     :null => false
     t.integer  "auth_config_id"
     t.string   "password"
+    t.string   "api_key"
   end
 
   add_index "users", ["auth_config_id"], :name => "fk_auth_config"
