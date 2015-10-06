@@ -25,9 +25,11 @@ class CandidatesController < ApplicationController
   end
 
   def list
-    status = params[:status]
+    status_list = params[:status].split ','
+    @candidates = Array.new
 
-    @candidates = Candidate.by_status_code(status)
+    status_list.each {|s| @candidates << Candidate.by_status_code(s)}
+    @candidates.flatten!
 
     respond_to do |format|
       format.html
