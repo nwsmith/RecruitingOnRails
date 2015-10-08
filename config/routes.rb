@@ -1,4 +1,7 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :budgeting_types
+
+
   resources :auth_configs
 
   resources :auth_config_types

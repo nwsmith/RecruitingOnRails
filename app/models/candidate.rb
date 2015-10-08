@@ -7,6 +7,8 @@ class Candidate < ActiveRecord::Base
   belongs_to :office_location
   belongs_to :education_level
   belongs_to :school
+  belongs_to :budgeting_type
+
   has_many :work_history_rows
   has_many :interviews
   has_many :code_submissions

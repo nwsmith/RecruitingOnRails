@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151006215749) do
+ActiveRecord::Schema.define(:version => 20151008143403) do
 
   create_table "auth_config_types", :force => true do |t|
     t.string "code"
@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(:version => 20151006215749) do
   end
 
   add_index "auth_configs", ["auth_config_type_id"], :name => "fk_config_type"
+
+  create_table "budgeting_types", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"
@@ -71,8 +77,11 @@ ActiveRecord::Schema.define(:version => 20151006215749) do
     t.text     "notes"
     t.integer  "office_location_id"
     t.integer  "gender_id"
+    t.integer  "budgeting_type_id"
+    t.string   "replacement_for"
   end
 
+  add_index "candidates", ["budgeting_type_id"], :name => "fk_budgeting_type"
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
   add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
   add_index "candidates", ["education_level_id"], :name => "fk_candidate_edu_lvl"

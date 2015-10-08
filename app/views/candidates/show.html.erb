@@ -17,6 +17,14 @@
 
 <% if session[:admin] %>
     <p>
+      <b>Budgeting Type:</b>
+      <%= get_name @candidate.budgeting_type %>
+    </p>
+    <p>
+      <b>Replacement For:</b>
+      <%= @candidate.replacement_for %>
+    </p>
+    <p>
       <b>Gender:</b>
       <%= get_name @candidate.gender %>
     </p>

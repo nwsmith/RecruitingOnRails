@@ -1,0 +1,27 @@
+<h1>Listing budgeting_types</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @budgeting_types.each do |budgeting_type| %>
+  <tr>
+    <td><%= budgeting_type.code %></td>
+    <td><%= budgeting_type.name %></td>
+    <td><%= budgeting_type.description %></td>
+    <td><%= link_to 'Show', budgeting_type %></td>
+    <td><%= link_to 'Edit', edit_budgeting_type_path(budgeting_type) %></td>
+    <td><%= link_to 'Destroy', budgeting_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Budgeting type', new_budgeting_type_path %>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @budgeting_type.code %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @budgeting_type.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @budgeting_type.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_budgeting_type_path(@budgeting_type) %> |
+<%= link_to 'Back', budgeting_types_path %>

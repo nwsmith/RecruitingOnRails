@@ -28,6 +28,16 @@
     </div>
     <% if session[:admin] %>
         <div class="field">
+          <%= f.label :budgeting_type %>
+          <br/>
+          <%= f.collection_select(:budgeting_type_id, BudgetingType.order('name'), :id, :name, :include_blank => true) %>
+        </div>
+        <div class="field">
+          <%= f.label :replacement_for %>
+          <br/>
+          <%= f.text_field :replacement_for %>
+        </div>
+        <div class="field">
           <%= f.label :gender %>
           <br/>
           <%= f.collection_select(:gender_id, Gender.order('name'), :id, :name, :include_blank => true) %>
