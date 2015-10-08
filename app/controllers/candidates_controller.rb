@@ -33,7 +33,7 @@ class CandidatesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json {render json: @candidates}
+      format.json {render json: @candidates, :include => {:candidate_status => {:only => :code}, :candidate_source => {:only => :code}}}
     end
   end
 
