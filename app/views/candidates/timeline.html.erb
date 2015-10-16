@@ -13,7 +13,7 @@
                 eventSource: eventSource,
                 width: "100%",
                 intervalUnit: Timeline.DateTime.<%=@group_by%>,
-                intervalPixels: <%= @group_by = 'MONTH' ? 25 : 175 %>,
+                intervalPixels: <%= @group_by == 'MONTH' ? 25 : 175 %>
             })
         ];
         tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
