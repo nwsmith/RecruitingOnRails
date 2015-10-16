@@ -11,16 +11,16 @@
       var bandInfos = [
           Timeline.createBandInfo({
               eventSource: eventSource,
-              width: "70%",
+              width: "1000%",
               intervalUnit: Timeline.DateTime.MONTH,
-              intervalPixels: 50
-          }),
-          Timeline.createBandInfo({
-              eventSource: eventSource,
-              width: "30%",
-              intervalUnit: Timeline.DateTime.YEAR,
-              intervalPixels: 100
+              intervalPixels: 25
           })
+//          Timeline.createBandInfo({
+//              eventSource: eventSource,
+//              width: "30%",
+//              intervalUnit: Timeline.DateTime.YEAR,
+//              intervalPixels: 100
+//          })
       ];
       tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
 
