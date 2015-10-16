@@ -15,6 +15,7 @@ class CandidatesController < ApplicationController
     @candidates = Array.new
     @candidates.flatten!
     @status_list = params[:status].nil? ? 'HIRED' : params[:status]
+    @group_by = params[:group_by].nil? ? 'YEAR' : params[:group_by]
 
     respond_to do |format|
       format.html
