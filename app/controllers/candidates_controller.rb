@@ -11,6 +11,37 @@ class CandidatesController < ApplicationController
     end
   end
 
+  def timeline
+    @candidates = Array.new
+    @candidates.flatten!
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def events
+    candidates = Array.new
+
+    Candidate.by_status_code('HIRED').each do |candidate|
+      json = Hash.new
+      json['start'] = candidate.start_date.to_s
+      json['end'] = candidate.end_date.to_s
+      json['isDuration'] = true
+      json['title'] = candidate.name
+      candidates << json
+    end
+
+    events = Hash.new
+    events['events'] = candidates
+
+    respond_to do |format|
+      format.html
+      format.json {render json: events}
+    end
+
+  end
+
   def search
     query = params[:q]
     name = query.split(' ')
@@ -25,7 +56,7 @@ class CandidatesController < ApplicationController
   end
 
   def list
-    status_list = params[:status].split ','
+    status_list = params[:status].nil? ? Array.new : (params[:status].split ',')
     @candidates = Array.new
 
     status_list.each {|s| @candidates << Candidate.by_status_code(s)}

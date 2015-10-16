@@ -1,0 +1,32 @@
+<% content_for :for_head do %>
+    <script src="http://api.simile-widgets.org/timeline/2.3.1/timeline-api.js?bundle=true" type="text/javascript"></script>
+    <script type="application/javascript">
+    </script>
+<% end %>
+
+<script type="application/javascript">
+  $(document).ready(function () {
+      var eventSource = new Timeline.DefaultEventSource();
+
+      var bandInfos = [
+          Timeline.createBandInfo({
+              eventSource: eventSource,
+              width: "70%",
+              intervalUnit: Timeline.DateTime.MONTH,
+              intervalPixels: 50
+          }),
+          Timeline.createBandInfo({
+              eventSource: eventSource,
+              width: "30%",
+              intervalUnit: Timeline.DateTime.YEAR,
+              intervalPixels: 100
+          })
+      ];
+      tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
+
+     Timeline.loadJSON("<%= events_candidates_path %>.json", function(json,url){eventSource.loadJSON(json,url)});
+  });
+</script>
+Shit
+dammit
+<div id="my-timeline" style="height: 150px; border: 1px solid #aaa"></div>

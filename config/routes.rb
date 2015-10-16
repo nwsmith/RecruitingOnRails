@@ -40,9 +40,17 @@ RecruitingOnRails::Application.routes.draw do
 
   resources :experience_levels
 
-  match "/candidates/list" => "candidates#list"
+  match "/candidates/__history__.html" => 'candidates#noop' # <- because the timeline plugin does stupid shit
 
-  resources :candidates
+  resources :candidates do
+    collection do
+      get 'list'
+      get 'timeline'
+      get 'events'
+    end
+  end
+
+
 
   resources :candidate_sources
 
