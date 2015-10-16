@@ -31,7 +31,7 @@ class CandidatesController < ApplicationController
     folks.each do |candidate|
       json = Hash.new
       json['start'] = candidate.start_date.to_s
-      json['end'] = candidate.end_date.to_s || Date.today.to_s
+      json['end'] = candidate.end_date.nil? ? Date.today.to_s : candidate.end_date.to_s
       json['isDuration'] = true
       json['title'] = candidate.name
       candidates << json
