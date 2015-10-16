@@ -21,10 +21,15 @@ class CandidatesController < ApplicationController
   end
 
   def events
+
+    status_list = Array.new
+    status_list << 'HIRED'
+    status_list << 'QUIT'
+
     candidates = Array.new
 
     folks = Array.new
-    %w(HIRED QUIT).each {|s| folks << Candidate.by_status_code(s)}
+    status_list.each {|s| folks << Candidate.by_status_code(s)}
     folks.flatten!
 
 
