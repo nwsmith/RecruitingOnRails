@@ -31,7 +31,7 @@ class CandidatesController < ApplicationController
     folks = Array.new
     status_list.each {|s| folks << Candidate.by_status_code(s)}
     folks.flatten!
-    folks.sort {|a,b| a.start_date <=> b.start_date || a.end_date <=> b.end_date }
+    folks.sort {|a,b| -(a.start_date <=> b.start_date) || -(a.end_date <=> b.end_date) }
 
     folks.each do |candidate|
       next if candidate.start_date.nil? || candidate.start_date > Date.today
