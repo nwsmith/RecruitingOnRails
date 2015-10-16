@@ -40,7 +40,7 @@ class CandidatesController < ApplicationController
       json['end'] = candidate.end_date.nil? ? Date.today.to_s : candidate.end_date.to_s
       json['isDuration'] = true
       json['title'] = candidate.name
-      json['icon'] = ''
+      json['icon'] = 'none'
       candidates << json
     end
 
