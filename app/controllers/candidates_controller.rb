@@ -23,10 +23,15 @@ class CandidatesController < ApplicationController
   def events
     candidates = Array.new
 
-    Candidate.by_status_code('HIRED').each do |candidate|
+    folks = Array.new
+    %w(HIRED QUIT).each {|s| folks << Candidate.by_status_code(s)}
+    folks.flatten!
+
+
+    folks.each do |candidate|
       json = Hash.new
       json['start'] = candidate.start_date.to_s
-      json['end'] = candidate.end_date.to_s
+      json['end'] = candidate.end_date.to_s || Date.today.to_s
       json['isDuration'] = true
       json['title'] = candidate.name
       candidates << json
