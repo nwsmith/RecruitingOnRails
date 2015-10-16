@@ -14,6 +14,7 @@ class CandidatesController < ApplicationController
   def timeline
     @candidates = Array.new
     @candidates.flatten!
+    @status_list = params[:status].nil? ? 'HIRED' : params[:status]
 
     respond_to do |format|
       format.html
@@ -21,10 +22,8 @@ class CandidatesController < ApplicationController
   end
 
   def events
-
-    status_list = Array.new
-    status_list << 'HIRED'
-    status_list << 'QUIT'
+    status_list = params[:status].nil? ? Array.new : (params[:status].split ',')
+    status_list << HIRED if status_list.empty?
 
     candidates = Array.new
 
@@ -32,8 +31,8 @@ class CandidatesController < ApplicationController
     status_list.each {|s| folks << Candidate.by_status_code(s)}
     folks.flatten!
 
-
     folks.each do |candidate|
+      next unless candidate.start_date
       json = Hash.new
       json['start'] = candidate.start_date.to_s
       json['end'] = candidate.end_date.nil? ? Date.today.to_s : candidate.end_date.to_s
