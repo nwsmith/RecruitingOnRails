@@ -32,7 +32,7 @@ class CandidatesController < ApplicationController
     folks.flatten!
 
     folks.each do |candidate|
-      next unless candidate.start_date
+      next unless candidate.start_date && candidate.start_date <= Date.today
       json = Hash.new
       json['start'] = candidate.start_date.to_s
       json['end'] = candidate.end_date.nil? ? Date.today.to_s : candidate.end_date.to_s
