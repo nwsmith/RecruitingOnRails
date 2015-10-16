@@ -30,9 +30,10 @@ class CandidatesController < ApplicationController
     folks = Array.new
     status_list.each {|s| folks << Candidate.by_status_code(s)}
     folks.flatten!
+    folks.sort {|a,b| a.start_date <=> b.start_date || a.end_date <=> b.end_date }
 
     folks.each do |candidate|
-      #next if candidate.start_date.nil? || candidate.start_date > Date.today
+      next if candidate.start_date.nil? || candidate.start_date > Date.today
       json = Hash.new
       json['start'] = candidate.start_date.to_s
       json['end'] = candidate.end_date.nil? ? Date.today.to_s : candidate.end_date.to_s
