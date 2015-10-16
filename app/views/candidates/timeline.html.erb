@@ -11,12 +11,14 @@
         var bandInfos = [
             Timeline.createBandInfo({
                 <% if @group_by == 'MONTH' %>
+                icon: "",
                 eventSource: eventSource,
-                width: "1000%",
+                width: "100%",
                 intervalUnit: Timeline.DateTime.MONTH,
                 intervalPixels: 25,
                 <% end %>
                 <% if @group_by == 'YEAR' %>
+                icon: "",
                 eventSource: eventSource,
                 width: "100%",
                 intervalUnit: Timeline.DateTime.YEAR,
