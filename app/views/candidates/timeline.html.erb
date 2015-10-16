@@ -10,20 +10,10 @@
 
         var bandInfos = [
             Timeline.createBandInfo({
-                <% if @group_by == 'MONTH' %>
-                icon: "",
                 eventSource: eventSource,
                 width: "100%",
-                intervalUnit: Timeline.DateTime.MONTH,
-                intervalPixels: 25,
-                <% end %>
-                <% if @group_by == 'YEAR' %>
-                icon: "",
-                eventSource: eventSource,
-                width: "100%",
-                intervalUnit: Timeline.DateTime.YEAR,
-                intervalPixels: 175
-                <% end %>
+                intervalUnit: Timeline.DateTime.<%=@group_by%>,
+                intervalPixels: <%= @group_by = 'MONTH' ? 25 : 175 %>,
             })
         ];
         tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
