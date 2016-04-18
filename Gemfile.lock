@@ -60,7 +60,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     multi_json (1.11.2)
-    mysql2 (0.3.19)
+    mysql2 (0.3.20)
     net-ldap (0.11)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -130,4 +130,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
