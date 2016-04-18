@@ -13,8 +13,12 @@
 <%=  @code_submission.notes %>
 
 <h1>Reviewers:</h1>
+
 <%  @code_submission.code_submission_reviews.each do |code_submission_review| %>
     <%= code_submission_review.user.nil? ? 'Nil' : approved_span(code_submission_review, :text => code_submission_review.user.name, :link => true) %>
+    <br>
+    <%= code_submission_review.notes.nil? ? '' : (raw display_text(code_submission_review.notes)) %>
+    <br><br>
 <% end %>
 <br>
 <%=  link_to 'Add Reviewer', new_code_submission_review_path(:code_submission_id => @code_submission.id) %>
