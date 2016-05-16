@@ -33,7 +33,7 @@ class CycleTimeReportController < ApplicationController
 
       c.interviews.each do |interview|
         row << interview.meeting_time
-        row << (base_date.nil? ? 'N/A' : (interview.meeting_time - base_date).to_i)
+        row << ((base_date.nil? || interview.meeting_time.nil?) ? 'N/A' : (interview.meeting_time - base_date).to_i)
       end
 
       0.upto(interview_width-c.interviews.length-1) {|x| row << ' ' << ' '}
