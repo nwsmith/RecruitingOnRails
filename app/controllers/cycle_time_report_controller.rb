@@ -20,6 +20,7 @@ class CycleTimeReportController < ApplicationController
     @header << 'Offer' << 'Accept' << 'Cycle Time'
 
     candidates.each do |c|
+      base_date = c.application_date || c.first_contact_date
       offer_date = c.offer_accept_date || c.offer_date
 
 
@@ -27,12 +28,12 @@ class CycleTimeReportController < ApplicationController
       row << c.name
       row << c.application_date
       row << c.first_contact_date
-      row << (c.first_contact_date - c.application_date).to_i
+      row << (c.first_contact_date.nil? ? 'N/A' : (c.first_contact_date - c.application_date).to_i)
 
 
       c.interviews.each do |interview|
         row << interview.meeting_time
-        row << (interview.meeting_time - c.first_contact_date).to_i
+        row << (base_date.nil? ? 'N/A' : (interview.meeting_time - base_date).to_i)
       end
 
       0.upto(interview_width-c.interviews.length-1) {|x| row << ' ' << ' '}
@@ -40,7 +41,7 @@ class CycleTimeReportController < ApplicationController
       row << c.offer_date
       row << c.offer_accept_date
 
-      row << (offer_date.nil? ? 'N/A' : (offer_date - c.first_contact_date).to_i)
+      row << ((offer_date.nil? || base_date.nil?) ? 'N/A' : (offer_date - base_date).to_i)
 
 
       @report << row
