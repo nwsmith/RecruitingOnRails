@@ -1,0 +1,16 @@
+<h1>CycleTimeReport</h1>
+
+<table>
+  <tr>
+    <% @header.each do |h| %>
+        <th><%= h %></th>
+    <% end %>
+  </tr>
+  <% @report.each do |row| %>
+      <tr>
+        <% row.each do |cell| %>
+            <td><%= cell %></td>
+        <% end %>
+      </tr>
+  <% end %>
+</table>

@@ -1,4 +1,10 @@
 RecruitingOnRails::Application.routes.draw do
+  get "cycle_time_report/index"
+
+  get "cycle_time_report/run"
+
+  get "reports/index"
+
   resources :budgeting_types
 
 
@@ -65,7 +71,7 @@ RecruitingOnRails::Application.routes.draw do
   match ":controller(/:action)"
 
   # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
+  #   match 'products/:id' => 'catalog#index'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
