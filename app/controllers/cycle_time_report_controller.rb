@@ -20,6 +20,9 @@ class CycleTimeReportController < ApplicationController
     @header << 'Offer' << 'Accept' << 'Cycle Time'
 
     candidates.each do |c|
+      if !c.candidate_source.nil? && (c.candidate_source.code == 'LEGACY' || c.candidate_source.code == 'ACQUISITION')
+        next
+      end
       base_date = c.application_date || c.first_contact_date
       offer_date = c.offer_accept_date || c.offer_date
 
