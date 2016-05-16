@@ -28,7 +28,7 @@ class CycleTimeReportController < ApplicationController
       row << c.name
       row << c.application_date
       row << c.first_contact_date
-      row << (c.first_contact_date.nil? ? 'N/A' : (c.first_contact_date - c.application_date).to_i)
+      row << ((c.first_contact_date.nil? || c.application_date.nil?) ? 'N/A' : (c.first_contact_date - c.application_date).to_i)
 
 
       c.interviews.each do |interview|
