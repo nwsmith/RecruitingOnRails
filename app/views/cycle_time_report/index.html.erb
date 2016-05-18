@@ -1,5 +1,8 @@
 <h1>CycleTimeReport</h1>
 
 <%= form_tag(:action => :run) do -%>
-  <%= submit_tag 'Run'%>
+    Status(es)<br/>
+    <%= select_tag "status", options_from_collection_for_select(CandidateStatus.order('name'), "code", "name", 'HIRED'), {multiple: true} %>
+    <br/>
+    <%= submit_tag 'Run' %>
 <% end -%>

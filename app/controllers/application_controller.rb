@@ -22,4 +22,12 @@ class ApplicationController < ActionController::Base
       redirect_to(:controller => 'dashboard', :action => 'index')
     end
   end
+
+  def get_list_from_params(params, name)
+    if params[name].nil?
+      Array.new
+    else
+      (params[name].is_a? String) ? params[name].split(',') : params[name]
+    end
+  end
 end

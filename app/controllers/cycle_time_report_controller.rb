@@ -5,8 +5,15 @@ class CycleTimeReportController < ApplicationController
 
   def run
     @report = Array.new
-    candidates = Candidate.by_status_code('HIRED')
 
+    status_list = get_list_from_params(params, :status)
+    status_list << 'HIRED' if status_list.empty?
+
+    candidates = Array.new
+    status_list.each do |s|
+      candidates << Candidate.by_status_code(s)
+    end
+    candidates.flatten!
 
     interview_width = 0
     candidates.each do |c|
