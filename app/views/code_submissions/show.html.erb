@@ -10,7 +10,7 @@
 <%=  @code_submission.submission_date %>
 <br>
 <b>Notes</b>
-<%=  @code_submission.notes %>
+<%=  raw display_text(@code_submission.notes) %>
 
 <h1>Reviewers:</h1>
 
