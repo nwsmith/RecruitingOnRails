@@ -61,7 +61,14 @@
     <div class="field">
       <%= f.label :candidate_status_id %>
       <br/>
-      <%= f.collection_select(:candidate_status_id, CandidateStatus.order('name'), :id, :name, :include_blank => true) %>
+      <%
+        id = @candidate.candidate_status_id
+        if id.nil?
+          status = CandidateStatus.first(:conditions => {:code => 'PEND'})
+          id = status.nil? ? -1 : status.id
+        end
+      %>
+      <%= f.collection_select(:candidate_status_id, CandidateStatus.order('name'), :id, :name, :include_blank => false, :selected => id) %>
     </div>
     <div class="field">
       <%= f.label :education_level_id %>
