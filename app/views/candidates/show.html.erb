@@ -15,7 +15,13 @@
   <%= @candidate.last_name %>
 </p>
 
-<% if session[:admin] %>
+<% if session[:manager] %>
+    <p>
+      <b>Gender:</b>
+      <%= get_name @candidate.gender %>
+    </p>
+<% end %>
+<% if session[:hr] %>
     <p>
       <b>Budgeting Type:</b>
       <%= get_name @candidate.budgeting_type %>
@@ -25,8 +31,8 @@
       <%= @candidate.replacement_for %>
     </p>
     <p>
-      <b>Gender:</b>
-      <%= get_name @candidate.gender %>
+      <b>Salary Range:</b>
+      <%= @candidate.salary_range %>
     </p>
 <% end %>
 

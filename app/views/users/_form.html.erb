@@ -20,11 +20,19 @@
       <%= f.text_field :last_name %>
     </div>
     <div class="field">
-      <%= f.label :admin %><br/>
+      <%= f.label :admin %>
       <%= f.check_box :admin %>
     </div>
     <div class="field">
-      <%= f.label :active %><br/>
+      <%= f.label :manager %>
+      <%= f.check_box :manager %>
+    </div>
+    <div class="field">
+      <%= f.label :hr %>
+      <%= f.check_box :hr %>
+    </div>
+    <div class="field">
+      <%= f.label :active %>
       <%= f.check_box :active %>
     </div>
     <div class="field">
@@ -40,6 +48,10 @@
       <%= f.text_field :api_key %>
     </div>
     <% if session[:admin] %>
+        <!--<div class="field">-->
+          <!--<%= f.label :password %>-->
+          <!--<%= f.text_field :password %>-->
+        <!--</div>-->
         <div class="field">
           <%= f.label :auth_config %>
           <%= f.collection_select(:auth_config_id, AuthConfig.order('name'), :id, :name) %>

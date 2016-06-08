@@ -15,8 +15,12 @@ class LoginController < ApplicationController
       redirect_to(:action => :index)
       return
     end
+
     session[:username] = user.auth_name
+
     session[:admin] = user.admin?
+    session[:manager] = session[:admin] || user.manager?
+    session[:hr] = session[:manager] ||user.hr?
 
     redirect_to :controller => :dashboard
   end
