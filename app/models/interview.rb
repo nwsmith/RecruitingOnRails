@@ -14,4 +14,8 @@ class Interview < ActiveRecord::Base
   def reviews
     interview_reviews
   end
+
+  def event_date
+    meeting_time
+  end
 end

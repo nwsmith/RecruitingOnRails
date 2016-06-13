@@ -3,7 +3,7 @@ module CandidatesHelper
     candidates = args.first
     opts = args.second || {}
 
-    candidates = candidates.sort {|a,b| (a.start_date.nil? ? Date.new(2020) : a.start_date) <=> (b.start_date.nil? ? Date.new(2020) : b.start_date)}
+    candidates = candidates.sort { |a, b| (a.start_date.nil? ? Date.new(2020) : a.start_date) <=> (b.start_date.nil? ? Date.new(2020) : b.start_date) }
     interview_column_count = 0
     candidates.each { |c| interview_column_count = c.interviews.length if c.interviews.length > interview_column_count }
     code_submission_column_count = 0
@@ -19,14 +19,20 @@ module CandidatesHelper
     if opts[:include_source]
       out += '<th>Source</th>'
     end
-    if opts[:include_code_submissions]
-      1.upto(code_submission_column_count) do |i|
-        out += "<th>Code Submission #{i}</th>"
+    if opts[:include_events]
+      1.upto(code_submission_column_count + interview_column_count) do |i|
+        out += "<th>Event #{i}</th>"
       end
-    end
-    if opts[:include_interviews]
-      1.upto(interview_column_count) do |i|
-        out += "<th>Interview #{i}</th>"
+    else
+      if opts[:include_code_submissions]
+        1.upto(code_submission_column_count) do |i|
+          out += "<th>Code Submission #{i}</th>"
+        end
+      end
+      if opts[:include_interviews]
+        1.upto(interview_column_count) do |i|
+          out += "<th>Interview #{i}</th>"
+        end
       end
     end
     if opts[:include_references]
@@ -55,20 +61,44 @@ module CandidatesHelper
         out += get_name candidate.candidate_source
         out += '</td>'
       end
-      if opts[:include_code_submissions]
-        0.upto(code_submission_column_count-1) do |i|
+      if opts[:include_events]
+        events = candidate.interviews + candidate.code_submissions
+        events.sort! { |a, b| (a.event_date.nil? ? Date.new(2020) : a.event_date) <=> (b.event_date.nil? ? Date.new(2020) : b.event_date) }
+
+        0.upto(code_submission_column_count + interview_column_count -1) do |i|
+          event = events[i]
+
           out += '<td>'
-          out += format_submission(candidate.code_submissions[i])
+
+          if event.is_a? CodeSubmission
+            out += format_submission(event)
+          elsif event.is_a? Interview
+            out += format_interview(event, :include_date => true)
+          elsif event.nil?
+            out += ''
+          else
+            out += 'Unknown Event'
+          end
+
           out += '</td>'
         end
-      end
-      if opts[:include_interviews]
-        0.upto(interview_column_count-1) do |i|
-          out += '<td>'
-          out += format_interview(candidate.interviews[i], :include_date => true)
-          out += '</td>'
+      else
+        if opts[:include_code_submissions]
+          0.upto(code_submission_column_count-1) do |i|
+            out += '<td>'
+            out += format_submission(candidate.code_submissions[i])
+            out += '</td>'
+          end
+        end
+        if opts[:include_interviews]
+          0.upto(interview_column_count-1) do |i|
+            out += '<td>'
+            out += format_interview(candidate.interviews[i], :include_date => true)
+            out += '</td>'
+          end
         end
       end
+
       if opts[:include_references]
         out += '<td>'
         out += approved_span(candidate.reference_checks, :text => candidate.reference_checks.length)

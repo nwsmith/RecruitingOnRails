@@ -1,7 +1,5 @@
 <h1>Dashboard</h1>
 
-
-
 <%= link_to "New Candidate", new_candidate_path %>
 
 <%= form_tag('/candidates/search') do -%>
@@ -15,7 +13,7 @@
       Note: Headcount target is <%= @headcount_target %>, so we are looking for <%= @headcount_left %> developers.
   <% end %>
 
-  <%= candidates_table @candidates_by_status, {:include_source => true, :include_code_submissions => true, :include_interviews => true, :include_references => true} %>
+  <%= candidates_table @candidates_by_status, {:include_source => true, :include_events => true, :include_references => true} %>
 
 <hr>
 

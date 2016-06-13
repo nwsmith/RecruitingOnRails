@@ -10,4 +10,8 @@ class CodeSubmission < ActiveRecord::Base
   def reviews
     code_submission_reviews
   end
+
+  def event_date
+    submission_date.nil? ? sent_date : submission_date
+  end
 end
