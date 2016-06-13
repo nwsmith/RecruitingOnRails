@@ -13,7 +13,7 @@
 
 <% @interview_reviews.each do |interview_review| %>
   <tr>
-    <td><%= interview_review.interview.name %></td>
+    <td><%= interview_review.interview.long_name %></td>
     <td><%= interview_review.user.name %></td>
     <td><%= approved_span(interview_review.review_result) %></td>
     <td><%= interview_review.notes %></td>

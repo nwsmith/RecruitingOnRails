@@ -65,7 +65,7 @@ module CandidatesHelper
       if opts[:include_interviews]
         0.upto(interview_column_count-1) do |i|
           out += '<td>'
-          out += candidate.interviews[i].nil? ? '&nbsp;' : (link_to approved_span(candidate.interviews[i]), interview_path(candidate.interviews[i]))
+          out += format_interview(candidate.interviews[i], :include_date => true)
           out += '</td>'
         end
       end

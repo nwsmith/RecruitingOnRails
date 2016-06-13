@@ -3,8 +3,12 @@ class Interview < ActiveRecord::Base
   belongs_to :candidate
   has_many :interview_reviews
 
-  def name
+  def long_name
     interview_type.name + '  w/ ' + candidate.name
+  end
+
+  def name
+    interview_type.name
   end
 
   def reviews

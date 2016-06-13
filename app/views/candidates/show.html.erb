@@ -141,7 +141,7 @@
 
 <h1>Interviews</h1>
 <% @candidate.interviews.each do |interview| %>
-    <%= link_to approved_span(interview), interview_path(interview) %><br>
+    <%= format_interview(interview, :include_date => true) %>
 <% end %>
 
 <br>
@@ -151,7 +151,7 @@
 
 <h1>Code Submissions</h1>
 <% @candidate.code_submissions.each do |code_submission| %>
-    <%= link_to(approved_span(code_submission, :text => code_submission.code_problem.nil? ? 'N/A' : code_submission.code_problem.name), code_submission_path(code_submission)) %>
+    <%= format_submission(code_submission) %>
     <br>
 <% end %>
 <br>
