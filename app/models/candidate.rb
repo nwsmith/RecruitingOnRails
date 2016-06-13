@@ -22,6 +22,10 @@ class Candidate < ActiveRecord::Base
     (!application_date.nil? || !first_contact_date.nil?) && (rejection_notification_date.nil? && start_date.nil?)
   end
 
+  def events
+    code_submissions + interviews
+  end
+
   def time_served
 
   end
