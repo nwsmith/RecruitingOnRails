@@ -141,7 +141,7 @@
 
 <h1>Interviews</h1>
 <% @candidate.interviews.each do |interview| %>
-    <%= format_interview(interview, :include_date => true) %>
+    <%= format_interview(interview, :include_date => true) %> <br/>
 <% end %>
 
 <br>
@@ -151,7 +151,7 @@
 
 <h1>Code Submissions</h1>
 <% @candidate.code_submissions.each do |code_submission| %>
-    <%= format_submission(code_submission) %>
+    <%= format_submission(code_submission) %> <br/>
     <br>
 <% end %>
 <br>
