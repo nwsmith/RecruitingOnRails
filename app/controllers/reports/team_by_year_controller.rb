@@ -12,7 +12,7 @@ class Reports::TeamByYearController < ApplicationController
 
     period_info.add_candidates(candidates)
 
-    @header = ["Year", "Hired", "Here", "Left", "Net","Cum", "VTO", "TO", "AVG", "Med"]
+    @header = ["Year", "Hired", "Here", "Left", "Net","Cum", "Sad TO", "Med TO", "Hap TO", "Vol. TO", "Tot. TO", "AVG", "Med"]
 
     @report = Array.new
 
@@ -28,6 +28,9 @@ class Reports::TeamByYearController < ApplicationController
       row << year_info.left_in_year.size
       row << period_info.net_gain(year)
       row << period_info.size(year)
+      row << period_info.sad_turnover(year).round(2)
+      row << period_info.med_turnover(year).round(2)
+      row << period_info.happy_turnover(year).round(2)
       row << period_info.voluntary_turnover(year).round(2)
       row << period_info.turnover(year).round(2)
       row << period_info.average_tenure(year).round(2)

@@ -67,6 +67,21 @@ module Reports
       left_in_year == 0 ? 0 : (left_in_year.to_f/size(year)) * 100
     end
 
+    def sad_turnover(year)
+      left_in_year = get(year).left_in_year.select{|c| c.sadness_factor == 4 || c.sadness_factor == 5}.size
+      left_in_year == 0 ? 0 : (left_in_year.to_f/size(year)) * 100
+    end
+
+    def med_turnover(year)
+      left_in_year = get(year).left_in_year.select{|c| c.sadness_factor == 3}.size
+      left_in_year == 0 ? 0 : (left_in_year.to_f/size(year)) * 100
+    end
+
+    def happy_turnover(year)
+      left_in_year = get(year).left_in_year.select{|c| c.sadness_factor == 2 || c.sadness_factor == 1}.size
+      left_in_year == 0 ? 0 : (left_in_year.to_f/size(year)) * 100
+    end
+
     def size(year)
       size = 0
       min_year.upto(year.to_i) do |curr_year|
