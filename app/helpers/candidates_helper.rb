@@ -65,7 +65,7 @@ module CandidatesHelper
         events = candidate.interviews + candidate.code_submissions
         events.sort! { |a, b| (a.event_date.nil? ? Date.new(2020) : a.event_date) <=> (b.event_date.nil? ? Date.new(2020) : b.event_date) }
 
-        0.upto(code_submission_column_count + interview_column_count -1) do |i|
+        0.upto(code_submission_column_count + interview_column_count) do |i|
           event = events[i]
 
           out += '<td>'
