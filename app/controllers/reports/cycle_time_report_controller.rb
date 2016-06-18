@@ -1,4 +1,5 @@
-class CycleTimeReportController < ApplicationController
+class Reports::CycleTimeReportController < ApplicationController
+
   def index
 
   end

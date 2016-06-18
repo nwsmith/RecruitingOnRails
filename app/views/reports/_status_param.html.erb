@@ -1,0 +1,2 @@
+Status(es)<br/>
+<%= select_tag 'status', options_from_collection_for_select(CandidateStatus.order('name'), 'code', 'name', 'HIRED'), {multiple: true} %>

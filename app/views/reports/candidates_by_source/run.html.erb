@@ -1,7 +1,3 @@
 <h1>Candidates By Source</h1>
 
-<pre>
-  <% @report.each do |row| %>
-      <%= row %>
-  <% end %>
-</pre>
+<%= render '/reports/display_report' %>

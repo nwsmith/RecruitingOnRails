@@ -22,6 +22,9 @@ class Reports::CandidatesBySourceController < ApplicationController
       by_source[source] += 1
     end
 
-    by_source.sort_by { |k, v| -v }.each { |a| @report << "#{a[0].ljust(20)}: (#{a[1]}) #{'*' * a[1]}" }
+    @header = ["Source", "Count", "Lame Graphic"]
+
+    by_source.sort_by{|k,v| -v}.each {|a| @report << [a[0], a[1],"#{'*' * a[1]}"]}
+
   end
 end
