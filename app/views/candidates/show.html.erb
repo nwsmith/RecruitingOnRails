@@ -16,24 +16,34 @@
 </p>
 
 <% if session[:manager] %>
-    <p>
-      <b>Gender:</b>
-      <%= get_name @candidate.gender %>
-    </p>
+    <div style="background:lightgrey;width:20%">
+      <h3>Manager Fields</h3>
+      <p>
+        <b>Gender:</b>
+        <%= get_name @candidate.gender %>
+      </p>
+      <p>
+        <b>Sadness Factor:</b>
+        <%= @candidate.sadness_factor %>
+      </p>
+    </div>
 <% end %>
 <% if session[:hr] %>
-    <p>
-      <b>Budgeting Type:</b>
-      <%= get_name @candidate.budgeting_type %>
-    </p>
-    <p>
-      <b>Replacement For:</b>
-      <%= @candidate.replacement_for %>
-    </p>
-    <p>
-      <b>Salary Range:</b>
-      <%= @candidate.salary_range %>
-    </p>
+    <div style="background:lightblue;width:20%">
+      <h3>HR Fields</h3>
+      <p>
+        <b>Budgeting Type:</b>
+        <%= get_name @candidate.budgeting_type %>
+      </p>
+      <p>
+        <b>Replacement For:</b>
+        <%= @candidate.replacement_for %>
+      </p>
+      <p>
+        <b>Salary Range:</b>
+        <%= @candidate.salary_range %>
+      </p>
+    </div>
 <% end %>
 
 

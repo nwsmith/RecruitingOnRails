@@ -27,27 +27,38 @@
       <%= f.text_field :last_name %>
     </div>
     <% if session[:manager] %>
-        <div class="field">
-          <%= f.label :gender %>
-          <br/>
-          <%= f.collection_select(:gender_id, Gender.order('name'), :id, :name, :include_blank => true) %>
+        <div style="background:lightgrey;width:20%">
+          <h3>Manager Fields</h3>
+          <div class="field">
+            <%= f.label :gender %>
+            <br/>
+            <%= f.collection_select(:gender_id, Gender.order('name'), :id, :name, :include_blank => true) %>
+          </div>
+          <div class="field">
+            <%= f.label :sadness_factor %>
+            <br/>
+            <%= f.select(:sadness_factor, ((1..5).map { |i| [i, i] }), :include_blank => true) %>
+          </div>
         </div>
     <% end %>
     <% if session[:hr] %>
-        <div class="field">
-          <%= f.label :budgeting_type %>
-          <br/>
-          <%= f.collection_select(:budgeting_type_id, BudgetingType.order('name'), :id, :name, :include_blank => true) %>
-        </div>
-        <div class="field">
-          <%= f.label :replacement_for %>
-          <br/>
-          <%= f.text_field :replacement_for %>
-        </div>
-        <div class="field">
-          <%= f.label :salary_range %>
-          <br/>
-          <%= f.text_field :salary_range %>
+        <div style="background:lightblue;width:20%">
+          <h3>HR Fields</h3>
+          <div class="field">
+            <%= f.label :budgeting_type %>
+            <br/>
+            <%= f.collection_select(:budgeting_type_id, BudgetingType.order('name'), :id, :name, :include_blank => true) %>
+          </div>
+          <div class="field">
+            <%= f.label :replacement_for %>
+            <br/>
+            <%= f.text_field :replacement_for %>
+          </div>
+          <div class="field">
+            <%= f.label :salary_range %>
+            <br/>
+            <%= f.text_field :salary_range %>
+          </div>
         </div>
     <% end %>
     <div class="field">
