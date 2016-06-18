@@ -20,7 +20,7 @@ module CandidatesHelper
       out += '<th>Source</th>'
     end
     if opts[:include_events]
-      1.upto(code_submission_column_count + interview_column_count) do |i|
+      1.upto(code_submission_column_count + interview_column_count - 1) do |i|
         out += "<th>Event #{i}</th>"
       end
     else
