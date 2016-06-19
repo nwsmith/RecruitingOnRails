@@ -107,6 +107,8 @@ module CandidatesHelper
       if opts[:include_time_served]
         out += "<td>#{time_since_hire(candidate)}</td>"
       end
+      out += "<td>#{candidate.start_date}</td>"
+      out += "<td>#{candidate.end_date}</td>"
       out += '</tr>'
     end
     out += '</table>'
