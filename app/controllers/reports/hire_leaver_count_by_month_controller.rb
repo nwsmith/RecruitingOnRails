@@ -10,6 +10,12 @@ class Reports::HireLeaverCountByMonthController < ApplicationController
     @table1.header = ['Month', 'Count', 'Lame Graphic']
 
     period_info = Reports::PeriodInfo.new
+
+    period_info.add_candidates(Candidate.by_status_code('HIRED'))
+    period_info.add_candidates(Candidate.by_status_code('FIRED'))
+    preiod_info.add_candidates(Candidate.by_status_code('QUIT'))
+
+
     Candidate.all.each { |c| period_info.add_candidate(c) unless c.start_date.nil? }
 
     hires_by_month = {}
@@ -25,7 +31,7 @@ class Reports::HireLeaverCountByMonthController < ApplicationController
     end
 
     leavers_by_month.keys.sort.each do |m|
-      @table1.rows << [Date.new(2016, m).strftime('%b'), leavers_by_month[m], "#{'*' * hires_by_month[m]}"]
+      @table1.rows << [Date.new(2016, m).strftime('%b'), leavers_by_month[m], "#{'*' * leavers_by_month[m]}"]
     end
   end
 end
