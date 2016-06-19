@@ -13,7 +13,7 @@ class Reports::HireLeaverCountByMonthController < ApplicationController
 
     period_info.add_candidates(Candidate.by_status_code('HIRED'))
     period_info.add_candidates(Candidate.by_status_code('FIRED'))
-    preiod_info.add_candidates(Candidate.by_status_code('QUIT'))
+    period_info.add_candidates(Candidate.by_status_code('QUIT'))
 
 
     Candidate.all.each { |c| period_info.add_candidate(c) unless c.start_date.nil? }
