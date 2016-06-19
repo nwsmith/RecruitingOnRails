@@ -41,6 +41,10 @@ module CandidatesHelper
     if opts[:include_time_served]
       out += '<th>Service Period</th>'
     end
+    if opts[:include_dates]
+      out += '<th>Start Date</th>'
+      out += '<th>End Date</th>'
+    end
     out += '</tr>'
 
     candidates.each do |candidate|
@@ -107,8 +111,10 @@ module CandidatesHelper
       if opts[:include_time_served]
         out += "<td>#{time_since_hire(candidate)}</td>"
       end
-      out += "<td>#{candidate.start_date}</td>"
-      out += "<td>#{candidate.end_date}</td>"
+      if opts[:include_dates]
+        out += "<td>#{candidate.start_date}</td>"
+        out += "<td>#{candidate.end_date}</td>"
+      end
       out += '</tr>'
     end
     out += '</table>'
