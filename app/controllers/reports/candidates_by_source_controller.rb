@@ -3,7 +3,8 @@ class Reports::CandidatesBySourceController < ApplicationController
   end
 
   def run
-    @report = Array.new
+    @table = Reports::ReportTable.new('Candidates By Source')
+    @table.header = ['Source', 'Count', 'Lame Graphic']
 
     status_list = get_list_from_params(params, :status)
     status_list << 'HIRED' if status_list.empty?
@@ -22,9 +23,7 @@ class Reports::CandidatesBySourceController < ApplicationController
       by_source[source] += 1
     end
 
-    @header = ["Source", "Count", "Lame Graphic"]
-
-    by_source.sort_by{|k,v| -v}.each {|a| @report << [a[0], a[1],"#{'*' * a[1]}"]}
+    by_source.sort_by{|k,v| -v}.each {|a| @table.rows << [a[0], a[1],"#{'*' * a[1]}"]}
 
   end
 end

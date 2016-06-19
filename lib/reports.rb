@@ -145,4 +145,13 @@ module Reports
     end
   end
 
+  class ReportTable
+    attr_accessor :title, :header, :rows
+
+    def initialize(title)
+      @title = title
+      @header = @rows = []
+    end
+  end
+
 end

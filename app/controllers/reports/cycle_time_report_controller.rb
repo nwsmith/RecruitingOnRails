@@ -5,7 +5,7 @@ class Reports::CycleTimeReportController < ApplicationController
   end
 
   def run
-    @report = Array.new
+    @table = Reports::ReportTable.new('Cycle Time Report')
 
     status_list = get_list_from_params(params, :status)
     status_list << 'HIRED' if status_list.empty?
@@ -24,9 +24,9 @@ class Reports::CycleTimeReportController < ApplicationController
       end
     end
 
-    @header = ['Name', 'Application', 'First Contact', 'Days to Contact']
-    1.upto(events_width) {|x| @header << "Event #{x}" << "Days to #{x}"}
-    @header << 'Offer' << 'Accept' << 'Cycle Time'
+    @table.header = ['Name', 'Application', 'First Contact', 'Days to Contact']
+    1.upto(events_width) {|x| @table.header << "Event #{x}" << "Days to #{x}"}
+    @table.header << 'Offer' << 'Accept' << 'Cycle Time'
 
     candidates.each do |c|
       if !c.candidate_source.nil? && (c.candidate_source.code == 'LEGACY' || c.candidate_source.code == 'ACQUISITION')
@@ -56,7 +56,7 @@ class Reports::CycleTimeReportController < ApplicationController
       row << ((offer_date.nil? || base_date.nil?) ? 'N/A' : (offer_date - base_date).to_i)
 
 
-      @report << row
+      @table.rows << row
     end
   end
 end

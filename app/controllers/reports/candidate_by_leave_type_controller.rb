@@ -3,7 +3,9 @@ class Reports::CandidateByLeaveTypeController < ApplicationController
   end
 
   def run
-    @report = Array.new
+    @table = Reports::ReportTable.new('Leavers By Reason')
+    @table.header = ['Reason', 'Count', 'Lame Graphic']
+
     candidates = Candidate.all
 
     by_reason = Hash.new
@@ -15,7 +17,6 @@ class Reports::CandidateByLeaveTypeController < ApplicationController
       by_reason[reason] += 1
     end
 
-    @header = ['Reason', 'Count', 'Lame Graphic']
-    by_reason.sort_by {|k,v| -v}.each {|a| @report << [a[0], a[1], "#{'*' * a[1]}"]}
+    by_reason.sort_by {|k,v| -v}.each {|a| @table.rows << [a[0], a[1], "#{'*' * a[1]}"]}
   end
 end

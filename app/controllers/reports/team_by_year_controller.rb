@@ -9,12 +9,11 @@ class Reports::TeamByYearController < ApplicationController
     candidates.flatten!
 
     period_info = Reports::PeriodInfo.new
-
     period_info.add_candidates(candidates)
 
-    @header = ["Year", "Hired", "Here", "Left", "Net","Cum", "Sad TO", "Med TO", "Hap TO", "Vol. TO", "Tot. TO", "AVG", "Med"]
+    @table = Reports::ReportTable.new("Team By Year")
 
-    @report = Array.new
+    @table.header = ["Year", "Hired", "Here", "Left", "Net","Cum", "Sad TO", "Med TO", "Hap TO", "Vol. TO", "Tot. TO", "AVG", "Med"]
 
     period_info.year_info_map.values.sort{|a,b| a.year <=> b.year}.each do |year_info|
 
@@ -36,7 +35,7 @@ class Reports::TeamByYearController < ApplicationController
       row << period_info.average_tenure(year).round(2)
       row << period_info.median_tenure(year).round(2)
 
-      @report << row
+      @table.rows << row
     end
 
   end
