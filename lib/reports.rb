@@ -36,13 +36,13 @@ module Reports
       return if start_year.nil?
 
       start_year_info = get(start_year)
-      start_year_info.started_in_year << candidate unless start_year_info.started_in_year.contains? candidate
+      start_year_info.started_in_year << candidate unless start_year_info.started_in_year.include? candidate
 
       if end_year.nil?
-        start_year_info.still_here << candidate unless start_year_info.still_here.contains? candidate
+        start_year_info.still_here << candidate unless start_year_info.still_here.include? candidate
       else
         end_year_info = get(end_year)
-        end_year_info.left_in_year << candidate unless end_year_info.still_here.contains? candidate
+        end_year_info.left_in_year << candidate unless end_year_info.still_here.include? candidate
       end
 
     end
