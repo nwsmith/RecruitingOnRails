@@ -1,4 +1,8 @@
 RecruitingOnRails::Application.routes.draw do
+  get "reports/hire_leaver_count_by_month/index"
+
+  get "reports/hire_leaver_count_by_month/run"
+
   get "reports/hires_by_year/index"
 
   get "reports/hires_by_year/run"
