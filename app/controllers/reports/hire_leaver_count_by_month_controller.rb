@@ -15,9 +15,6 @@ class Reports::HireLeaverCountByMonthController < ApplicationController
     period_info.add_candidates(Candidate.by_status_code('FIRED'))
     period_info.add_candidates(Candidate.by_status_code('QUIT'))
 
-
-    Candidate.all.each { |c| period_info.add_candidate(c) unless c.start_date.nil? }
-
     hires_by_month = {}
     leavers_by_month = {}
 
