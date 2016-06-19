@@ -1,6 +1,6 @@
 module ApplicationHelper
   def display_text(text)
-    text.gsub("\n", '<br>')
+    text.nil? ? '' : text.gsub("\n", '<br>')
   end
 
   def get_name(code)
