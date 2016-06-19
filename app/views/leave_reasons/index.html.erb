@@ -1,0 +1,27 @@
+<h1>Listing leave_reasons</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @leave_reasons.each do |leave_reason| %>
+  <tr>
+    <td><%= leave_reason.code %></td>
+    <td><%= leave_reason.name %></td>
+    <td><%= leave_reason.description %></td>
+    <td><%= link_to 'Show', leave_reason %></td>
+    <td><%= link_to 'Edit', edit_leave_reason_path(leave_reason) %></td>
+    <td><%= link_to 'Destroy', leave_reason, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Leave reason', new_leave_reason_path %>

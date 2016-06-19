@@ -39,6 +39,11 @@
             <br/>
             <%= f.select(:sadness_factor, ((1..5).map { |i| [i, i] }), :include_blank => true) %>
           </div>
+          <div class="field">
+            <%= f.label :leave_reason %>
+            <br/>
+            <%= f.collection_select(:leave_reason_id, LeaveReason.order('name'), :id, :name, :include_blank => true) %>
+          </div>
         </div>
     <% end %>
     <% if session[:hr] %>

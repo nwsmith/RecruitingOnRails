@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160618222225) do
+ActiveRecord::Schema.define(:version => 20160618232432) do
 
   create_table "auth_config_types", :force => true do |t|
     t.string "code"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20160618222225) do
     t.date     "rejection_call_request_date"
     t.string   "salary_range"
     t.integer  "sadness_factor"
+    t.integer  "leave_reason_id"
   end
 
   add_index "candidates", ["budgeting_type_id"], :name => "fk_budgeting_type"
@@ -90,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20160618222225) do
   add_index "candidates", ["education_level_id"], :name => "fk_candidate_edu_lvl"
   add_index "candidates", ["experience_level_id"], :name => "fk_candidate_exp_lvls"
   add_index "candidates", ["gender_id"], :name => "fk_genders"
+  add_index "candidates", ["leave_reason_id"], :name => "fk_leave_reason"
   add_index "candidates", ["office_location_id"], :name => "fk_candidate_off_loc"
   add_index "candidates", ["position_id"], :name => "fk_candidate_position"
   add_index "candidates", ["school_id"], :name => "fk_candidate_school"
@@ -187,6 +189,12 @@ ActiveRecord::Schema.define(:version => 20160618222225) do
 
   add_index "interviews", ["candidate_id"], :name => "fk_interview_candidate"
   add_index "interviews", ["interview_type_id"], :name => "fk_interview_type"
+
+  create_table "leave_reasons", :force => true do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+  end
 
   create_table "office_locations", :force => true do |t|
     t.string "code"

@@ -1,4 +1,7 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :leave_reasons
+
+
   get "reports/team_by_year/index"
 
   get "reports/team_by_year/run"

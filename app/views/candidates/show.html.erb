@@ -26,6 +26,10 @@
         <b>Sadness Factor:</b>
         <%= @candidate.sadness_factor %>
       </p>
+      <p>
+        <b>Reason for Leaving:</b>
+        <%= get_name @candidate.leave_reason %>
+      </p>
     </div>
 <% end %>
 <% if session[:hr] %>

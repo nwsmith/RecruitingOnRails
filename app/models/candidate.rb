@@ -8,6 +8,7 @@ class Candidate < ActiveRecord::Base
   belongs_to :education_level
   belongs_to :school
   belongs_to :budgeting_type
+  belongs_to :leave_reason
 
   has_many :work_history_rows
   has_many :interviews
