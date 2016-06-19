@@ -12,6 +12,8 @@ class Reports::HireLeaverCountByMonthController < ApplicationController
     period_info = Reports::PeriodInfo.new
     Candidate.all.each { |c| period_info.add_candidate(c) unless c.start_date.nil? }
 
+    @table.title = period_info.inspect
+
     hires_by_month = {}
     leavers_by_month = {}
 
