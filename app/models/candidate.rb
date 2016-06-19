@@ -36,4 +36,9 @@ class Candidate < ActiveRecord::Base
     id = status.nil? ? -1 : status.id
     Candidate.all(:conditions => {:candidate_status_id => id})
   end
+
+  def tenure_in_years
+    e = end_date.nil? ? Date.today : end_date
+    ((e - start_date).numerator/365.0).round(2)
+  end
 end
