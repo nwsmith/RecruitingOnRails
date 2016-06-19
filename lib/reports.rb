@@ -114,13 +114,13 @@ module Reports
     def left_list
       left_list = Array.new
       @year_info_map.each_value {|y| left_list << y.left_in_year}
-      left_list.flatten
+      left_list.flatten!
     end
 
     def hired_list_ignore_left
       hired_list = Array.new
       @year_info_map.each_value {|y| hired_list << y.started_in_year}
-      hired_list.flatten
+      hired_list.flatten!
     end
 
     def tenure_map(year)
