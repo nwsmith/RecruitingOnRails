@@ -21,7 +21,7 @@ module CandidatesHelper
     end
     if opts[:include_events]
       0.upto(code_submission_column_count + interview_column_count - 1) do |i|
-        out += "<th>Event #{i}</th>"
+        out += "<th>Event #{i+1}</th>"
       end
     else
       if opts[:include_code_submissions]
