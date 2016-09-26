@@ -29,9 +29,9 @@ class CandidatesController < ApplicationController
     candidates = Array.new
 
     folks = Array.new
-    status_list.each {|s| folks << Candidate.by_status_code(s)}
+    status_list.each { |s| folks << Candidate.by_status_code(s) }
     folks.flatten!
-    folks.sort {|a,b| b.start_date <=> a.start_date || b.end_date <=> a.end_date }
+    folks.sort { |a, b| b.start_date <=> a.start_date || b.end_date <=> a.end_date }
 
     folks.each do |candidate|
       next if candidate.start_date.nil? || candidate.start_date > Date.today
@@ -48,7 +48,7 @@ class CandidatesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json {render json: events}
+      format.json { render json: events }
     end
 
   end
@@ -70,12 +70,12 @@ class CandidatesController < ApplicationController
     status_list = params[:status].nil? ? Array.new : (params[:status].split ',')
     @candidates = Array.new
 
-    status_list.each {|s| @candidates << Candidate.by_status_code(s)}
+    status_list.each { |s| @candidates << Candidate.by_status_code(s) }
     @candidates.flatten!
 
     respond_to do |format|
       format.html
-      format.json {render json: @candidates, :include => {:candidate_status => {:only => :code}, :candidate_source => {:only => :code}}}
+      format.json { render json: @candidates, :include => {:candidate_status => {:only => :code}, :candidate_source => {:only => :code}} }
     end
   end
 
@@ -84,16 +84,23 @@ class CandidatesController < ApplicationController
   def show
     @candidate = Candidate.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @candidate }
+    username = session[:username]
+    candidate_username = @candidate.username
+
+    if username.eql?(candidate_username) && !session[:admin]
+      redirect_to(:controller => 'dashboard', :action => 'index')
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @candidate }
+      end
     end
   end
 
   # GET /candidates/new
   # GET /candidates/new.json
   def new
-   @candidate = Candidate.new
+    @candidate = Candidate.new
 
     respond_to do |format|
       format.html # new.html.erb

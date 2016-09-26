@@ -19,6 +19,10 @@ class Candidate < ActiveRecord::Base
     first_name + ' ' + last_name
   end
 
+  def username
+    first_name.strip.downcase + '.' + last_name.strip.downcase
+  end
+
   def in_pipeline?
     (!application_date.nil? || !first_contact_date.nil?) && (rejection_notification_date.nil? && start_date.nil?)
   end
