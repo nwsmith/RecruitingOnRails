@@ -50,6 +50,11 @@
         <div style="background:lightblue;width:20%">
           <h3>HR Fields</h3>
           <div class="field">
+            <%= f.label :associated_budget %>
+            <br/>
+            <%= f.collection_select(:associated_budget_id, AssociatedBudget.order('name'), :id, :name, :include_blank => true) %>
+          </div>
+          <div class="field">
             <%= f.label :budgeting_type %>
             <br/>
             <%= f.collection_select(:budgeting_type_id, BudgetingType.order('name'), :id, :name, :include_blank => true) %>

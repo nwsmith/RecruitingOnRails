@@ -9,6 +9,7 @@ class Candidate < ActiveRecord::Base
   belongs_to :school
   belongs_to :budgeting_type
   belongs_to :leave_reason
+  belongs_to :associated_budget
 
   has_many :work_history_rows
   has_many :interviews

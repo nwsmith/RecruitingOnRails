@@ -1,4 +1,7 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :associated_budgets
+
+
   get "reports/hire_leaver_count_by_month/index"
 
   get "reports/hire_leaver_count_by_month/run"

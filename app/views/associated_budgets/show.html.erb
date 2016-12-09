@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @associated_budget.code %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @associated_budget.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @associated_budget.description %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @associated_budget.active %>
+</p>
+
+
+<%= link_to 'Edit', edit_associated_budget_path(@associated_budget) %> |
+<%= link_to 'Back', associated_budgets_path %>

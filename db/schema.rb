@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160618232432) do
+ActiveRecord::Schema.define(:version => 20161209163907) do
+
+  create_table "associated_budgets", :force => true do |t|
+    t.string  "code"
+    t.string  "name"
+    t.string  "description"
+    t.boolean "active"
+  end
 
   create_table "auth_config_types", :force => true do |t|
     t.string "code"
@@ -83,8 +90,10 @@ ActiveRecord::Schema.define(:version => 20160618232432) do
     t.string   "salary_range"
     t.integer  "sadness_factor"
     t.integer  "leave_reason_id"
+    t.integer  "associated_budget_id"
   end
 
+  add_index "candidates", ["associated_budget_id"], :name => "fk_associated_budget"
   add_index "candidates", ["budgeting_type_id"], :name => "fk_budgeting_type"
   add_index "candidates", ["candidate_source_id"], :name => "fk_candidate_source"
   add_index "candidates", ["candidate_status_id"], :name => "fk_candidate_status"
