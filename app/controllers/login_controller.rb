@@ -2,6 +2,7 @@ class LoginController < ApplicationController
   skip_before_filter(:check_login)
 
   def index
+    reset_session
   end
 
   def attempt_login
@@ -17,10 +18,7 @@ class LoginController < ApplicationController
     end
 
     session[:username] = user.auth_name
-
-    session[:admin] = user.admin?
-    session[:manager] = session[:admin] || user.manager?
-    session[:hr] = session[:manager] ||user.hr?
+    session[:expires_at] = Time.current + 2.hours
 
     redirect_to :controller => :dashboard
   end
