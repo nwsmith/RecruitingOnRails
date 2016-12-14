@@ -19,6 +19,9 @@ module CandidatesHelper
     if opts[:include_source]
       out += '<th>Source</th>'
     end
+    if opts[:include_position]
+      out += '<th>Position</th>'
+    end
     if opts[:include_events]
       0.upto(code_submission_column_count + interview_column_count - 1) do |i|
         out += "<th>Event #{i+1}</th>"
@@ -63,6 +66,11 @@ module CandidatesHelper
       if opts[:include_source]
         out += '<td>'
         out += get_name candidate.candidate_source
+        out += '</td>'
+      end
+      if opts[:include_position]
+        out += '<td>'
+        out += get_name candidate.position
         out += '</td>'
       end
       if opts[:include_events]

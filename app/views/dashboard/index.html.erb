@@ -1,19 +1,19 @@
 <h1>Dashboard</h1>
 
-<%= link_to "New Candidate", new_candidate_path %>
+<%= link_to 'New Candidate', new_candidate_path %>
 
 <%= form_tag('/candidates/search') do -%>
-    <%= label_tag(:q, "Search by name:") %>
+    <%= label_tag(:q, 'Search by name:') %>
     <%= text_field_tag(:q) %>
-    <%= submit_tag("Search") %>
+    <%= submit_tag('Search') %>
 <% end -%>
 
 <p>
-  <% unless @headcount_target.nil? %>
-      Note: Headcount target is <%= @headcount_target %>, so we are looking for <%= @headcount_left %> developers.
+  <% unless @dashboard_data[:headcount_target].nil? %>
+      Note: Headcount target is <%= @dashboard_data[:headcount_target] %>, so we are looking for <%= @dashboard_data[:headcount_left] %> developers.
   <% end %>
 
-  <%= candidates_table @candidates_by_status, {:include_source => true, :include_events => true, :include_references => true} %>
+  <%= candidates_table @dashboard_data[:candidates_by_status], {:include_source => true, :include_position => true, :include_events => true, :include_references => true} %>
 
 <hr>
 
