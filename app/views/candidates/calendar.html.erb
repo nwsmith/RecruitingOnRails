@@ -1,9 +1,9 @@
 <%= month_calendar events: @candidates do |day, candidates| %>
     <%= day.day %>
     <br/>
-    <% candidates.each do |f| %>
-        <% if day >= f.start_date %>
-            <%= f.name %> (<%= f.start_date.year %>)
+    <% candidates.each do |candidate| %>
+        <% if day >= candidate.start_date %>
+            <%= candidate.name %> (<%= candidate.start_date.year %>) <br/>
         <% end %>
     <% end %>
 <% end %>

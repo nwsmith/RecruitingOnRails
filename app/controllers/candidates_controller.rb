@@ -12,17 +12,11 @@ class CandidatesController < ApplicationController
   end
 
   def calendar
-    p = params[:start_date]
-
-
+    p = params[:start_date] || Date.new.to_s
     d = Date.parse(p)
 
-    puts "NO, FUCK YOU #{d.year}"
-
-    puts "FUCK YOU #{p}"
-
     @candidates = Candidate.all
-    @candidates.select!{|c| !c.start_date.nil?}
+    @candidates.select!{|c| !c.start_date.nil? && c.candidate_status.code != 'QUIT' && c.candidate_status.code != 'FIRED'}
     @candidates.each {|c| c.start_time = Date.new(d.year, c.start_date.month, c.start_date.day)}
   end
 
@@ -138,7 +132,7 @@ class CandidatesController < ApplicationController
         format.html { redirect_to @candidate, notice: 'Candidate was successfully created.' }
         format.json { render json: @candidate, status: :created, location: @candidate }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @candidate.errors, status: :unprocessable_entity }
       end
     end
@@ -154,7 +148,7 @@ class CandidatesController < ApplicationController
         format.html { redirect_to @candidate, notice: 'Candidate was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { render json: @candidate.errors, status: :unprocessable_entity }
       end
     end
