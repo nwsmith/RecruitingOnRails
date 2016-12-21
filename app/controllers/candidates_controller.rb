@@ -11,6 +11,21 @@ class CandidatesController < ApplicationController
     end
   end
 
+  def calendar
+    p = params[:start_date]
+
+
+    d = Date.parse(p)
+
+    puts "NO, FUCK YOU #{d.year}"
+
+    puts "FUCK YOU #{p}"
+
+    @candidates = Candidate.all
+    @candidates.select!{|c| !c.start_date.nil?}
+    @candidates.each {|c| c.start_time = Date.new(d.year, c.start_date.month, c.start_date.day)}
+  end
+
   def timeline
     @candidates = Array.new
     @candidates.flatten!

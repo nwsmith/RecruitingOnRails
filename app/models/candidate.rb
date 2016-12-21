@@ -16,6 +16,14 @@ class Candidate < ActiveRecord::Base
   has_many :code_submissions
   has_many :reference_checks
 
+  def start_time=(start_time)
+    @start_time = start_time
+  end
+
+  def start_time
+      @start_time.nil? ? start_date : @start_time
+  end
+
   def name
     first_name + ' ' + last_name
   end
