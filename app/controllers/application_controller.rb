@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   def check_login
     if session[:expires_at].nil? || session[:expires_at].to_time < Time.current
       redirect_to(:controller => 'login', :action => 'index')
+      return
     end
 
     user = get_user
