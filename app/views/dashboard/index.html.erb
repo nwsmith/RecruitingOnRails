@@ -9,8 +9,10 @@
 <% end -%>
 
 <p>
-  <% unless @dashboard_data[:headcount_target].nil? %>
-      Note: Headcount target is <%= @dashboard_data[:headcount_target] %>, so we are looking for <%= @dashboard_data[:headcount_left] %> developers.
+  <% unless @dashboard_data[:headcount_targets].nil? %>
+      <% @dashboard_data[:headcount_targets].each_pair do |k, v| %>
+          <%= v[:name] %> target is <%= v[:target] %>, so we are looking for <%= v[:needed] %><br/>
+      <% end %>
   <% end %>
 
   <%= candidates_table @dashboard_data[:candidates_by_status], {:include_source => true, :include_position => true, :include_events => true, :include_references => true} %>
