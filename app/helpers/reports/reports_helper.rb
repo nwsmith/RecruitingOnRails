@@ -1,4 +1,10 @@
 module Reports::ReportsHelper
+  def render_report_tables(report_tables)
+    out = ''
+    report_tables.each {|report_table| out += "#{render_report_table(report_table)}<br/>"}
+    out.html_safe
+  end
+
   def render_report_table(report_table)
     out = ''
     out += "<h1>#{report_table.title}</h1>\n"

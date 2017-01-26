@@ -50,6 +50,12 @@ class Candidate < ActiveRecord::Base
     Candidate.all(:conditions => {:candidate_status_id => id})
   end
 
+  def Candidate.by_associated_budget_code(budget_code)
+    associated_budget = AssociatedBudget.first(:conditions => {:code => budget_code})
+    id = associated_budget.nil? ? -1 : associated_budget.id
+    Candidate.all(:conditions => {:associated_budget_id => id})
+  end
+
   def tenure_in_years
     e = end_date.nil? ? Date.today : end_date
     ((e - start_date).numerator/365.0).round(2)
