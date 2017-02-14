@@ -15,7 +15,7 @@
       <% end %>
   <% end %>
 
-  <%= candidates_table @dashboard_data[:candidates_by_status], {:include_source => true, :include_position => true, :include_events => true, :include_references => true} %>
+  <%= candidates_table @dashboard_data[:candidates_by_status], {:include_source => true, :include_position => true, :include_events => true, :include_references => true, :include_status => true} %>
 
 <hr>
 
