@@ -1,3 +1,5 @@
+require 'redcarpet'
+
 module ApplicationHelper
   def display_text(text)
     text.nil? ? '' : text.gsub("\n", '<br>')
@@ -88,5 +90,26 @@ module ApplicationHelper
     style += "font-weight: bold;" if bold
     style += "'"
     "<span #{style}>#{text}</span>".html_safe
+  end
+
+  def markdown(text)
+    options = {
+        filter_html: true,
+        hard_wrap: true,
+        link_attributes: { rel: 'nofollow', target: '_blank' },
+        space_after_headers: true,
+        fenced_code_blocks: true
+    }
+
+    extensions = {
+        autolink: true,
+        superscript: true,
+        disable_indented_code_blocks: true
+    }
+
+    renderer = Redcarpet::Render::HTML.new(options)
+    markdown = Redcarpet::Markdown.new(renderer, extensions)
+
+    markdown.render(text).html_safe
   end
 end

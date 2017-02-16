@@ -37,5 +37,8 @@ gem 'capistrano', '~> 2.15.5'
 
 gem 'simple_calendar', '~> 2.0'
 
+# For Markdown parsing/rendering
+gem 'redcarpet', '~> 3.0.0'
+
 # To use debugger
 #gem 'ruby-debug19', :require => 'ruby-debug'

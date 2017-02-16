@@ -7,14 +7,14 @@
 
 <p>
   <b>Notes:</b>
-  <%= raw display_text(@interview.notes) %>
+  <%= markdown(@interview.notes) %>
 </p>
 
 <h1>Reviewers:</h1>
 <% @interview.interview_reviews.each do |interview_review| %>
     <%= interview_review.user.nil? ? 'Nil' : approved_span(interview_review, :text => interview_review.user.name, :link => true) %>
     <br>
-    <%= interview_review.notes.nil? ? '' : (raw display_text(interview_review.notes)) %>
+    <%= interview_review.notes.nil? ? '' : (markdown(interview_review.notes)) %>
     <br><br>
 <% end %>
 <br>
