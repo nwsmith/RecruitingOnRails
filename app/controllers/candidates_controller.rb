@@ -50,7 +50,7 @@ class CandidatesController < ApplicationController
       json['start'] = candidate.start_date.to_s
       json['end'] = candidate.end_date.nil? ? Date.today.to_s : candidate.end_date.to_s
       #json['isDuration'] = true
-      json['title'] = candidate.name unless hide_names
+      json['title'] = candidate.name + "#{hide_names}" unless hide_names
       candidates << json
     end
 
