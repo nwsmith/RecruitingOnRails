@@ -35,7 +35,7 @@ class CandidatesController < ApplicationController
     status_list = params[:status].nil? ? Array.new : (params[:status].split ',')
     status_list << 'HIRED' if status_list.empty?
 
-    hide_names = params[:hide_names]
+    hide_names = !params[:hide_names].nil?
 
     candidates = Array.new
 
