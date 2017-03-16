@@ -35,8 +35,6 @@ class CandidatesController < ApplicationController
     status_list = params[:status].nil? ? Array.new : (params[:status].split ',')
     status_list << 'HIRED' if status_list.empty?
 
-    hide_names = !params[:hide_names].nil?
-
     candidates = Array.new
 
     folks = Array.new
@@ -50,7 +48,7 @@ class CandidatesController < ApplicationController
       json['start'] = candidate.start_date.to_s
       json['end'] = candidate.end_date.nil? ? Date.today.to_s : candidate.end_date.to_s
       #json['isDuration'] = true
-      json['title'] = candidate.name + "#{hide_names}" unless hide_names
+      json['title'] = candidate.name
       candidates << json
     end
 
