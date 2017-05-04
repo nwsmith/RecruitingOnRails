@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def check_login
-    if !params[:api_key] && session[:expires_at].nil? || session[:expires_at].to_time < Time.current
+    if !params[:api_key] && (session[:expires_at].nil? || session[:expires_at].to_time < Time.current)
       redirect_to(:controller => 'login', :action => 'index')
       return
     end
