@@ -57,6 +57,7 @@ class Candidate < ActiveRecord::Base
   end
 
   def tenure_in_years
+    return nil unless start_date
     e = end_date.nil? ? Date.today : end_date
     ((e - start_date).numerator/365.0).round(2)
   end
