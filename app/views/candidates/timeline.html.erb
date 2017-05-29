@@ -18,9 +18,9 @@
         ];
         tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
 
-        Timeline.loadJSON("<%= events_candidates_path %>.json?status=<%=@status_list%>", function (json, url) {
+        Timeline.loadJSON("<%= events_candidates_path %>.json?status=<%=@status_list.join ','%>", function (json, url) {
             eventSource.loadJSON(json, url)
         });
     });
 </script>
-<div id="my-timeline" style="height: <%=@candidates.size * 25%>>px; border: 1px solid #aaa"></div>
+<div id="my-timeline" style="height: <%=@candidates.size * 25%>px; border: 1px solid #aaa"></div>
