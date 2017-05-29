@@ -21,10 +21,12 @@ class CandidatesController < ApplicationController
   end
 
   def timeline
-    @candidates = Array.new
-    @candidates.flatten!
     @status_list = params[:status].nil? ? 'HIRED' : params[:status]
     @group_by = params[:group_by].nil? ? 'YEAR' : params[:group_by]
+
+    @candidates = Array.new
+    status.list.each {|s| @candidates << Candidate.by_status_code(s)}
+    @candidates.flatten!
 
     respond_to do |format|
       format.html
