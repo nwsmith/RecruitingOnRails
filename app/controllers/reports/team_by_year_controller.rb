@@ -20,7 +20,7 @@ class Reports::TeamByYearController < ApplicationController
       year = year_info.year
       hired = year_info.started_in_year.size
 
-      report_date = Date.today
+      report_date = (year == Date.today.year) ? Date.today : Date.new(year, 12, 31)
 
       row = Array.new
       row << year
