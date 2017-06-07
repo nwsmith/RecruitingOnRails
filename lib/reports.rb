@@ -125,6 +125,7 @@ module Reports
       return ee_tenures[0] if ee_tenures.size == 1
       return 0 if ee_tenures.size == 0
       middle = (ee_tenures.size/2.0).floor
+      return -1 if middle.nil?
       middle % 2 == 1 ? (ee_tenures[middle]+ee_tenures[middle+1])/2.0 : ee_tenures[middle]
     end
   end
