@@ -57,34 +57,34 @@ module Reports
     end
 
 
-    def turnover(year)
-      left_in_year = get(year).left_in_year.size
-      left_in_year == 0 ? 0 : (left_in_year.to_f/size(year))*100
+    def turnover(date)
+      left_in_year = get(date.year).left_in_year.size
+      left_in_year == 0 ? 0 : (left_in_year.to_f/size(date))*100
     end
 
-    def voluntary_turnover(year)
-      left_in_year = get(year).left_in_year.select {|c| !c.candidate_status.code.eql?('FIRED')}.size
-      left_in_year == 0 ? 0 : (left_in_year.to_f/size(year)) * 100
+    def voluntary_turnover(date)
+      left_in_year = get(date.year).left_in_year.select {|c| !c.candidate_status.code.eql?('FIRED')}.size
+      left_in_year == 0 ? 0 : (left_in_year.to_f/size(date)) * 100
     end
 
-    def sad_turnover(year)
-      left_in_year = get(year).left_in_year.select{|c| c.sadness_factor == 4 || c.sadness_factor == 5}.size
-      left_in_year == 0 ? 0 : (left_in_year.to_f/size(year)) * 100
+    def sad_turnover(date)
+      left_in_year = get(date.year).left_in_year.select{|c| c.sadness_factor == 4 || c.sadness_factor == 5}.size
+      left_in_year == 0 ? 0 : (left_in_year.to_f/size(date)) * 100
     end
 
-    def med_turnover(year)
-      left_in_year = get(year).left_in_year.select{|c| c.sadness_factor == 3}.size
-      left_in_year == 0 ? 0 : (left_in_year.to_f/size(year)) * 100
+    def med_turnover(date)
+      left_in_year = get(date.year).left_in_year.select{|c| c.sadness_factor == 3}.size
+      left_in_year == 0 ? 0 : (left_in_year.to_f/size(date)) * 100
     end
 
-    def happy_turnover(year)
-      left_in_year = get(year).left_in_year.select{|c| c.sadness_factor == 2 || c.sadness_factor == 1}.size
-      left_in_year == 0 ? 0 : (left_in_year.to_f/size(year)) * 100
+    def happy_turnover(date)
+      left_in_year = get(date.year).left_in_year.select{|c| c.sadness_factor == 2 || c.sadness_factor == 1}.size
+      left_in_year == 0 ? 0 : (left_in_year.to_f/size(date)) * 100
     end
 
-    def size(year)
+    def size(date)
       size = 0
-      min_year.upto(year.to_i) do |curr_year|
+      min_year.upto(date.year.to_i) do |curr_year|
         year_info = get(curr_year)
         hired = year_info.started_in_year.size
         left = year_info.left_in_year.size
@@ -93,22 +93,15 @@ module Reports
       size
     end
 
-    def net_gain(year)
-      size(year) - size(year-1)
+    def net_gain(date)
+      size(date) - size(date-1)
     end
 
-    def tenure_list(year)
+    def tenure_list(date)
       tenure_list = Array.new
-      year.downto(min_year) {|curr_year| get(curr_year).still_here.each {tenure_list << (year - curr_year)}}
+      return tenure_list unless min_year
+      date.year.downto(min_year) {|curr_year| get(curr_year).still_here.each {|c| tenure_list << c.tenure_as_at(date)}}
       tenure_list
-    end
-
-    def team_list
-      team = Array.new
-      min_year.upto(year) do |curr_year|
-        team << get(curr_year).still_here
-      end
-      team.flatten
     end
 
     def left_list
@@ -123,25 +116,16 @@ module Reports
       hired_list.flatten!
     end
 
-    def tenure_map(year)
-      tenure_map = Hash.new
-      tunure_list(year).each do |t|
-        tenure_map[t] = 0 unless tenure_map[t]
-        tenure_map[t] += 1
-      end
-      tenure_map
+    def average_tenure(date)
+      tenure_list(date).reduce(:+).to_f/size(date)
     end
 
-    def average_tenure(year)
-      tenure_list(year).reduce(:+).to_f/size(year)
-    end
-
-    def median_tenure(year)
-      ee_tenures = tenure_list(year)
+    def median_tenure(date)
+      ee_tenures = tenure_list(date).sort
       return ee_tenures[0] if ee_tenures.size == 1
       return 0 if ee_tenures.size == 0
-      middle = ee_tenures.size/2
-      middle % 2 == 0 ? (ee_tenures[middle]+ee_tenures[middle+1])/2.0 : ee_tenures[middle]
+      middle = (ee_tenures.size/2.0).floor
+      middle % 2 == 1 ? (ee_tenures[middle]+ee_tenures[middle+1])/2.0 : ee_tenures[middle]
     end
   end
 
