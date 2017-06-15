@@ -1,4 +1,7 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :candidate_attachments
+
+
   get "reports/budget_report/index"
 
   get "reports/budget_report/run"

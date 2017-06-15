@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Notes:</b>
+  <%= @candidate_attachment.notes %>
+</p>
+
+<p>
+  <b>Attachment:</b>
+  <%= @candidate_attachment.attachment %>
+</p>
+
+
+<%= link_to 'Edit', edit_candidate_attachment_path(@candidate_attachment) %> |
+<%= link_to 'Back', candidate_attachments_path %>

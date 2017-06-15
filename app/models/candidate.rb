@@ -15,6 +15,7 @@ class Candidate < ActiveRecord::Base
   has_many :interviews
   has_many :code_submissions
   has_many :reference_checks
+  has_many :candidate_attachments
 
   def start_time=(start_time)
     @start_time = start_time

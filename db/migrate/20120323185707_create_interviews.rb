@@ -26,7 +26,7 @@ class CreateInterviews < ActiveRecord::Migration
   def down
     execute <<-SQL
       ALTER TABLE interviews
-        DROP FOREIGN KEY fk_interview_type
+        DROP FOREIGN KEY fk_interview_typeø
     SQL
 
     execute <<-SQL

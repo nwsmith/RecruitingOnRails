@@ -1,5 +1,13 @@
 RecruitingOnRails::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
+  config.paperclip.defaults = {
+      storage: 's3',
+      s3_credentials: {
+          bucket: 'solium-resumes-prod',
+          access_key_id: 'AKIAIIW7GLC6AVDW6QWQ',
+          secret_access_key: '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'
+      }
+  }
 
   # Code is not reloaded between requests
   config.cache_classes = true

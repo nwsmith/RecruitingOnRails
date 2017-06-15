@@ -1,0 +1,25 @@
+<h1>Listing candidate_attachments</h1>
+
+<table>
+  <tr>
+    <th>Notes</th>
+    <th>Attachment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @candidate_attachments.each do |candidate_attachment| %>
+  <tr>
+    <td><%= candidate_attachment.notes %></td>
+    <td><%= candidate_attachment.attachment %></td>
+    <td><%= link_to 'Show', candidate_attachment %></td>
+    <td><%= link_to 'Edit', edit_candidate_attachment_path(candidate_attachment) %></td>
+    <td><%= link_to 'Destroy', candidate_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Candidate attachment', new_candidate_attachment_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161209163907) do
+ActiveRecord::Schema.define(:version => 20170614172358) do
 
   create_table "associated_budgets", :force => true do |t|
     t.string  "code"
@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(:version => 20161209163907) do
     t.string "name"
     t.string "description"
   end
+
+  create_table "candidate_attachments", :force => true do |t|
+    t.string   "notes"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.integer  "candidate_id"
+  end
+
+  add_index "candidate_attachments", ["candidate_id"], :name => "fk_attachment_candidate"
 
   create_table "candidate_sources", :force => true do |t|
     t.string "code"

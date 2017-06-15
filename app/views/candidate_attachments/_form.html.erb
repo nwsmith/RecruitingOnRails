@@ -1,0 +1,30 @@
+<%= form_for(@candidate_attachment) do |f| %>
+    <% if @candidate_attachment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@candidate_attachment.errors.count, "error") %> prohibited this candidate_attachment from
+            being saved:</h2>
+
+          <ul>
+            <% @candidate_attachment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :candidate_id %>
+      <%= f.collection_select(:candidate_id, Candidate.all, :id, :name, :include_blank => true) %>
+    </div>
+    <div class="field">
+      <%= f.label :notes %><br/>
+      <%= f.text_field :notes %>
+    </div>
+    <div class="field">
+      <%= f.label :attachment %><br/>
+      <%= f.file_field :attachment %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
