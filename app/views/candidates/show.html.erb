@@ -151,16 +151,17 @@
 
 <h1>Attachments</h1>
 <% @candidate.candidate_attachments.each do |attachment| %>
-    <%= attachment.attachment_file_name %> <%= link_to 'Edit', candidate_attachment_path(attachment) %>
+    <%= attachment.attachment_file_name %> <%= link_to 'Edit', candidate_attachment_path(attachment) %> <%= link_to 'View', attachment.attachment.url %>
+    <br/>
 <% end %>
 
-<br>
-<br>
+<br/>
+
 <%= link_to 'Add Attachment', new_candidate_attachment_path(:candidate_id => @candidate.id) %>
 
 <h1>Work History</h1>
 <% @candidate.work_history_rows.each do |history_row| %>
-    <%= link_to history_row.summary, work_history_row_path(history_row) %>
+    <%= link_to history_row.summary, work_history_row_path(history_row) %> <br/>
 <% end %>
 
 <br>

@@ -2,14 +2,11 @@ require 'paperclip'
 
 RecruitingOnRails::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-  # config.paperclip.defaults = {
-  #     storage: 's3',
-  #     s3_credentials: {
-  #         bucket: 'solium-resumes-test',
-  #         access_key_id: 'AKIAIIW7GLC6AVDW6QWQ',
-  #         secret_access_key: '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'
-  #     }
-  # }
+  config.paperclip_defaults = {
+      storage: 's3',
+      bucket: 'sum-resumes-dev',
+      s3_host_name: 's3-us-east-2.amazonaws.com'
+  }
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
