@@ -1,0 +1,11 @@
+# This is just a template - you'll need to create a real aws.yml file in the shared directory for your deploy
+#
+# The buckets that are used are set up in the environment files for dev/prod
+#
+development:
+  access_key_id: <access_key_id>
+  secret_access_key: <secret_access_key>
+
+production:
+  access_key_id: <access_key_id>
+  secret_access_key: <secret_access_key>
