@@ -15,3 +15,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/coverage
+
+# Ignore files with secure information in 'em
+/config/aws.yml
