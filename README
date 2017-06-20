@@ -7,3 +7,6 @@ bundle exec cap deploy:migrations
 Otherwise, for a strict code migration do:
 
 bundle exec cap deploy
+
+
+Note: You will need a valid aws.yml file in the shared directory for the rails app in order to use attachments.
