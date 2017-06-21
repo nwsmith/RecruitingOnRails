@@ -92,7 +92,7 @@
       <%
         id = @candidate.candidate_status_id
         if id.nil?
-          status = CandidateStatus.first(:conditions => {:code => 'PEND'})
+          status = CandidateStatus.where(code: 'PEND').first
           id = status.nil? ? -1 : status.id
         end
       %>

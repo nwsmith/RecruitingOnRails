@@ -46,15 +46,15 @@ class Candidate < ActiveRecord::Base
   end
 
   def Candidate.by_status_code(status_code)
-    status = CandidateStatus.first(:conditions => {:code => status_code})
+    status = CandidateStatus.where(code: status_code).first
     id = status.nil? ? -1 : status.id
-    Candidate.all(:conditions => {:candidate_status_id => id})
+    Candidate.where(candidate_status_id: id).all
   end
 
   def Candidate.by_associated_budget_code(budget_code)
-    associated_budget = AssociatedBudget.first(:conditions => {:code => budget_code})
+    associated_budget = AsscociatedBudget.where(code: budget_code).first
     id = associated_budget.nil? ? -1 : associated_budget.id
-    Candidate.all(:conditions => {:associated_budget_id => id})
+    Candidate.where(associated_budget_id: id).all
   end
 
   def tenure_in_years
