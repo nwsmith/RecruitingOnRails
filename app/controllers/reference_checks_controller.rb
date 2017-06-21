@@ -41,7 +41,7 @@ class ReferenceChecksController < ApplicationController
   # POST /reference_checks
   # POST /reference_checks.json
   def create
-    @reference_check = ReferenceCheck.new(params[:reference_check])
+    @reference_check = ReferenceCheck.new(user_params)
 
     respond_to do |format|
       if @reference_check.save
@@ -60,7 +60,7 @@ class ReferenceChecksController < ApplicationController
     @reference_check = ReferenceCheck.find(params[:id])
 
     respond_to do |format|
-      if @reference_check.update_attributes(params[:reference_check])
+      if @reference_check.update_attributes(user_params)
         format.html { redirect_to @reference_check, notice: 'Reference check was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,5 +80,11 @@ class ReferenceChecksController < ApplicationController
       format.html { redirect_to reference_checks_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:reference_check).permit!
   end
 end

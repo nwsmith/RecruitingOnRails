@@ -40,7 +40,7 @@ class EducationLevelsController < ApplicationController
   # POST /education_levels
   # POST /education_levels.json
   def create
-    @education_level = EducationLevel.new(params[:education_level])
+    @education_level = EducationLevel.new(user_params)
 
     respond_to do |format|
       if @education_level.save
@@ -59,7 +59,7 @@ class EducationLevelsController < ApplicationController
     @education_level = EducationLevel.find(params[:id])
 
     respond_to do |format|
-      if @education_level.update_attributes(params[:education_level])
+      if @education_level.update_attributes(user_params)
         format.html { redirect_to @education_level, notice: 'Education level was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class EducationLevelsController < ApplicationController
       format.html { redirect_to education_levels_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:education_level).permit!
   end
 end

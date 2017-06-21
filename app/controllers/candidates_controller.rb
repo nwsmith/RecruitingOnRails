@@ -16,7 +16,7 @@ class CandidatesController < ApplicationController
     d = Date.parse(p)
 
     @candidates = Candidate.all
-    @candidates.select!{|c| !c.start_date.nil? && c.candidate_status.code != 'QUIT' && c.candidate_status.code != 'FIRED'}
+    @candidates = @candidates.select{|c| !c.start_date.nil? && c.candidate_status.code != 'QUIT' && c.candidate_status.code != 'FIRED'}
     @candidates.each {|c| c.start_time = Date.new(d.year, c.start_date.month, c.start_date.day)}
   end
 
@@ -129,7 +129,7 @@ class CandidatesController < ApplicationController
   # POST /candidates
   # POST /candidates.json
   def create
-    @candidate = Candidate.new(params[:candidate])
+    @candidate = Candidate.new(user_params)
 
     respond_to do |format|
       if @candidate.save
@@ -148,7 +148,7 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.find(params[:id])
 
     respond_to do |format|
-      if @candidate.update_attributes(params[:candidate])
+      if @candidate.update_attributes(user_params)
         format.html { redirect_to @candidate, notice: 'Candidate was successfully updated.' }
         format.json { head :no_content }
       else
@@ -168,5 +168,11 @@ class CandidatesController < ApplicationController
       format.html { redirect_to candidates_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:candidate).permit!
   end
 end

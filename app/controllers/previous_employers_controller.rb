@@ -40,7 +40,7 @@ class PreviousEmployersController < ApplicationController
   # POST /previous_employers
   # POST /previous_employers.json
   def create
-    @previous_employer = PreviousEmployer.new(params[:previous_employer])
+    @previous_employer = PreviousEmployer.new(user_params)
 
     respond_to do |format|
       if @previous_employer.save
@@ -59,7 +59,7 @@ class PreviousEmployersController < ApplicationController
     @previous_employer = PreviousEmployer.find(params[:id])
 
     respond_to do |format|
-      if @previous_employer.update_attributes(params[:previous_employer])
+      if @previous_employer.update_attributes(user_params)
         format.html { redirect_to @previous_employer, notice: 'Previous employer was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class PreviousEmployersController < ApplicationController
       format.html { redirect_to previous_employers_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:previous_employer).permit!
   end
 end

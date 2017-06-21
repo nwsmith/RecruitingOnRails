@@ -41,7 +41,7 @@ class CodeSubmissionReviewsController < ApplicationController
   # POST /code_submission_reviews
   # POST /code_submission_reviews.json
   def create
-    @code_submission_review = CodeSubmissionReview.new(params[:code_submission_review])
+    @code_submission_review = CodeSubmissionReview.new(user_params)
 
     respond_to do |format|
       if @code_submission_review.save
@@ -60,7 +60,7 @@ class CodeSubmissionReviewsController < ApplicationController
     @code_submission_review = CodeSubmissionReview.find(params[:id])
 
     respond_to do |format|
-      if @code_submission_review.update_attributes(params[:code_submission_review])
+      if @code_submission_review.update_attributes(user_params)
         format.html { redirect_to @code_submission_review, notice: 'Code submission review was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,5 +80,11 @@ class CodeSubmissionReviewsController < ApplicationController
       format.html { redirect_to code_submission_reviews_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:code_submission_review).permit!
   end
 end

@@ -40,7 +40,7 @@ class LeaveReasonsController < ApplicationController
   # POST /leave_reasons
   # POST /leave_reasons.json
   def create
-    @leave_reason = LeaveReason.new(params[:leave_reason])
+    @leave_reason = LeaveReason.new(user_params)
 
     respond_to do |format|
       if @leave_reason.save
@@ -59,7 +59,7 @@ class LeaveReasonsController < ApplicationController
     @leave_reason = LeaveReason.find(params[:id])
 
     respond_to do |format|
-      if @leave_reason.update_attributes(params[:leave_reason])
+      if @leave_reason.update_attributes(user_params)
         format.html { redirect_to @leave_reason, notice: 'Leave reason was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class LeaveReasonsController < ApplicationController
       format.html { redirect_to leave_reasons_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:leave_reason).permit!
   end
 end

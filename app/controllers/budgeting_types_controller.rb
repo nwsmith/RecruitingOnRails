@@ -40,7 +40,7 @@ class BudgetingTypesController < ApplicationController
   # POST /budgeting_types
   # POST /budgeting_types.json
   def create
-    @budgeting_type = BudgetingType.new(params[:budgeting_type])
+    @budgeting_type = BudgetingType.new(user_params)
 
     respond_to do |format|
       if @budgeting_type.save
@@ -59,7 +59,7 @@ class BudgetingTypesController < ApplicationController
     @budgeting_type = BudgetingType.find(params[:id])
 
     respond_to do |format|
-      if @budgeting_type.update_attributes(params[:budgeting_type])
+      if @budgeting_type.update_attributes(user_params)
         format.html { redirect_to @budgeting_type, notice: 'Budgeting type was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class BudgetingTypesController < ApplicationController
       format.html { redirect_to budgeting_types_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:budgeting_type).permit!
   end
 end

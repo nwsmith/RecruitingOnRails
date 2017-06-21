@@ -40,7 +40,7 @@ class CodeProblemsController < ApplicationController
   # POST /code_problems
   # POST /code_problems.json
   def create
-    @code_problem = CodeProblem.new(params[:code_problem])
+    @code_problem = CodeProblem.new(user_params)
 
     respond_to do |format|
       if @code_problem.save
@@ -59,7 +59,7 @@ class CodeProblemsController < ApplicationController
     @code_problem = CodeProblem.find(params[:id])
 
     respond_to do |format|
-      if @code_problem.update_attributes(params[:code_problem])
+      if @code_problem.update_attributes(user_params)
         format.html { redirect_to @code_problem, notice: 'Code problem was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class CodeProblemsController < ApplicationController
       format.html { redirect_to code_problems_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:code_problem).permit!
   end
 end

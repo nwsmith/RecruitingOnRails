@@ -40,7 +40,7 @@ class AssociatedBudgetsController < ApplicationController
   # POST /associated_budgets
   # POST /associated_budgets.json
   def create
-    @associated_budget = AssociatedBudget.new(params[:associated_budget])
+    @associated_budget = AssociatedBudget.new(user_params)
 
     respond_to do |format|
       if @associated_budget.save
@@ -59,7 +59,7 @@ class AssociatedBudgetsController < ApplicationController
     @associated_budget = AssociatedBudget.find(params[:id])
 
     respond_to do |format|
-      if @associated_budget.update_attributes(params[:associated_budget])
+      if @associated_budget.update_attributes(user_params)
         format.html { redirect_to @associated_budget, notice: 'Associated budget was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class AssociatedBudgetsController < ApplicationController
       format.html { redirect_to associated_budgets_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:associated_budget).permit!
   end
 end

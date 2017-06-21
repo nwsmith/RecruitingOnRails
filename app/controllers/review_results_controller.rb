@@ -40,7 +40,7 @@ class ReviewResultsController < ApplicationController
   # POST /review_results
   # POST /review_results.json
   def create
-    @review_result = ReviewResult.new(params[:review_result])
+    @review_result = ReviewResult.new(user_params)
 
     respond_to do |format|
       if @review_result.save
@@ -59,7 +59,7 @@ class ReviewResultsController < ApplicationController
     @review_result = ReviewResult.find(params[:id])
 
     respond_to do |format|
-      if @review_result.update_attributes(params[:review_result])
+      if @review_result.update_attributes(user_params)
         format.html { redirect_to @review_result, notice: 'Review result was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class ReviewResultsController < ApplicationController
       format.html { redirect_to review_results_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:review_result).permit!
   end
 end

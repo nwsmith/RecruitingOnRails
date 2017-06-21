@@ -40,7 +40,7 @@ class GendersController < ApplicationController
   # POST /genders
   # POST /genders.json
   def create
-    @gender = Gender.new(params[:gender])
+    @gender = Gender.new(user_params)
 
     respond_to do |format|
       if @gender.save
@@ -59,7 +59,7 @@ class GendersController < ApplicationController
     @gender = Gender.find(params[:id])
 
     respond_to do |format|
-      if @gender.update_attributes(params[:gender])
+      if @gender.update_attributes(user_params)
         format.html { redirect_to @gender, notice: 'Gender was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class GendersController < ApplicationController
       format.html { redirect_to genders_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:gender).permit!
   end
 end

@@ -41,7 +41,7 @@ class WorkHistoryRowsController < ApplicationController
   # POST /work_history_rows
   # POST /work_history_rows.json
   def create
-    @work_history_row = WorkHistoryRow.new(params[:work_history_row])
+    @work_history_row = WorkHistoryRow.new(user_params)
 
     respond_to do |format|
       if @work_history_row.save
@@ -60,7 +60,7 @@ class WorkHistoryRowsController < ApplicationController
     @work_history_row = WorkHistoryRow.find(params[:id])
 
     respond_to do |format|
-      if @work_history_row.update_attributes(params[:work_history_row])
+      if @work_history_row.update_attributes(user_params)
         format.html { redirect_to @work_history_row, notice: 'Work history row was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,5 +80,11 @@ class WorkHistoryRowsController < ApplicationController
       format.html { redirect_to work_history_rows_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:work_history_row).permit!
   end
 end

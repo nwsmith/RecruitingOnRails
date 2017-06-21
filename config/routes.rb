@@ -77,7 +77,7 @@ RecruitingOnRails::Application.routes.draw do
 
   resources :experience_levels
 
-  match "/candidates/__history__.html" => 'candidates#noop' # <- because the timeline plugin does stupid shit
+  match "/candidates/__history__.html" => 'candidates#noop', via: [:get, :post] # <- because the timeline plugin does stupid shit
 
   resources :candidates do
     collection do
@@ -100,7 +100,7 @@ RecruitingOnRails::Application.routes.draw do
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
-  match ":controller(/:action)"
+  match ":controller(/:action)", via: [:get, :post]
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#index'

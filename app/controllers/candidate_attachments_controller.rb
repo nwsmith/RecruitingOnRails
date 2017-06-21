@@ -41,7 +41,7 @@ class CandidateAttachmentsController < ApplicationController
   # POST /candidate_attachments
   # POST /candidate_attachments.json
   def create
-    @candidate_attachment = CandidateAttachment.new(params[:candidate_attachment])
+    @candidate_attachment = CandidateAttachment.new(user_params)
 
     respond_to do |format|
       if @candidate_attachment.save
@@ -60,7 +60,7 @@ class CandidateAttachmentsController < ApplicationController
     @candidate_attachment = CandidateAttachment.find(params[:id])
 
     respond_to do |format|
-      if @candidate_attachment.update_attributes(params[:candidate_attachment])
+      if @candidate_attachment.update_attributes(user_params)
         format.html { redirect_to @candidate_attachment, notice: 'Candidate attachment was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,5 +80,11 @@ class CandidateAttachmentsController < ApplicationController
       format.html { redirect_to candidate_attachments_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:candidate_attachment).permit!
   end
 end

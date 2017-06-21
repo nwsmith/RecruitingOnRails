@@ -40,7 +40,7 @@ class ExperienceLevelsController < ApplicationController
   # POST /experience_levels
   # POST /experience_levels.json
   def create
-    @experience_level = ExperienceLevel.new(params[:experience_level])
+    @experience_level = ExperienceLevel.new(user_params)
 
     respond_to do |format|
       if @experience_level.save
@@ -59,7 +59,7 @@ class ExperienceLevelsController < ApplicationController
     @experience_level = ExperienceLevel.find(params[:id])
 
     respond_to do |format|
-      if @experience_level.update_attributes(params[:experience_level])
+      if @experience_level.update_attributes(user_params)
         format.html { redirect_to @experience_level, notice: 'Experience level was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class ExperienceLevelsController < ApplicationController
       format.html { redirect_to experience_levels_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:experience_level).permit!
   end
 end

@@ -40,7 +40,7 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    @position = Position.new(params[:position])
+    @position = Position.new(user_params)
 
     respond_to do |format|
       if @position.save
@@ -59,7 +59,7 @@ class PositionsController < ApplicationController
     @position = Position.find(params[:id])
 
     respond_to do |format|
-      if @position.update_attributes(params[:position])
+      if @position.update_attributes(user_params)
         format.html { redirect_to @position, notice: 'Position was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class PositionsController < ApplicationController
       format.html { redirect_to positions_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:position).permit!
   end
 end

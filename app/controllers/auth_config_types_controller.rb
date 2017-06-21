@@ -42,7 +42,7 @@ class AuthConfigTypesController < ApplicationController
   # POST /auth_config_types
   # POST /auth_config_types.json
   def create
-    @auth_config_type = AuthConfigType.new(params[:auth_config_type])
+    @auth_config_type = AuthConfigType.new(user_params)
 
     respond_to do |format|
       if @auth_config_type.save
@@ -61,7 +61,7 @@ class AuthConfigTypesController < ApplicationController
     @auth_config_type = AuthConfigType.find(params[:id])
 
     respond_to do |format|
-      if @auth_config_type.update_attributes(params[:auth_config_type])
+      if @auth_config_type.update_attributes(user_params)
         format.html { redirect_to @auth_config_type, notice: 'Auth config type was successfully updated.' }
         format.json { head :no_content }
       else
@@ -81,5 +81,11 @@ class AuthConfigTypesController < ApplicationController
       format.html { redirect_to auth_config_types_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:auth_config_type).permit!
   end
 end

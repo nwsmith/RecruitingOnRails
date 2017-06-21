@@ -40,7 +40,7 @@ class RegistriesController < ApplicationController
   # POST /registries
   # POST /registries.json
   def create
-    @registry = Registry.new(params[:registry])
+    @registry = Registry.new(user_params)
 
     respond_to do |format|
       if @registry.save
@@ -59,7 +59,7 @@ class RegistriesController < ApplicationController
     @registry = Registry.find(params[:id])
 
     respond_to do |format|
-      if @registry.update_attributes(params[:registry])
+      if @registry.update_attributes(user_params)
         format.html { redirect_to @registry, notice: 'Registry was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class RegistriesController < ApplicationController
       format.html { redirect_to registries_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:registry).permit!
   end
 end

@@ -40,7 +40,7 @@ class InterviewTypesController < ApplicationController
   # POST /interview_types
   # POST /interview_types.json
   def create
-    @interview_type = InterviewType.new(params[:interview_type])
+    @interview_type = InterviewType.new(user_params)
 
     respond_to do |format|
       if @interview_type.save
@@ -59,7 +59,7 @@ class InterviewTypesController < ApplicationController
     @interview_type = InterviewType.find(params[:id])
 
     respond_to do |format|
-      if @interview_type.update_attributes(params[:interview_type])
+      if @interview_type.update_attributes(user_params)
         format.html { redirect_to @interview_type, notice: 'Interview type was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class InterviewTypesController < ApplicationController
       format.html { redirect_to interview_types_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:interview_type).permit!
   end
 end

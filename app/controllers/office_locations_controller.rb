@@ -40,7 +40,7 @@ class OfficeLocationsController < ApplicationController
   # POST /office_locations
   # POST /office_locations.json
   def create
-    @office_location = OfficeLocation.new(params[:office_location])
+    @office_location = OfficeLocation.new(user_params)
 
     respond_to do |format|
       if @office_location.save
@@ -59,7 +59,7 @@ class OfficeLocationsController < ApplicationController
     @office_location = OfficeLocation.find(params[:id])
 
     respond_to do |format|
-      if @office_location.update_attributes(params[:office_location])
+      if @office_location.update_attributes(user_params)
         format.html { redirect_to @office_location, notice: 'Office location was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,5 +79,11 @@ class OfficeLocationsController < ApplicationController
       format.html { redirect_to office_locations_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:office_location).permit!
   end
 end

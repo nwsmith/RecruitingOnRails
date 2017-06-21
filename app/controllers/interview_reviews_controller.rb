@@ -41,7 +41,7 @@ class InterviewReviewsController < ApplicationController
   # POST /interview_reviews
   # POST /interview_reviews.json
   def create
-    @interview_review = InterviewReview.new(params[:interview_review])
+    @interview_review = InterviewReview.new(user_params)
 
     respond_to do |format|
       if @interview_review.save
@@ -60,7 +60,7 @@ class InterviewReviewsController < ApplicationController
     @interview_review = InterviewReview.find(params[:id])
 
     respond_to do |format|
-      if @interview_review.update_attributes(params[:interview_review])
+      if @interview_review.update_attributes(user_params)
         format.html { redirect_to @interview_review, notice: 'Interview review was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,5 +80,11 @@ class InterviewReviewsController < ApplicationController
       format.html { redirect_to interview_reviews_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:interview_review).permit!
   end
 end
