@@ -36,6 +36,6 @@ class DashboardController < ApplicationController
     default_statuses = default_status.value.split ','
     default_statuses.each {|status| @dashboard_data[:candidates_by_status] << Candidate.by_status_code(status)}
 
-    @dashboard_data[:candidates_by_status].flatten!
+    @dashboard_data[:candidates_by_status] = @dashboard_data[:candidates_by_status].flatten
   end
 end

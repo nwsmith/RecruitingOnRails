@@ -6,7 +6,7 @@ class Reports::TeamByYearController < ApplicationController
     candidates = Candidate.by_status_code('FIRED')
     candidates << Candidate.by_status_code('HIRED')
     candidates << Candidate.by_status_code('QUIT')
-    candidates.flatten!
+    candidates = candidates.flatten
 
     period_info = Reports::PeriodInfo.new
     period_info.add_candidates(candidates)

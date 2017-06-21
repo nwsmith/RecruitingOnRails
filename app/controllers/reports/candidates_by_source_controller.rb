@@ -13,7 +13,7 @@ class Reports::CandidatesBySourceController < ApplicationController
     status_list.each do |s|
       candidates << Candidate.by_status_code(s)
     end
-    candidates.flatten!
+    candidates = candidates.flatten
 
     by_source = Hash.new
 

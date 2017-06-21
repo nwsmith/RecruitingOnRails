@@ -28,7 +28,7 @@ class CandidatesController < ApplicationController
 
     @candidates = Array.new
     @status_list.each {|s| @candidates << Candidate.by_status_code(s)}
-    @candidates.flatten!
+    @candiidates = @candidates.flatten
 
     respond_to do |format|
       format.html
@@ -43,7 +43,7 @@ class CandidatesController < ApplicationController
 
     folks = Array.new
     status_list.each { |s| folks << Candidate.by_status_code(s) }
-    folks.flatten!
+    folks = folks.flatten
     folks.sort { |a, b| b.start_date <=> a.start_date || b.end_date <=> a.end_date }
 
     folks.each do |candidate|
@@ -84,7 +84,7 @@ class CandidatesController < ApplicationController
     @candidates = Array.new
 
     status_list.each { |s| @candidates << Candidate.by_status_code(s) }
-    @candidates.flatten!
+    @candidates = @candidates.flatten
 
     respond_to do |format|
       format.html
