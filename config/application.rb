@@ -22,5 +22,6 @@ module RecruitingOnRails
     # config.i18n.default_locale = :de
 
     config.assets.compile = true
+    config.assets.digest = true
   end
 end
