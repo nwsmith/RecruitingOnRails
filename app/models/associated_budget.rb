@@ -1,2 +1,2 @@
-class AssociatedBudget < ActiveRecord::Base
+class AssociatedBudget < ApplicationRecord
 end

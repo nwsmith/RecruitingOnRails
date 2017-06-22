@@ -1,2 +1,2 @@
-class CodeProblem < ActiveRecord::Base
+class CodeProblem < ApplicationRecord
 end

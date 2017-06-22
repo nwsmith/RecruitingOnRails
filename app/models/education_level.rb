@@ -1,2 +1,2 @@
-class EducationLevel < ActiveRecord::Base
+class EducationLevel < ApplicationRecord
 end

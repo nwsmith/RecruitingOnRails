@@ -1,2 +1,2 @@
-class CandidateStatus < ActiveRecord::Base
+class CandidateStatus < ApplicationRecord
 end

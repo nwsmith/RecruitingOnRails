@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
 
     associated_budgets.each do |associated_budget|
       budget_headcount_target_key = 'team.headcount_target.' + associated_budget.code
-      budget_headcount_target_reg = Registry.find_by_key(budget_headcount_target_key)
+      budget_headcount_target_reg = Registry.where(key: budget_headcount_target_key).first
 
       budget_candidate_count = Candidate.by_status_code('HIRED').select{|c| c.associated_budget_id.equal?(associated_budget.id)}.size
 
@@ -32,7 +32,7 @@ class DashboardController < ApplicationController
 
     @dashboard_data[:candidates_by_status] = Array.new
 
-    default_status = Registry.find_by_key('dashboard.default_status')
+    default_status = Registry.where(key: 'dashboard.default_status').first
     default_statuses = default_status.value.split ','
     default_statuses.each {|status| @dashboard_data[:candidates_by_status] << Candidate.by_status_code(status)}
 

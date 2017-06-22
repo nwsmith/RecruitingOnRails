@@ -39,8 +39,8 @@ class CleanUpReviewResults < ActiveRecord::Migration
     add_column :code_submission_reviews, :approved, :boolean
     add_column :code_submission_reviews, :unapproved, :boolean
 
-    approved = ReviewResult.find_by_code('APPROVED')
-    unapproved = ReviewResult.find_by_code('REJECTED')
+    approved = ReviewResult.where(code: 'APPROVED').first
+    unapproved = ReviewResult.where(code: 'REJECTED').first
 
     # The "no review case" would be covered by neither column being set to true, which was the old (ugly) way
     InterviewReview.all.each do |interview_review|

@@ -1,4 +1,4 @@
-class WorkHistoryRow < ActiveRecord::Base
+class WorkHistoryRow < ApplicationRecord
   belongs_to :candidate
   belongs_to :previous_employer
 

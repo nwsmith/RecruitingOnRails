@@ -3,7 +3,8 @@ class Reports::TeamByYearController < ApplicationController
   end
 
   def run
-    candidates = Candidate.by_status_code('FIRED')
+    candidates = Array.new
+    candidates << Candidate.by_status_code('FIRED')
     candidates << Candidate.by_status_code('HIRED')
     candidates << Candidate.by_status_code('QUIT')
     candidates = candidates.flatten

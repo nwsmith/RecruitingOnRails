@@ -1,2 +1,2 @@
-class LeaveReason < ActiveRecord::Base
+class LeaveReason < ApplicationRecord
 end

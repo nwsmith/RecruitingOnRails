@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_filter :check_login
+  before_action :check_login
   protect_from_forgery
 
   def check_login
@@ -27,10 +27,10 @@ class ApplicationController < ActionController::Base
 
   def get_user
     username = session[:username]
-    user = User.find_by_user_name(username)
+    user = User.where(user_name: username).first
     if user.nil?
       api_key = params[:api_key]
-      user = User.find_by_api_key(api_key)
+      user = User.where(api_key: api_key).first
     end
 
     user

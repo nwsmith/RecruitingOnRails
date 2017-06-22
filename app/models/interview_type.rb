@@ -1,2 +1,2 @@
-class InterviewType < ActiveRecord::Base
+class InterviewType < ApplicationRecord
 end

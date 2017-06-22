@@ -1,2 +1,2 @@
-class ReviewResult < ActiveRecord::Base
+class ReviewResult < ApplicationRecord
 end

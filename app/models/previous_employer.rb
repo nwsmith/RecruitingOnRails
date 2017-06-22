@@ -1,2 +1,2 @@
-class PreviousEmployer < ActiveRecord::Base
+class PreviousEmployer < ApplicationRecord
 end

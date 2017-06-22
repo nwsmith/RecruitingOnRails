@@ -1,2 +1,2 @@
-class Position < ActiveRecord::Base
+class Position < ApplicationRecord
 end

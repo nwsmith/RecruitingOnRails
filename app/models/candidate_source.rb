@@ -1,2 +1,2 @@
-class CandidateSource < ActiveRecord::Base
+class CandidateSource < ApplicationRecord
 end

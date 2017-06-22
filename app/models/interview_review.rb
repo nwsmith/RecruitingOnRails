@@ -1,4 +1,4 @@
-class InterviewReview < ActiveRecord::Base
+class InterviewReview < ApplicationRecord
   belongs_to :interview
   belongs_to :user
   belongs_to :review_result

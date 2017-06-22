@@ -1,5 +1,5 @@
 class AuthConfigTypesController < ApplicationController
-  before_filter 'check_admin'
+  before_action 'check_admin'
 
   # GET /auth_config_types
   # GET /auth_config_types.json

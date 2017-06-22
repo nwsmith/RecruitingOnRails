@@ -1,2 +1,2 @@
-class ExperienceLevel < ActiveRecord::Base
+class ExperienceLevel < ApplicationRecord
 end

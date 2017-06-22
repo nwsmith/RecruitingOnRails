@@ -1,2 +1,2 @@
-class OfficeLocation < ActiveRecord::Base
+class OfficeLocation < ApplicationRecord
 end

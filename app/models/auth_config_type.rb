@@ -1,2 +1,2 @@
-class AuthConfigType < ActiveRecord::Base
+class AuthConfigType < ApplicationRecord
 end

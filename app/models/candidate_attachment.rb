@@ -1,4 +1,4 @@
-class CandidateAttachment < ActiveRecord::Base
+class CandidateAttachment < ApplicationRecord
   belongs_to :candidate
 
   has_attached_file :attachment

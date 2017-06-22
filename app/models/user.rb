@@ -1,6 +1,6 @@
 require 'digest/sha2'
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_and_belongs_to_many :groups
   belongs_to :interview_review
   belongs_to :auth_config
@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
   end
 
   def User.fetch_by_auth_name(auth_name)
-    User.find_all_by_auth_name(auth_name)[0]
+    User.where(auth_name: auth_name).first
   end
 
   def User.all_active
-    User.find_all_by_active(true)
+    User.where(active: true).all
   end
 end

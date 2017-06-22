@@ -1,4 +1,4 @@
-class Candidate < ActiveRecord::Base
+class Candidate < ApplicationRecord
   belongs_to :gender
   belongs_to :candidate_status
   belongs_to :candidate_source
@@ -48,7 +48,8 @@ class Candidate < ActiveRecord::Base
   def Candidate.by_status_code(status_code)
     status = CandidateStatus.where(code: status_code).first
     id = status.nil? ? -1 : status.id
-    Candidate.where(candidate_status_id: id).all
+    candidates = Candidate.where(candidate_status_id: id).all
+    candidates
   end
 
   def Candidate.by_associated_budget_code(budget_code)

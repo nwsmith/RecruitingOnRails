@@ -75,7 +75,7 @@ class CandidatesController < ApplicationController
       conditions = ['first_name LIKE ? OR last_name LIKE ?', "%#{name[0]}%", "%#{name[0]}%"]
     end
 
-    @candidates = Candidate.where(conditions)
+    @candidates = Candidate.where(conditions).all
     render 'list'
   end
 

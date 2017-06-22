@@ -1,5 +1,5 @@
 class AuthConfigsController < ApplicationController
-  before_filter :check_admin
+  before_action :check_admin
 
   # GET /auth_configs
   # GET /auth_configs.json

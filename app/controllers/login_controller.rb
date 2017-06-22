@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
-  skip_before_filter(:check_login)
+  skip_before_action(:check_login)
 
   def index
     reset_session

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.8'
+gem 'rails', '5.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,8 +10,8 @@ gem 'net-ldap'
 
 gem "sass", :require => 'sass'
 
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-rails', '~> 4.3'
+gem 'jquery-ui-rails', '~> 6.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

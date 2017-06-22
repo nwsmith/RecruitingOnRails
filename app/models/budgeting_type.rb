@@ -1,2 +1,2 @@
-class BudgetingType < ActiveRecord::Base
+class BudgetingType < ApplicationRecord
 end

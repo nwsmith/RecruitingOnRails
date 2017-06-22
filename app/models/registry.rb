@@ -1,2 +1,2 @@
-class Registry < ActiveRecord::Base
+class Registry < ApplicationRecord
 end
