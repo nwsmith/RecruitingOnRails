@@ -42,6 +42,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_manager
+    if session[:manager].nil? || !session[:manager]
+      redirect_to(:controller => 'dashboard', :action => 'index')
+    else
+      check_admin
+    end
+  end
+
+
   def get_list_from_params(params, name)
     if params[name].nil?
       Array.new
@@ -49,4 +58,5 @@ class ApplicationController < ActionController::Base
       (params[name].is_a? String) ? params[name].split(',') : params[name]
     end
   end
+
 end

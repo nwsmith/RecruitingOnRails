@@ -82,14 +82,19 @@ module ApplicationHelper
     a_type
   end
 
-  def color_span(colorable, text, bold = false)
+  def color_span(*args, &block)
+    colorable = (args.nil? || args.first.nil?) ? nil : args.first
+    options = args.second || {}
+
+    content = options[:text]
+    content = yeild(block) if block
+
     color = colorable.respond_to?('color') ? colorable.color : ''
-    color ||= ''
     style = "style='"
     style += "color: #{color};" if (!color.nil? && !color.empty?)
-    style += "font-weight: bold;" if bold
+    style += "font-weight: bold;" if options[:bold]
     style += "'"
-    "<span #{style}>#{text}</span>".html_safe
+    "<span #{style}>#{content}</span>".html_safe
   end
 
   def markdown(text)

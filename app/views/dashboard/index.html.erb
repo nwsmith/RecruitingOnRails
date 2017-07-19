@@ -25,7 +25,7 @@
   </tr>
   <% ExperienceLevel.all.each do |experience_level| %>
       <tr>
-        <td><%= color_span(experience_level, get_name(experience_level), true) %></td>
+        <td><%= color_span(experience_level, {text: get_name(experience_level), bold: true}) %></td>
       </tr>
   <% end %>
 </table>

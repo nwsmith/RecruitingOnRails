@@ -1,4 +1,6 @@
 class RegistriesController < ApplicationController
+  before_action :check_admin
+
   # GET /registries
   # GET /registries.json
   def index

@@ -132,7 +132,7 @@ module CandidatesHelper
   def format_candidate(*args)
     candidate = args.first
 
-    out = color_span candidate.experience_level, "#{candidate.name}"
+    out = color_span candidate.experience_level, {text: "#{candidate.name}"}
     out += " (#{time_since_application(candidate)})" if candidate.in_pipeline?
 
     link_to out, candidate_path(candidate)

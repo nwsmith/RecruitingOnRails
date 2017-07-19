@@ -65,7 +65,7 @@
 </p>
 <p>
   <b>Experience Level:</b>
-  <%= color_span(@candidate.experience_level, get_name(@candidate.experience_level)) %>
+  <%= color_span(@candidate.experience_level, {'text': get_name(@candidate.experience_level)}) %>
 </p>
 
 <p>
@@ -158,6 +158,16 @@
 <br/>
 
 <%= link_to 'Add Attachment', new_candidate_attachment_path(:candidate_id => @candidate.id) %>
+
+<% if session[:manager] %>
+    <h1>Diary</h1>
+    <% @candidate.diary_entries.each do |diary_entry| %>
+        <%= link_to diary_entry.summary, diary_entry_path(diary_entry), {style: "color: #{diary_entry.color}"} %> <br/>
+    <% end %>
+    <br/>
+
+    <%= link_to 'Add Diary Entry', new_diary_entry_path(:candidate_id => @candidate.id) %>
+<% end %>
 
 <h1>Work History</h1>
 <% @candidate.work_history_rows.each do |history_row| %>

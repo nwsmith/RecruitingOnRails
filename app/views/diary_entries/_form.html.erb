@@ -1,0 +1,43 @@
+<%= form_with(model: diary_entry, local: true) do |form| %>
+    <% if diary_entry.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(diary_entry.errors.count, "error") %> prohibited this diary_entry from being saved:</h2>
+
+          <ul>
+            <% diary_entry.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :candidate_id %>
+      <%= form.collection_select(:candidate_id, Candidate.all, :id, :name, :include_blank => true) %>
+    </div>
+
+    <div class="field">
+      <%= form.label :user_id %>
+      <%= user_select form %>
+    </div>
+
+    <div class="field">
+      <%= form.label :diary_entry_type_id %>
+      <%= form.collection_select(:diary_entry_type_id, DiaryEntryType.all, :id, :name, :include_blank => true) %>
+    </div>
+
+    <div class="field">
+      <%= form.label :entry_date %>
+      <%= form.text_field :entry_date, :class => 'datepicker' %>
+
+    </div>
+
+    <div class="field">
+      <%= form.label :notes %>
+      <%= form.text_area :notes, id: :diary_entry_notes %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+<% end %>

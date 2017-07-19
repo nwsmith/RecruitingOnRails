@@ -16,6 +16,7 @@ class Candidate < ApplicationRecord
   has_many :code_submissions
   has_many :reference_checks
   has_many :candidate_attachments
+  has_many :diary_entries
 
   def start_time=(start_time)
     @start_time = start_time

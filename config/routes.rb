@@ -1,4 +1,6 @@
 RecruitingOnRails::Application.routes.draw do
+  resources :diary_entries
+  resources :diary_entry_types
   resources :candidate_attachments
 
   get "reports/candidates_by_status/index"

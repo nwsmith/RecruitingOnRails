@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @diary_entry_type.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @diary_entry_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @diary_entry_type.description %>
+</p>
+
+<p>
+  <strong>Positive:</strong>
+  <%= @diary_entry_type.positive %>
+</p>
+
+<p>
+  <strong>Negative:</strong>
+  <%= @diary_entry_type.negative %>
+</p>
+
+<%= link_to 'Edit', edit_diary_entry_type_path(@diary_entry_type) %> |
+<%= link_to 'Back', diary_entry_types_path %>
