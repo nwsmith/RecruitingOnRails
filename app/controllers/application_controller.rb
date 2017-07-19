@@ -45,8 +45,6 @@ class ApplicationController < ActionController::Base
   def check_manager
     if session[:manager].nil? || !session[:manager]
       redirect_to(:controller => 'dashboard', :action => 'index')
-    else
-      check_admin
     end
   end
 
