@@ -79,12 +79,12 @@
     <div class="field">
       <%= f.label :experience_level_id %>
       <br/>
-      <%= f.collection_select(:experience_level_id, ExperienceLevel.order('name'), :id, :name) %>
+      <%= f.collection_select(:experience_level_id, ExperienceLevel.order('name'), :id, :name, {:include_blank => '-- Select One --'}, :required => true) %>
     </div>
     <div class="field">
       <%= f.label :position_id %>
       <br/>
-      <%= f.collection_select(:position_id, Position.order('name'), :id, :name, {:include_blank => '-- Select One'}, :required => true) %>
+      <%= f.collection_select(:position_id, Position.order('name'), :id, :name, {:include_blank => '-- Select One --'}, :required => true) %>
     </div>
     <div class="field">
       <%= f.label :candidate_status_id %>
