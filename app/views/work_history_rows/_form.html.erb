@@ -19,7 +19,7 @@
 
     <div class="field">
       <%= f.label :previous_employer_id %>
-      <%= f.collection_select(:previous_employer_id, PreviousEmployer.all.sort {|a,b| (a.nil? || b.nil?) ? 0 : a.name <=> b.name}, :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:previous_employer_id, PreviousEmployer.order('name'), :id, :name, :include_blank => true) %>
     </div>
 
 
