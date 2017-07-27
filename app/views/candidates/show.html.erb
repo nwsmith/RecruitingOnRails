@@ -170,7 +170,7 @@
 <% end %>
 
 <h1>Work History</h1>
-<% @candidate.work_history_rows.each do |history_row| %>
+<% @candidate.work_history_rows.sort{|a,b| (a.nil? || b.nil? || a.start_date.nil? || b.start_date.nil?) ? 0 : a.start_date <=> b.start_date}.each do |history_row| %>
     <%= link_to history_row.summary, work_history_row_path(history_row) %> <br/>
 <% end %>
 
