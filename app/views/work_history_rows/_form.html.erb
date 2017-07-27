@@ -14,19 +14,19 @@
 
     <div class="field">
       <%= f.label :candidate_id %>
-      <%= f.collection_select(:candidate_id, Candidate.all, :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:candidate_id, Candidate.all, :id, :name, :include_blank => true, :required => true) %>
     </div>
 
     <div class="field">
       <%= f.label :previous_employer_id %>
-      <%= f.collection_select(:previous_employer_id, PreviousEmployer.order('name'), :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:previous_employer_id, PreviousEmployer.order('name'), :id, :name, :include_blank => false, :required => true) %>
     </div>
 
 
     <div class="field">
       <%= f.label :start_date %>
       <br/>
-      <%= f.text_field :start_date, class: 'datepicker' %>
+      <%= f.text_field :start_date, class: 'datepicker', :required => true %>
     </div>
     <div class="field">
       <%= f.label :end_date %>
