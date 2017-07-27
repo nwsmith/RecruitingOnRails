@@ -23,18 +23,18 @@
 
     <div class="field">
       <%= form.label :diary_entry_type_id %>
-      <%= form.collection_select(:diary_entry_type_id, DiaryEntryType.all, :id, :name, :include_blank => true) %>
+      <%= form.collection_select(:diary_entry_type_id, DiaryEntryType.all, :id, :name, {:include_blank => '-- Select One --'}, :required => true) %>
     </div>
 
     <div class="field">
       <%= form.label :entry_date %>
-      <%= form.text_field :entry_date, :class => 'datepicker' %>
+      <%= form.text_field :entry_date, :class => 'datepicker', :required => true %>
 
     </div>
 
     <div class="field">
       <%= form.label :notes %>
-      <%= form.text_area :notes, id: :diary_entry_notes %>
+      <%= form.text_area :notes, id: :diary_entry_notes, :required => true %>
     </div>
 
     <div class="actions">
