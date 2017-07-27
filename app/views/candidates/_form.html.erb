@@ -14,7 +14,7 @@
     <div class="field">
       <%= f.label :first_name %>
       <br/>
-      <%= f.text_field :first_name %>
+      <%= f.text_field :first_name, :required => true %>
     </div>
     <div class="field">
       <%= f.label :middle_name %>
@@ -24,7 +24,7 @@
     <div class="field">
       <%= f.label :last_name %>
       <br/>
-      <%= f.text_field :last_name %>
+      <%= f.text_field :last_name, :required => true%>
     </div>
     <% if session[:manager] %>
         <div style="background:lightgrey;width:20%">
@@ -84,7 +84,7 @@
     <div class="field">
       <%= f.label :position_id %>
       <br/>
-      <%= f.collection_select(:position_id, Position.order('name'), :id, :name, :include_blank => true) %>
+      <%= f.collection_select(:position_id, Position.order('name'), :id, :name, {:include_blank => '-- Select One'}, :required => true) %>
     </div>
     <div class="field">
       <%= f.label :candidate_status_id %>
