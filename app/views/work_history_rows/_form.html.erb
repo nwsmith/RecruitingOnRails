@@ -19,7 +19,7 @@
 
     <div class="field">
       <%= f.label :previous_employer_id %>
-      <%= f.collection_select(:previous_employer_id, PreviousEmployer.order('name'), :id, :name, :include_blank => false, :required => true) %>
+      <%= f.collection_select(:previous_employer_id, PreviousEmployer.order('name'), :id, :name, {:include_blank => '-- Select One --'}, :required => true) %>
     </div>
 
 
