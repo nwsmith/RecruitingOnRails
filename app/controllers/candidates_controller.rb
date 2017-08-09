@@ -28,7 +28,7 @@ class CandidatesController < ApplicationController
 
     @candidates = Array.new
     @status_list.each {|s| @candidates << Candidate.by_status_code(s)}
-    @candiidates = @candidates.flatten
+    @candidates = @candidates.flatten
 
     respond_to do |format|
       format.html
