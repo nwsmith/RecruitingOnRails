@@ -98,6 +98,8 @@ module ApplicationHelper
   end
 
   def markdown(text)
+    text ||= ''
+
     options = {
         filter_html: true,
         hard_wrap: true,
