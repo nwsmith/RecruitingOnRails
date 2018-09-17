@@ -124,6 +124,13 @@ class CandidatesController < ApplicationController
   # GET /candidates/1/edit
   def edit
     @candidate = Candidate.find(params[:id])
+
+    username = session[:username]
+    candidate_username = @candidate.username
+
+    if username.eql?(candidate_username) && !session[:admin]
+      redirect_to(:controller => 'dashboard', :action => 'index')
+    end
   end
 
   # POST /candidates
