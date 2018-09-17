@@ -1,5 +1,17 @@
 class CandidatesController < ApplicationController
 
+  def check_access(candidate)
+    username = session[:username]
+    candidate_username = candidate.username
+    candidate_status = candidate.candidate_status
+
+    return if session[:hr]
+
+    if username.eql?(candidate_username) || !(candidate_status.code.eql?('PEND') || candidate_status.code.eql?('VERBAL'))
+      redirect_to(:controller => 'dashboard', :action => :index)
+    end
+  end
+
   # GET /candidates
   # GET /candidates.json
   def index
@@ -97,16 +109,11 @@ class CandidatesController < ApplicationController
   def show
     @candidate = Candidate.find(params[:id])
 
-    username = session[:username]
-    candidate_username = @candidate.username
+    check_access(@candidate)
 
-    if username.eql?(candidate_username) && !session[:admin]
-      redirect_to(:controller => 'dashboard', :action => 'index')
-    else
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: @candidate }
-      end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @candidate }
     end
   end
 
@@ -124,13 +131,7 @@ class CandidatesController < ApplicationController
   # GET /candidates/1/edit
   def edit
     @candidate = Candidate.find(params[:id])
-
-    username = session[:username]
-    candidate_username = @candidate.username
-
-    if username.eql?(candidate_username) && !session[:admin]
-      redirect_to(:controller => 'dashboard', :action => 'index')
-    end
+    check_access(@candidate)
   end
 
   # POST /candidates
