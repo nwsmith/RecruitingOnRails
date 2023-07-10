@@ -13,6 +13,9 @@ module RecruitingOnRails
     # -- all .rb files in that directory are automatically loaded.
     config.eager_load_paths << Rails.root.join('lib')
 
+    # Needed for compatibility with newer rails
+    config.active_record.legacy_connection_handling = false
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
