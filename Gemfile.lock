@@ -66,11 +66,6 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    aws-sdk (1.67.0)
-      aws-sdk-v1 (= 1.67.0)
-    aws-sdk-v1 (1.67.0)
-      json (~> 1.4)
-      nokogiri (~> 1)
     builder (3.2.4)
     capistrano (2.15.11)
       highline
@@ -96,7 +91,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (1.8.6)
+    json (2.6.3)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -209,10 +204,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk (< 2.0)
   capistrano (~> 2.15.5)
   jquery-rails (~> 4.3)
   jquery-ui-rails (~> 6.0)
+  json (>= 2.3.0)
   mysql2 (~> 0.3.11)
   net-ldap
   paperclip

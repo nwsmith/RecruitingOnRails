@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '7.0.6'
 
+gem 'json', '>=2.3.0'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -37,4 +39,5 @@ gem 'simplecov'
 
 gem 'paperclip'
 
-gem 'aws-sdk', '< 2.0'
+# Commenting this out for now, not planning on using aws
+# gem 'aws-sdk', '< 2.0'
