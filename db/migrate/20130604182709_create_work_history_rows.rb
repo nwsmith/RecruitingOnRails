@@ -1,4 +1,4 @@
-class CreateWorkHistoryRows < ActiveRecord::Migration
+class CreateWorkHistoryRows < ActiveRecord::Migration[7.0]
   def up
     create_table :work_history_rows do |t|
       t.date :start_date

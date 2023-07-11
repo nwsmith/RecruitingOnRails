@@ -1,4 +1,4 @@
-class AddUserGroupJoinTable < ActiveRecord::Migration
+class AddUserGroupJoinTable < ActiveRecord::Migration[7.0]
   def up
     create_table :groups_users, :id => false do |t|
       t.integer :group_id

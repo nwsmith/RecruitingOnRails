@@ -1,4 +1,4 @@
-class CreateExperienceLevels < ActiveRecord::Migration
+class CreateExperienceLevels < ActiveRecord::Migration[7.0]
   def up
     create_table :experience_levels do |t|
       t.string :code

@@ -1,4 +1,4 @@
-class AddAdminUser < ActiveRecord::Migration
+class AddAdminUser < ActiveRecord::Migration[7.0]
   def up
     auth_config = AuthConfig.find_all_by_name('Default Setup')
 

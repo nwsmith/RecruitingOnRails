@@ -1,4 +1,4 @@
-class ChangeInterviewDateTimeToDate < ActiveRecord::Migration
+class ChangeInterviewDateTimeToDate < ActiveRecord::Migration[7.0]
   def up
     times = Hash.new
     Interview.all.each { |i| times[i.id] = i.meeting_time }

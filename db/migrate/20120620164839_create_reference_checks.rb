@@ -1,4 +1,4 @@
-class CreateReferenceChecks < ActiveRecord::Migration
+class CreateReferenceChecks < ActiveRecord::Migration[7.0]
   def up
     create_table :reference_checks do |t|
       t.string :name

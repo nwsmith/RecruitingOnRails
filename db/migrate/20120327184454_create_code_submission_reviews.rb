@@ -1,4 +1,4 @@
-class CreateCodeSubmissionReviews < ActiveRecord::Migration
+class CreateCodeSubmissionReviews < ActiveRecord::Migration[7.0]
   def change
     create_table :code_submission_reviews do |t|
       t.references :code_submission

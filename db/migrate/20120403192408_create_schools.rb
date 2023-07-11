@@ -1,4 +1,4 @@
-class CreateSchools < ActiveRecord::Migration
+class CreateSchools < ActiveRecord::Migration[7.0]
   def up
     create_table :schools do |t|
       t.string :code

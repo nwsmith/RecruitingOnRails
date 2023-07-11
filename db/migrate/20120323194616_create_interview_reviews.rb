@@ -1,4 +1,4 @@
-class CreateInterviewReviews < ActiveRecord::Migration
+class CreateInterviewReviews < ActiveRecord::Migration[7.0]
   def up
     create_table :interview_reviews do |t|
       t.references :user

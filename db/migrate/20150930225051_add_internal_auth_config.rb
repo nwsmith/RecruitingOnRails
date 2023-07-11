@@ -1,4 +1,4 @@
-class AddInternalAuthConfig < ActiveRecord::Migration
+class AddInternalAuthConfig < ActiveRecord::Migration[7.0]
   def up
     auth_config_type = AuthConfigType.find_all_by_code('INTERNAL')[0]
     AuthConfig.create({:auth_config_type => auth_config_type, :name => "Default Setup"})

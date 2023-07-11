@@ -1,4 +1,4 @@
-class CreateCandidateAttachments < ActiveRecord::Migration
+class CreateCandidateAttachments < ActiveRecord::Migration[7.0]
   def up
     create_table :candidate_attachments do |t|
       t.string :notes

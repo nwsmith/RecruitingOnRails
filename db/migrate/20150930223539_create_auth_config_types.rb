@@ -1,4 +1,4 @@
-class CreateAuthConfigTypes < ActiveRecord::Migration
+class CreateAuthConfigTypes < ActiveRecord::Migration[7.0]
   def up
     create_table :auth_config_types do |t|
       t.string :code

@@ -1,4 +1,4 @@
-class CreateLeaveReasons < ActiveRecord::Migration
+class CreateLeaveReasons < ActiveRecord::Migration[7.0]
   def up
     create_table :leave_reasons do |t|
       t.string :code

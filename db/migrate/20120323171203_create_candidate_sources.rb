@@ -1,4 +1,4 @@
-class CreateCandidateSources < ActiveRecord::Migration
+class CreateCandidateSources < ActiveRecord::Migration[7.0]
   def change
     create_table :candidate_sources do |t|
       t.string :code

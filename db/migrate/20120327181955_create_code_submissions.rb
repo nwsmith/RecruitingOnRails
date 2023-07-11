@@ -1,4 +1,4 @@
-class CreateCodeSubmissions < ActiveRecord::Migration
+class CreateCodeSubmissions < ActiveRecord::Migration[7.0]
   def up
     create_table :code_submissions do |t|
       t.references :code_problem

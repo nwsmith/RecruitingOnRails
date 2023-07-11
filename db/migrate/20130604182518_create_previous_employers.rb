@@ -1,4 +1,4 @@
-class CreatePreviousEmployers < ActiveRecord::Migration
+class CreatePreviousEmployers < ActiveRecord::Migration[7.0]
   def change
     create_table :previous_employers do |t|
       t.string :code

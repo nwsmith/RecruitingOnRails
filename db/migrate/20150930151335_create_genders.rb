@@ -1,4 +1,4 @@
-class CreateGenders < ActiveRecord::Migration
+class CreateGenders < ActiveRecord::Migration[7.0]
   def up
     create_table :genders do |t|
       t.string :code

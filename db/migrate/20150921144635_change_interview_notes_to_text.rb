@@ -1,4 +1,4 @@
-class ChangeInterviewNotesToText < ActiveRecord::Migration
+class ChangeInterviewNotesToText < ActiveRecord::Migration[7.0]
   def up
     change_column :interviews, :notes, :text
     change_column :interview_reviews, :notes, :text

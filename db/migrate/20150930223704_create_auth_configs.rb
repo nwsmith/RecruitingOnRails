@@ -1,4 +1,4 @@
-class CreateAuthConfigs < ActiveRecord::Migration
+class CreateAuthConfigs < ActiveRecord::Migration[7.0]
   def up
     create_table :auth_configs do |t|
       t.references :auth_config_type

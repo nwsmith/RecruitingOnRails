@@ -1,4 +1,4 @@
-class CleanUpReviewResults < ActiveRecord::Migration
+class CleanUpReviewResults < ActiveRecord::Migration[7.0]
   def up
     approved = ReviewResult.create({code: 'APPROVED', name: 'Thumbs Up', is_approval: true, is_disapproval: false})
     unapproved = ReviewResult.create({code: 'REJECTED', name: 'Thumbs Down', is_approval: false, is_disapproval: true})

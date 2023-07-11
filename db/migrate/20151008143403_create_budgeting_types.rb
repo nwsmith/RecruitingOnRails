@@ -1,4 +1,4 @@
-class CreateBudgetingTypes < ActiveRecord::Migration
+class CreateBudgetingTypes < ActiveRecord::Migration[7.0]
   def up
     create_table :budgeting_types do |t|
       t.string :code

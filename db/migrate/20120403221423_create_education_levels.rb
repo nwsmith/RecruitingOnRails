@@ -1,4 +1,4 @@
-class CreateEducationLevels < ActiveRecord::Migration
+class CreateEducationLevels < ActiveRecord::Migration[7.0]
   def up
     create_table :education_levels do |t|
       t.string :code

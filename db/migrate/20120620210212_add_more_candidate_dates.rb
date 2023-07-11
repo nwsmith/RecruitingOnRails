@@ -1,4 +1,4 @@
-class AddMoreCandidateDates < ActiveRecord::Migration
+class AddMoreCandidateDates < ActiveRecord::Migration[7.0]
   def change
     add_column :candidates, :offer_date, :date
     add_column :candidates, :offer_accept_date, :date

@@ -1,4 +1,4 @@
-class CreateReviewResults < ActiveRecord::Migration
+class CreateReviewResults < ActiveRecord::Migration[7.0]
   def up
     create_table :review_results do |t|
       t.string :code

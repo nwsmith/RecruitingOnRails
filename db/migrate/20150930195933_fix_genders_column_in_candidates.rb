@@ -1,4 +1,4 @@
-class FixGendersColumnInCandidates < ActiveRecord::Migration
+class FixGendersColumnInCandidates < ActiveRecord::Migration[7.0]
   def up
     execute <<-SQL
       ALTER TABLE candidates

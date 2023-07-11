@@ -1,4 +1,4 @@
-class ChangeNotesToText < ActiveRecord::Migration
+class ChangeNotesToText < ActiveRecord::Migration[7.0]
   def up
     change_column :candidates, :notes, :text
     change_column :code_submissions, :notes, :text

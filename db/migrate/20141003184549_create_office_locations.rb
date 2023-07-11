@@ -1,4 +1,4 @@
-class CreateOfficeLocations < ActiveRecord::Migration
+class CreateOfficeLocations < ActiveRecord::Migration[7.0]
   def up
     create_table :office_locations do |t|
       t.string :code

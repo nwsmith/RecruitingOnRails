@@ -1,4 +1,4 @@
-class CreateAssociatedBudgets < ActiveRecord::Migration
+class CreateAssociatedBudgets < ActiveRecord::Migration[7.0]
   def up
     create_table :associated_budgets do |t|
       t.string :code

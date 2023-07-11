@@ -1,4 +1,4 @@
-class CreatePositions < ActiveRecord::Migration
+class CreatePositions < ActiveRecord::Migration[7.0]
   def up
     create_table :positions do |t|
       t.string :code

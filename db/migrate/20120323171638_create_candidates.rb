@@ -1,4 +1,4 @@
-class CreateCandidates < ActiveRecord::Migration
+class CreateCandidates < ActiveRecord::Migration[7.0]
   def up
     create_table :candidates do |t|
       t.references :candidate_status
