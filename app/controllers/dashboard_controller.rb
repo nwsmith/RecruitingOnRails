@@ -33,8 +33,10 @@ class DashboardController < ApplicationController
     @dashboard_data[:candidates_by_status] = Array.new
 
     default_status = Registry.where(key: 'dashboard.default_status').first
-    default_statuses = default_status.value.split ','
-    default_statuses.each {|status| @dashboard_data[:candidates_by_status] << Candidate.by_status_code(status)}
+    if !default_status.nil?
+      default_statuses = default_status.value.split ','
+      default_statuses.each {|status| @dashboard_data[:candidates_by_status] << Candidate.by_status_code(status)}
+    end
 
     @dashboard_data[:candidates_by_status] = @dashboard_data[:candidates_by_status].flatten
   end
