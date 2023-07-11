@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '7.0.6'
 gem 'sprockets-rails'
+gem 'sassc-rails'
 
 gem 'json', '>=2.3.0'
 
