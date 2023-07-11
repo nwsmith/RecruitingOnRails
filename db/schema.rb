@@ -2,31 +2,30 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719000343) do
-
-  create_table "associated_budgets", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+ActiveRecord::Schema[7.0].define(version: 2017_07_19_000343) do
+  create_table "associated_budgets", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
     t.boolean "active"
   end
 
-  create_table "auth_config_types", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "auth_config_types", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "auth_configs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "auth_config_type_id"
+  create_table "auth_configs", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "auth_config_type_id"
     t.string "name"
     t.string "server"
     t.integer "port"
@@ -34,40 +33,40 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.string "ldap_domain"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["auth_config_type_id"], name: "fk_config_type"
+    t.index ["auth_config_type_id"], name: "index_auth_configs_on_auth_config_type_id"
   end
 
-  create_table "budgeting_types", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "budgeting_types", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "candidate_attachments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "candidate_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "notes"
     t.string "attachment_file_name"
     t.string "attachment_content_type"
-    t.integer "attachment_file_size"
+    t.bigint "attachment_file_size"
     t.datetime "attachment_updated_at"
-    t.integer "candidate_id"
-    t.index ["candidate_id"], name: "fk_attachment_candidate"
+    t.bigint "candidate_id"
+    t.index ["candidate_id"], name: "index_candidate_attachments_on_candidate_id"
   end
 
-  create_table "candidate_sources", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "candidate_sources", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "candidate_statuses", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "candidate_statuses", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "candidates", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "candidate_status_id"
-    t.integer "candidate_source_id"
+  create_table "candidates", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "candidate_status_id"
+    t.bigint "candidate_source_id"
     t.string "first_name"
     t.string "middle_name"
     t.string "last_name"
@@ -77,10 +76,10 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.string "referred_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "experience_level_id"
-    t.integer "position_id"
-    t.integer "school_id"
-    t.integer "education_level_id"
+    t.bigint "experience_level_id"
+    t.bigint "position_id"
+    t.bigint "school_id"
+    t.bigint "education_level_id"
     t.date "offer_date"
     t.date "offer_accept_date"
     t.date "offer_turndown_date"
@@ -90,70 +89,70 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.date "end_date"
     t.date "rejection_notification_date"
     t.text "notes"
-    t.integer "office_location_id"
-    t.integer "gender_id"
-    t.integer "budgeting_type_id"
+    t.bigint "office_location_id"
+    t.bigint "gender_id"
+    t.bigint "budgeting_type_id"
     t.string "replacement_for"
     t.date "rejection_call_request_date"
     t.string "salary_range"
     t.integer "sadness_factor"
-    t.integer "leave_reason_id"
-    t.integer "associated_budget_id"
-    t.index ["associated_budget_id"], name: "fk_associated_budget"
-    t.index ["budgeting_type_id"], name: "fk_budgeting_type"
-    t.index ["candidate_source_id"], name: "fk_candidate_source"
-    t.index ["candidate_status_id"], name: "fk_candidate_status"
-    t.index ["education_level_id"], name: "fk_candidate_edu_lvl"
-    t.index ["experience_level_id"], name: "fk_candidate_exp_lvls"
-    t.index ["gender_id"], name: "fk_genders"
-    t.index ["leave_reason_id"], name: "fk_leave_reason"
-    t.index ["office_location_id"], name: "fk_candidate_off_loc"
-    t.index ["position_id"], name: "fk_candidate_position"
-    t.index ["school_id"], name: "fk_candidate_school"
+    t.bigint "leave_reason_id"
+    t.bigint "associated_budget_id"
+    t.index ["associated_budget_id"], name: "index_candidates_on_associated_budget_id"
+    t.index ["budgeting_type_id"], name: "index_candidates_on_budgeting_type_id"
+    t.index ["candidate_source_id"], name: "index_candidates_on_candidate_source_id"
+    t.index ["candidate_status_id"], name: "index_candidates_on_candidate_status_id"
+    t.index ["education_level_id"], name: "index_candidates_on_education_level_id"
+    t.index ["experience_level_id"], name: "index_candidates_on_experience_level_id"
+    t.index ["gender_id"], name: "index_candidates_on_gender_id"
+    t.index ["leave_reason_id"], name: "index_candidates_on_leave_reason_id"
+    t.index ["office_location_id"], name: "index_candidates_on_office_location_id"
+    t.index ["position_id"], name: "index_candidates_on_position_id"
+    t.index ["school_id"], name: "index_candidates_on_school_id"
   end
 
-  create_table "code_problems", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "code_problems", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "code_submission_reviews", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "code_submission_id"
-    t.integer "user_id"
+  create_table "code_submission_reviews", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "code_submission_id"
+    t.bigint "user_id"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "review_result_id"
-    t.index ["code_submission_id"], name: "fk_code_submission_review"
-    t.index ["review_result_id"], name: "fk_submission_rev_res"
-    t.index ["user_id"], name: "fk_code_submission_review_user"
+    t.bigint "review_result_id"
+    t.index ["code_submission_id"], name: "index_code_submission_reviews_on_code_submission_id"
+    t.index ["review_result_id"], name: "index_code_submission_reviews_on_review_result_id"
+    t.index ["user_id"], name: "index_code_submission_reviews_on_user_id"
   end
 
-  create_table "code_submissions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "code_problem_id"
-    t.integer "candidate_id"
+  create_table "code_submissions", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "code_problem_id"
+    t.bigint "candidate_id"
     t.date "submission_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "sent_date"
     t.text "notes"
-    t.index ["candidate_id"], name: "fk_code_submission_candidate"
-    t.index ["code_problem_id"], name: "fk_code_submission_problem"
+    t.index ["candidate_id"], name: "index_code_submissions_on_candidate_id"
+    t.index ["code_problem_id"], name: "index_code_submissions_on_code_problem_id"
   end
 
-  create_table "diary_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "diary_entries", charset: "utf8mb3", force: :cascade do |t|
     t.date "entry_date"
     t.text "notes"
-    t.integer "candidate_id"
+    t.bigint "candidate_id"
     t.bigint "diary_entry_type_id"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["candidate_id"], name: "index_diary_entries_on_candidate_id"
     t.index ["diary_entry_type_id"], name: "index_diary_entries_on_diary_entry_type_id"
     t.index ["user_id"], name: "index_diary_entries_on_user_id"
   end
 
-  create_table "diary_entry_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "diary_entry_types", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
@@ -161,7 +160,7 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.boolean "negative"
   end
 
-  create_table "education_levels", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "education_levels", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
@@ -169,71 +168,71 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "experience_levels", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "experience_levels", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
     t.string "color"
   end
 
-  create_table "genders", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "genders", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "groups", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "groups", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "groups_users", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "groups_users", id: false, charset: "utf8mb3", force: :cascade do |t|
     t.integer "group_id"
     t.integer "user_id"
   end
 
-  create_table "interview_reviews", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "user_id"
-    t.integer "interview_id"
+  create_table "interview_reviews", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "interview_id"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "review_result_id"
-    t.index ["interview_id"], name: "fk_interview_review_interview"
-    t.index ["review_result_id"], name: "fk_interview_rev_res"
-    t.index ["user_id"], name: "fk_interview_review_user"
+    t.bigint "review_result_id"
+    t.index ["interview_id"], name: "index_interview_reviews_on_interview_id"
+    t.index ["review_result_id"], name: "index_interview_reviews_on_review_result_id"
+    t.index ["user_id"], name: "index_interview_reviews_on_user_id"
   end
 
-  create_table "interview_types", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "interview_types", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "interviews", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "interviews", charset: "utf8mb3", force: :cascade do |t|
     t.date "meeting_time"
     t.text "notes"
-    t.integer "interview_type_id"
-    t.integer "candidate_id"
-    t.index ["candidate_id"], name: "fk_interview_candidate"
-    t.index ["interview_type_id"], name: "fk_interview_type"
+    t.bigint "interview_type_id"
+    t.bigint "candidate_id"
+    t.index ["candidate_id"], name: "index_interviews_on_candidate_id"
+    t.index ["interview_type_id"], name: "index_interviews_on_interview_type_id"
   end
 
-  create_table "leave_reasons", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "leave_reasons", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "office_locations", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "office_locations", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "positions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "positions", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
@@ -241,35 +240,35 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "previous_employers", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "previous_employers", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
   end
 
-  create_table "reference_checks", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "reference_checks", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "phone"
     t.text "notes"
-    t.integer "candidate_id"
-    t.integer "review_result_id"
+    t.bigint "candidate_id"
+    t.bigint "review_result_id"
     t.string "title"
     t.string "company"
     t.string "relationship"
     t.integer "years_known"
-    t.index ["candidate_id"], name: "fk_candidate"
-    t.index ["review_result_id"], name: "fk_ref_rev_res"
+    t.index ["candidate_id"], name: "index_reference_checks_on_candidate_id"
+    t.index ["review_result_id"], name: "index_reference_checks_on_review_result_id"
   end
 
-  create_table "registries", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "registries", charset: "utf8mb3", force: :cascade do |t|
     t.string "key"
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "review_results", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "review_results", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
@@ -277,7 +276,7 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.boolean "is_disapproval"
   end
 
-  create_table "schools", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "schools", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
@@ -285,7 +284,7 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.boolean "admin"
@@ -294,30 +293,52 @@ ActiveRecord::Schema.define(version: 20170719000343) do
     t.string "user_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "auth_config_id"
+    t.bigint "auth_config_id"
     t.string "password"
     t.string "api_key"
     t.boolean "manager"
     t.boolean "hr"
-    t.index ["auth_config_id"], name: "fk_auth_config"
+    t.index ["auth_config_id"], name: "index_users_on_auth_config_id"
   end
 
-  create_table "work_history_rows", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "work_history_rows", charset: "utf8mb3", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
-    t.integer "previous_employer_id"
-    t.integer "candidate_id"
-    t.index ["candidate_id"], name: "fk_history_candidate"
-    t.index ["previous_employer_id"], name: "fk_previous_employer"
+    t.bigint "previous_employer_id"
+    t.bigint "candidate_id"
+    t.index ["candidate_id"], name: "index_work_history_rows_on_candidate_id"
+    t.index ["previous_employer_id"], name: "index_work_history_rows_on_previous_employer_id"
   end
 
   add_foreign_key "auth_configs", "auth_config_types", name: "fk_config_type"
   add_foreign_key "candidate_attachments", "candidates", name: "fk_attachment_candidate"
+  add_foreign_key "candidates", "associated_budgets", name: "fk_associated_budget"
   add_foreign_key "candidates", "budgeting_types", name: "fk_budgeting_type"
+  add_foreign_key "candidates", "candidate_sources", name: "fk_candidate_source"
+  add_foreign_key "candidates", "candidate_statuses", name: "fk_candidate_status"
+  add_foreign_key "candidates", "education_levels", name: "fk_candidate_edu_lvl"
+  add_foreign_key "candidates", "experience_levels", name: "fk_candidate_exp_lvls"
   add_foreign_key "candidates", "genders", name: "fk_genders"
   add_foreign_key "candidates", "leave_reasons", name: "fk_leave_reason"
+  add_foreign_key "candidates", "office_locations", name: "fk_candidate_off_loc"
+  add_foreign_key "candidates", "positions", name: "fk_candidate_position"
+  add_foreign_key "candidates", "schools", name: "fk_candidate_school"
+  add_foreign_key "code_submission_reviews", "code_submissions", name: "fk_code_submission_review"
+  add_foreign_key "code_submission_reviews", "review_results", name: "fk_submission_rev_res"
+  add_foreign_key "code_submission_reviews", "users", name: "fk_code_submission_review_user"
+  add_foreign_key "code_submissions", "candidates", name: "fk_code_submission_candidate"
+  add_foreign_key "code_submissions", "code_problems", name: "fk_code_submission_problem"
   add_foreign_key "diary_entries", "candidates"
   add_foreign_key "diary_entries", "diary_entry_types"
   add_foreign_key "diary_entries", "users"
+  add_foreign_key "interview_reviews", "interviews", name: "fk_interview_review_interview"
+  add_foreign_key "interview_reviews", "review_results", name: "fk_interview_rev_res"
+  add_foreign_key "interview_reviews", "users", name: "fk_interview_review_user"
+  add_foreign_key "interviews", "candidates", name: "fk_interview_candidate"
+  add_foreign_key "interviews", "interview_types", name: "fk_interview_type"
+  add_foreign_key "reference_checks", "candidates", name: "fk_candidate"
+  add_foreign_key "reference_checks", "review_results", name: "fk_ref_rev_res"
   add_foreign_key "users", "auth_configs", name: "fk_auth_config"
+  add_foreign_key "work_history_rows", "candidates", name: "fk_history_candidate"
+  add_foreign_key "work_history_rows", "previous_employers", name: "fk_previous_employer"
 end
