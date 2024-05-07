@@ -270,6 +270,7 @@ DEPENDENCIES
   json (>= 2.3.0)
   mysql2 (~> 0.5)
   net-ldap
+  nokogiri (>= 1.15.6)
   paperclip
   rails (>= 7.1)
   redcarpet (~> 3.5.1)

@@ -9,6 +9,8 @@ gem 'json', '>=2.3.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem "nokogiri", ">= 1.15.6"
+
 gem 'mysql2', '~> 0.5'
 gem 'net-ldap'
 
