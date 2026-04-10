@@ -84,6 +84,6 @@ class PreviousEmployersController < ApplicationController
   private
 
   def user_params
-    params.require(:previous_employer).permit!
+    params.require(:previous_employer).permit(:code, :name, :description)
   end
 end

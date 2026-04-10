@@ -6,7 +6,7 @@ class CandidatesController < ApplicationController
 
     return if current_user&.hr? || current_user&.manager? || current_user&.admin?
 
-    if current_user&.user_name.eql?(candidate_username) || !(candidate_status.code.eql?('PEND') || candidate_status.code.eql?('VERBAL'))
+    if current_user&.user_name.eql?(candidate_username) && !(candidate_status.code.eql?('PEND') || candidate_status.code.eql?('VERBAL'))
       redirect_to(:controller => 'dashboard', :action => :index)
     end
   end
@@ -180,6 +180,16 @@ class CandidatesController < ApplicationController
   private
 
   def user_params
-    params.require(:candidate).permit!
+    params.require(:candidate).permit(
+      :first_name, :middle_name, :last_name, :notes,
+      :application_date, :first_contact_date, :start_date, :end_date,
+      :offer_date, :offer_accept_date, :offer_turndown_date,
+      :rejection_notification_date, :rejection_call_request_date,
+      :fire_date, :quit_date, :is_referral, :referred_by,
+      :salary_range, :replacement_for, :sadness_factor,
+      :candidate_status_id, :candidate_source_id, :experience_level_id,
+      :position_id, :office_location_id, :education_level_id, :school_id,
+      :gender_id, :leave_reason_id, :associated_budget_id, :budgeting_type_id
+    )
   end
 end

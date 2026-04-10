@@ -86,6 +86,6 @@ class CodeSubmissionReviewsController < ApplicationController
   private
 
   def user_params
-    params.require(:code_submission_review).permit!
+    params.require(:code_submission_review).permit(:code_submission_id, :user_id, :review_result_id, :notes)
   end
 end

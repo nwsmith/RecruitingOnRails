@@ -84,6 +84,6 @@ class AssociatedBudgetsController < ApplicationController
   private
 
   def user_params
-    params.require(:associated_budget).permit!
+    params.require(:associated_budget).permit(:code, :name, :description, :active)
   end
 end

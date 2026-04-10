@@ -84,6 +84,6 @@ class LeaveReasonsController < ApplicationController
   private
 
   def user_params
-    params.require(:leave_reason).permit!
+    params.require(:leave_reason).permit(:code, :name, :description)
   end
 end

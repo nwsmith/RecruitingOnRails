@@ -86,6 +86,6 @@ class AuthConfigTypesController < ApplicationController
   private
 
   def user_params
-    params.require(:auth_config_type).permit!
+    params.require(:auth_config_type).permit(:code, :name, :description)
   end
 end

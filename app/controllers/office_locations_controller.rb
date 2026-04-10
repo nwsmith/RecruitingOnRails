@@ -84,6 +84,6 @@ class OfficeLocationsController < ApplicationController
   private
 
   def user_params
-    params.require(:office_location).permit!
+    params.require(:office_location).permit(:code, :name, :description)
   end
 end

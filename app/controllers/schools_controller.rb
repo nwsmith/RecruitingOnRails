@@ -84,6 +84,6 @@ class SchoolsController < ApplicationController
   private
 
   def user_params
-    params.require(:school).permit!
+    params.require(:school).permit(:code, :name, :description)
   end
 end

@@ -54,7 +54,7 @@ class Candidate < ApplicationRecord
   end
 
   def Candidate.by_associated_budget_code(budget_code)
-    associated_budget = AsscociatedBudget.where(code: budget_code).first
+    associated_budget = AssociatedBudget.where(code: budget_code).first
     id = associated_budget.nil? ? -1 : associated_budget.id
     Candidate.where(associated_budget_id: id).all
   end

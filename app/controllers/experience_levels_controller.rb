@@ -84,6 +84,6 @@ class ExperienceLevelsController < ApplicationController
   private
 
   def user_params
-    params.require(:experience_level).permit!
+    params.require(:experience_level).permit(:code, :name, :description, :color)
   end
 end

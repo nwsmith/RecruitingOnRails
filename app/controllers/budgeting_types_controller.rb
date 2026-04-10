@@ -84,6 +84,6 @@ class BudgetingTypesController < ApplicationController
   private
 
   def user_params
-    params.require(:budgeting_type).permit!
+    params.require(:budgeting_type).permit(:code, :name, :description)
   end
 end

@@ -85,6 +85,6 @@ class WorkHistoryRowsController < ApplicationController
   private
 
   def user_params
-    params.require(:work_history_row).permit!
+    params.require(:work_history_row).permit(:candidate_id, :previous_employer_id, :start_date, :end_date)
   end
 end

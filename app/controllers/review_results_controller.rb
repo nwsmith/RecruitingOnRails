@@ -84,6 +84,6 @@ class ReviewResultsController < ApplicationController
   private
 
   def user_params
-    params.require(:review_result).permit!
+    params.require(:review_result).permit(:code, :name, :description, :is_approval, :is_disapproval)
   end
 end

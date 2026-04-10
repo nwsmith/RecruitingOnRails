@@ -85,6 +85,6 @@ class InterviewsController < ApplicationController
   private
 
   def user_params
-    params.require(:interview).permit!
+    params.require(:interview).permit(:candidate_id, :interview_type_id, :meeting_time, :notes)
   end
 end

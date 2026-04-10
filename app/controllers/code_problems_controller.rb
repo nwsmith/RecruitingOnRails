@@ -84,6 +84,6 @@ class CodeProblemsController < ApplicationController
   private
 
   def user_params
-    params.require(:code_problem).permit!
+    params.require(:code_problem).permit(:code, :name, :description)
   end
 end

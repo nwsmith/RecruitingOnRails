@@ -86,6 +86,6 @@ class AuthConfigsController < ApplicationController
   private
 
   def user_params
-    params.require(:auth_config).permit!
+    params.require(:auth_config).permit(:name, :auth_config_type_id, :server, :port, :ldap_base, :ldap_domain)
   end
 end

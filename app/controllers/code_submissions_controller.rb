@@ -85,6 +85,6 @@ class CodeSubmissionsController < ApplicationController
   private
 
   def user_params
-    params.require(:code_submission).permit!
+    params.require(:code_submission).permit(:candidate_id, :code_problem_id, :sent_date, :submission_date, :notes)
   end
 end

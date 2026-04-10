@@ -84,6 +84,6 @@ class EducationLevelsController < ApplicationController
   private
 
   def user_params
-    params.require(:education_level).permit!
+    params.require(:education_level).permit(:code, :name, :description)
   end
 end

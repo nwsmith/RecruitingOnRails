@@ -85,6 +85,6 @@ class CandidateAttachmentsController < ApplicationController
   private
 
   def user_params
-    params.require(:candidate_attachment).permit!
+    params.require(:candidate_attachment).permit(:notes, :candidate_id, :attachment)
   end
 end

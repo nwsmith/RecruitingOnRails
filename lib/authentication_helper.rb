@@ -25,8 +25,8 @@ module AuthenticationHelper
       ldap_user = conn.search(:filter => op_filter & user_filter)
 
       return ldap_user.nil? ? nil : user
-    rescue Net::LDAP::LdapError => e
-      return e.message
+    rescue Net::LDAP::LdapError
+      return nil
     end
   end
 

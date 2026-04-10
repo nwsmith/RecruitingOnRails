@@ -86,6 +86,6 @@ class InterviewReviewsController < ApplicationController
   private
 
   def user_params
-    params.require(:interview_review).permit!
+    params.require(:interview_review).permit(:interview_id, :user_id, :review_result_id, :notes)
   end
 end

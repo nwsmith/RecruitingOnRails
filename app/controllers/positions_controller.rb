@@ -84,6 +84,6 @@ class PositionsController < ApplicationController
   private
 
   def user_params
-    params.require(:position).permit!
+    params.require(:position).permit(:code, :name, :description)
   end
 end

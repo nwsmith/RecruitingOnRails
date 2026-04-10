@@ -84,6 +84,6 @@ class CandidateStatusesController < ApplicationController
   private
 
   def user_params
-    params.require(:candidate_status).permit!
+    params.require(:candidate_status).permit(:code, :name, :description)
   end
 end

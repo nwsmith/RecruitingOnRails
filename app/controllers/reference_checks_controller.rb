@@ -85,6 +85,6 @@ class ReferenceChecksController < ApplicationController
   private
 
   def user_params
-    params.require(:reference_check).permit!
+    params.require(:reference_check).permit(:candidate_id, :name, :title, :company, :phone, :email, :relationship, :years_known, :review_result_id, :notes)
   end
 end

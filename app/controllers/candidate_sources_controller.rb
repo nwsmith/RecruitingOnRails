@@ -84,6 +84,6 @@ class CandidateSourcesController < ApplicationController
   private
 
   def user_params
-    params.require(:candidate_source).permit!
+    params.require(:candidate_source).permit(:code, :name, :description)
   end
 end

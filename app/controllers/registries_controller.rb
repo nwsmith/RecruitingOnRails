@@ -86,6 +86,6 @@ class RegistriesController < ApplicationController
   private
 
   def user_params
-    params.require(:registry).permit!
+    params.require(:registry).permit(:key, :value)
   end
 end

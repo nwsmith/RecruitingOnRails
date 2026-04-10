@@ -84,6 +84,6 @@ class InterviewTypesController < ApplicationController
   private
 
   def user_params
-    params.require(:interview_type).permit!
+    params.require(:interview_type).permit(:code, :name, :description)
   end
 end
