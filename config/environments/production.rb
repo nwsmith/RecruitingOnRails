@@ -1,11 +1,5 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.paperclip_defaults = {
-      storage: 's3',
-      bucket: 'sum-resumes-prod',
-      s3_host_name: 's3-us-east-2.amazonaws.com'
-  }
-
   # Code is not reloaded between requests.
   config.cache_classes = true
 

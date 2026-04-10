@@ -40,7 +40,7 @@ gem 'redcarpet', '~> 3.5.1'
 
 gem 'simplecov'
 
-gem 'paperclip'
+gem 'aws-sdk-s3', require: false
 
 # Commenting this out for now, not planning on using aws
 # gem 'aws-sdk', '< 2.0'

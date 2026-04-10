@@ -26,6 +26,7 @@ services:
       SECRET_KEY_BASE: ${SECRET_KEY_BASE:-devsecret}
       RAILS_LOG_TO_STDOUT: "true"
       RAILS_SERVE_STATIC_FILES: "true"
+    command: bash -c "bundle install && bundle exec rails server -b 0.0.0.0"
     volumes:
       - .:/app
       - bundle_cache:/usr/local/bundle

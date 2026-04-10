@@ -7,7 +7,9 @@
 
 <p>
   <b>Attachment:</b>
-  <%= @candidate_attachment.attachment %>
+  <% if @candidate_attachment.attachment.attached? %>
+    <%= link_to @candidate_attachment.attachment.filename, rails_blob_path(@candidate_attachment.attachment, disposition: 'inline') %>
+  <% end %>
 </p>
 
 

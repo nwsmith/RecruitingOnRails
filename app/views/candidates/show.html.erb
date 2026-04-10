@@ -151,7 +151,7 @@
 
 <h1>Attachments</h1>
 <% @candidate.candidate_attachments.each do |attachment| %>
-    <%= attachment.attachment_file_name %> <%= link_to 'Edit', candidate_attachment_path(attachment) %> <%= link_to 'View', attachment.attachment.url %>
+    <%= attachment.attachment.filename %> <%= link_to 'Edit', candidate_attachment_path(attachment) %> <%= link_to 'View', rails_blob_path(attachment.attachment, disposition: 'inline') if attachment.attachment.attached? %>
     <br/>
 <% end %>
 
