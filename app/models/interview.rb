@@ -1,5 +1,5 @@
 class Interview < ApplicationRecord
-  belongs_to :interview_type
+  belongs_to :interview_type, optional: true
   belongs_to :candidate
   has_many :interview_reviews
 

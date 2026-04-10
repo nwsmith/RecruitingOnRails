@@ -1,15 +1,15 @@
 class Candidate < ApplicationRecord
-  belongs_to :gender
-  belongs_to :candidate_status
-  belongs_to :candidate_source
-  belongs_to :experience_level
-  belongs_to :position
-  belongs_to :office_location
-  belongs_to :education_level
-  belongs_to :school
-  belongs_to :budgeting_type
-  belongs_to :leave_reason
-  belongs_to :associated_budget
+  belongs_to :gender, optional: true
+  belongs_to :candidate_status, optional: true
+  belongs_to :candidate_source, optional: true
+  belongs_to :experience_level, optional: true
+  belongs_to :position, optional: true
+  belongs_to :office_location, optional: true
+  belongs_to :education_level, optional: true
+  belongs_to :school, optional: true
+  belongs_to :budgeting_type, optional: true
+  belongs_to :leave_reason, optional: true
+  belongs_to :associated_budget, optional: true
 
   has_many :work_history_rows
   has_many :interviews
@@ -17,6 +17,9 @@ class Candidate < ApplicationRecord
   has_many :reference_checks
   has_many :candidate_attachments
   has_many :diary_entries
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   def start_time=(start_time)
     @start_time = start_time
@@ -27,11 +30,11 @@ class Candidate < ApplicationRecord
   end
 
   def name
-    first_name + ' ' + last_name
+    "#{first_name} #{last_name}"
   end
 
   def username
-    first_name.strip.downcase + '.' + last_name.strip.downcase
+    "#{first_name.strip.downcase}.#{last_name.strip.downcase}"
   end
 
   def in_pipeline?
@@ -42,15 +45,10 @@ class Candidate < ApplicationRecord
     code_submissions + interviews
   end
 
-  def time_served
-
-  end
-
   def Candidate.by_status_code(status_code)
     status = CandidateStatus.where(code: status_code).first
     id = status.nil? ? -1 : status.id
-    candidates = Candidate.where(candidate_status_id: id).all
-    candidates
+    Candidate.where(candidate_status_id: id).all
   end
 
   def Candidate.by_associated_budget_code(budget_code)

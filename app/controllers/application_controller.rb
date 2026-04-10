@@ -9,15 +9,25 @@ class ApplicationController < ActionController::Base
   end
 
   def check_login
-    if !params[:api_key] && (session[:expires_at].nil? || session[:expires_at].to_time < Time.current)
+    # API key auth path
+    if params[:api_key]
+      user = User.find_by(api_key: params[:api_key])
+      if user&.active?
+        @current_user = user
+        return
+      else
+        redirect_to(:controller => 'login', :action => 'index')
+        return
+      end
+    end
+
+    # Session auth path
+    if session[:expires_at].nil? || session[:expires_at].to_time < Time.current
       redirect_to(:controller => 'login', :action => 'index')
       return
     end
 
-    user = current_user
-    user ||= User.find_by(api_key: params[:api_key]) if params[:api_key]
-
-    if user.nil?
+    if current_user.nil?
       redirect_to(:controller => 'login', :action => 'index')
     else
       session[:expires_at] = Time.current + 2.hours

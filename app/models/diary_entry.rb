@@ -1,5 +1,5 @@
 class DiaryEntry < ApplicationRecord
-  belongs_to :diary_entry_type
+  belongs_to :diary_entry_type, optional: true
   belongs_to :user
   belongs_to :candidate
 

@@ -50,8 +50,6 @@ RecruitingOnRails::Application.routes.draw do
   resources :interview_types
   resources :experience_levels
 
-  match "/candidates/__history__.html" => 'candidates#noop', via: [:get, :post]
-
   resources :candidates do
     collection do
       get 'list'

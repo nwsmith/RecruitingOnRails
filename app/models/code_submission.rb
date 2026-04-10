@@ -1,5 +1,5 @@
 class CodeSubmission < ApplicationRecord
-  belongs_to :code_problem
+  belongs_to :code_problem, optional: true
   belongs_to :candidate
   has_many :code_submission_reviews
 
