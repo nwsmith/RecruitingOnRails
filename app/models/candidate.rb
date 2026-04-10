@@ -46,15 +46,15 @@ class Candidate < ApplicationRecord
   end
 
   def Candidate.by_status_code(status_code)
-    status = CandidateStatus.where(code: status_code).first
-    id = status.nil? ? -1 : status.id
-    Candidate.where(candidate_status_id: id).all
+    status = CandidateStatus.find_by(code: status_code)
+    return Candidate.none unless status
+    Candidate.where(candidate_status_id: status.id)
   end
 
   def Candidate.by_associated_budget_code(budget_code)
-    associated_budget = AssociatedBudget.where(code: budget_code).first
-    id = associated_budget.nil? ? -1 : associated_budget.id
-    Candidate.where(associated_budget_id: id).all
+    associated_budget = AssociatedBudget.find_by(code: budget_code)
+    return Candidate.none unless associated_budget
+    Candidate.where(associated_budget_id: associated_budget.id)
   end
 
   def tenure_in_years

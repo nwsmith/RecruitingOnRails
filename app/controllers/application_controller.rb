@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
     end
 
     # Session auth path
-    if session[:expires_at].nil? || session[:expires_at].to_time < Time.current
+    expires_at = begin; session[:expires_at]&.to_time; rescue; nil; end
+    if expires_at.nil? || expires_at < Time.current
       redirect_to(:controller => 'login', :action => 'index')
       return
     end

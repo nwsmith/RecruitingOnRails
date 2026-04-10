@@ -6,7 +6,7 @@ class CandidatesController < ApplicationController
 
     return if current_user&.hr? || current_user&.manager? || current_user&.admin?
 
-    if current_user&.user_name.eql?(candidate_username) && !(candidate_status.code.eql?('PEND') || candidate_status.code.eql?('VERBAL'))
+    if current_user&.user_name.eql?(candidate_username) && !(candidate_status&.code.eql?('PEND') || candidate_status&.code.eql?('VERBAL'))
       redirect_to(:controller => 'dashboard', :action => :index)
     end
   end
@@ -27,7 +27,7 @@ class CandidatesController < ApplicationController
     d = Date.parse(p)
 
     @candidates = Candidate.all
-    @candidates = @candidates.select{|c| !c.start_date.nil? && c.candidate_status.code != 'QUIT' && c.candidate_status.code != 'FIRED'}
+    @candidates = @candidates.select{|c| !c.start_date.nil? && c.candidate_status&.code != 'QUIT' && c.candidate_status&.code != 'FIRED'}
     @candidates.each {|c| c.start_time = Date.new(d.year, c.start_date.month, c.start_date.day)}
   end
 
@@ -55,7 +55,7 @@ class CandidatesController < ApplicationController
     folks = Array.new
     status_list.each { |s| folks << Candidate.by_status_code(s) }
     folks = folks.flatten
-    folks.sort { |a, b| b.start_date <=> a.start_date || b.end_date <=> a.end_date }
+    folks = folks.sort { |a, b| b.start_date <=> a.start_date || b.end_date <=> a.end_date }
 
     folks.each do |candidate|
       next if candidate.start_date.nil? || candidate.start_date > Date.today

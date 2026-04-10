@@ -4,10 +4,11 @@ class DiaryEntry < ApplicationRecord
   belongs_to :candidate
 
   def summary
-    "#{entry_date} - #{diary_entry_type.name}"
+    "#{entry_date} - #{diary_entry_type&.name || 'N/A'}"
   end
 
   def color
-    (diary_entry_type.positive?) ? 'green' : (diary_entry_type.negative?) ? 'red' : 'black'
+    return 'black' unless diary_entry_type
+    diary_entry_type.positive? ? 'green' : diary_entry_type.negative? ? 'red' : 'black'
   end
 end

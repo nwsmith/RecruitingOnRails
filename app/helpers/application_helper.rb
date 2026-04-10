@@ -2,7 +2,8 @@ require 'redcarpet'
 
 module ApplicationHelper
   def display_text(text)
-    text.nil? ? '' : text.gsub("\n", '<br>')
+    return '' if text.nil?
+    ERB::Util.html_escape(text).gsub("\n", '<br>').html_safe
   end
 
   def get_name(code)

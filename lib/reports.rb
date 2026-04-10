@@ -42,7 +42,7 @@ module Reports
         start_year_info.still_here << candidate unless start_year_info.still_here.include? candidate
       else
         end_year_info = get(end_year)
-        end_year_info.left_in_year << candidate unless end_year_info.still_here.include? candidate
+        end_year_info.left_in_year << candidate unless end_year_info.left_in_year.include? candidate
       end
 
     end
@@ -127,7 +127,7 @@ module Reports
       middle = (ee_tenures.size/2.0).floor
       return -1 if middle.nil? || ee_tenures[middle].nil?
       return ee_tenures[middle] if ee_tenures[middle+1].nil?
-      middle % 2 == 1 ? (ee_tenures[middle]+ee_tenures[middle+1])/2.0 : ee_tenures[middle]
+      ee_tenures.size % 2 == 0 ? (ee_tenures[middle]+ee_tenures[middle+1])/2.0 : ee_tenures[middle]
     end
   end
 
