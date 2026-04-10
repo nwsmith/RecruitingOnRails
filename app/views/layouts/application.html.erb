@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="light">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RecruitingOnRails</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -16,12 +19,29 @@
     });
 </script>
 
-<h1>Recruiting On Rails</h1>
+<header class="container">
+  <nav>
+    <ul>
+      <li><strong><%= link_to "Recruiting on Rails", '/dashboard' %></strong></li>
+    </ul>
+    <ul>
+      <li><%= link_to "Dashboard", '/dashboard' %></li>
+      <li><%= link_to "Candidates", candidates_path %></li>
+      <li><%= link_to "Reports", reports_index_path %></li>
+      <% if current_user %>
+        <li><span class="user-chip"><%= current_user.name %></span></li>
+      <% end %>
+    </ul>
+  </nav>
+</header>
 
-<%= link_to "Dashboard", '/dashboard' %> |
-<%= link_to "Reports", reports_index_path %>
+<main class="container">
+  <%= yield %>
+</main>
 
-<%= yield %>
+<footer class="container">
+  <small>RecruitingOnRails &middot; Modernized <%= Date.today.year %></small>
+</footer>
 
 </body>
 </html>

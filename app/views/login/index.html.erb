@@ -1,12 +1,18 @@
-
 <%= form_tag('/login/attempt_login') do -%>
-    <p>
-      <label for="username">Username</label>
-      <%=  text_field_tag 'username', params[:username] %>
-    </p>
-    <p>
-      <label for="password">Password</label>
-      <%=  password_field_tag 'password' %>
-    </p>
-    <%=  submit_tag 'Log In' %>
+    <hgroup>
+      <h2>Sign in</h2>
+      <p>Welcome back to Recruiting on Rails</p>
+    </hgroup>
+
+    <label for="username">
+      Username
+      <%= text_field_tag 'username', params[:username], required: true, autofocus: true %>
+    </label>
+
+    <label for="password">
+      Password
+      <%= password_field_tag 'password', nil, required: true %>
+    </label>
+
+    <%= submit_tag 'Log In', class: 'contrast' %>
 <% end -%>

@@ -1,83 +1,140 @@
-body {
-  background-color: #fff;
-  color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px; }
+// Custom overrides on top of Pico.css
+// Pico provides classless styling for semantic HTML; this file
+// only adds app-specific tweaks and legacy class compatibility.
 
+:root {
+  --pico-form-element-spacing-vertical: 0.5rem;
+  --pico-form-element-spacing-horizontal: 0.75rem;
+  --pico-spacing: 1rem;
+}
 
+body > main.container {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+header.container nav {
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.user-chip {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  background: var(--pico-primary-background);
+  color: var(--pico-primary-inverse);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+footer.container {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--pico-muted-border-color);
+  text-align: center;
+  color: var(--pico-muted-color);
+}
+
+// Tables: prettier than the old red-bordered scaffold style
 table {
-    border: 1px solid #600;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: var(--pico-card-background-color);
+  border-radius: var(--pico-border-radius);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 th {
-    border: 1px solid #600;
-    margin: 0;
-    padding: 4px;
-    background-color: #BBB;
+  background: var(--pico-primary);
+  color: var(--pico-primary-inverse);
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  border: none;
 }
 
 td {
-    border: 1px solid #600;
-    margin: 0;
-    padding: 4px;
-    background-color: #EEE;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  background: transparent;
 }
 
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px; }
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px; }
-
-a {
-  color: #000;
-  &:visited {
-    color: #666; }
-  &:hover {
-    color: #fff;
-    background-color: #000; } }
-
-a.approved {
-  color: green;
+tr:hover td {
+  background: var(--pico-secondary-background);
 }
 
-a.unapproved {
-  color: red;
+// Forms: tighten up Rails default scaffold
+div.field, div.actions {
+  margin-bottom: 1rem;
 }
 
-div {
-  &.field, &.actions {
-    margin-bottom: 10px; } }
+div.field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
 
+// Notices
 #notice {
-  color: green; }
+  padding: 0.75rem 1rem;
+  background: var(--pico-primary-background);
+  color: var(--pico-primary-inverse);
+  border-radius: var(--pico-border-radius);
+  margin-bottom: 1rem;
+}
+
+#notice:empty {
+  display: none;
+}
+
+// Errors
+#error_explanation {
+  border: 1px solid #c00;
+  background: #fff5f5;
+  border-radius: var(--pico-border-radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: auto;
+
+  h2 {
+    color: #c00;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    background: transparent;
+    padding: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+}
 
 .field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table; }
+  display: inline-block;
+  padding: 0;
+  background: transparent;
 
-#error_explanation {
-  width: 450px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 0;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-  h2 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 5px 5px 15px;
-    font-size: 12px;
-    margin: -7px;
-    margin-bottom: 0px;
-    background-color: #c00;
-    color: #fff; }
-  ul li {
-    font-size: 12px;
-    list-style: square; } }
+  input, select, textarea {
+    border-color: #c00 !important;
+  }
+}
+
+// Approval colors
+a.approved { color: var(--pico-color-green-500); font-weight: 600; }
+a.unapproved { color: var(--pico-color-red-500); font-weight: 600; }
+
+// Login form polish
+form[action$="attempt_login"] {
+  max-width: 360px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-card-background-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
