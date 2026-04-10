@@ -1,26 +1,53 @@
 <% content_for :for_head do %>
-    <script src="http://api.simile-widgets.org/timeline/2.3.1/timeline-api.js?bundle=true" type="text/javascript"></script>
-    <script type="application/javascript">
-    </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
 <% end %>
 
+<div id="my-timeline" style="height: <%= [@candidates.size * 25, 200].max %>px; border: 1px solid #aaa"></div>
+
 <script type="application/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-        var eventSource = new Timeline.DefaultEventSource();
+  document.addEventListener('DOMContentLoaded', function () {
+    var container = document.getElementById('my-timeline');
+    var eventsUrl = <%= raw "#{events_candidates_path}.json?status=#{@status_list.join(',')}".to_json %>;
 
-        var bandInfos = [
-            Timeline.createBandInfo({
-                eventSource: eventSource,
-                width: "100%",
-                intervalUnit: Timeline.DateTime.<%=@group_by%>,
-                intervalPixels: <%= @group_by == 'MONTH' ? 25 : 175 %>
-            })
-        ];
-        tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
-
-        Timeline.loadJSON("<%= events_candidates_path %>.json?status=<%=@status_list.join ','%>", function (json, url) {
-            eventSource.loadJSON(json, url)
+    fetch(eventsUrl, { credentials: 'same-origin' })
+      .then(function (response) { return response.json(); })
+      .then(function (payload) {
+        var rawEvents = (payload && payload.events) || [];
+        var items = rawEvents.map(function (e, idx) {
+          return {
+            id: idx + 1,
+            content: e.title,
+            start: e.start,
+            end: e.end,
+            type: 'range'
+          };
         });
-    });
+
+        var options = {
+          stack: true,
+          margin: { item: 4 },
+          orientation: 'top',
+          zoomMin: 1000 * 60 * 60 * 24 * 30,         // ~1 month
+          zoomMax: 1000 * 60 * 60 * 24 * 365 * 50    // ~50 years
+        };
+
+        // Match the old SIMILE intervalUnit roughly: pick an initial window
+        // span based on @group_by so the first render isn't zoomed all the way out.
+        if (items.length > 0) {
+          var starts = items.map(function (i) { return new Date(i.start).getTime(); });
+          var ends   = items.map(function (i) { return new Date(i.end).getTime();   });
+          var minStart = new Date(Math.min.apply(null, starts));
+          var maxEnd   = new Date(Math.max.apply(null, ends));
+          var pad = (maxEnd - minStart) * 0.05 || (1000 * 60 * 60 * 24 * 30);
+          options.start = new Date(minStart.getTime() - pad);
+          options.end   = new Date(maxEnd.getTime() + pad);
+        }
+
+        new vis.Timeline(container, items, options);
+      })
+      .catch(function (err) {
+        container.textContent = 'Failed to load timeline: ' + err;
+      });
+  });
 </script>
-<div id="my-timeline" style="height: <%=@candidates.size * 25%>px; border: 1px solid #aaa"></div>

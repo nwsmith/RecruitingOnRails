@@ -39,8 +39,6 @@ class CandidatesController < ApplicationController
 
   def timeline
     @status_list = requested_status_codes
-    @group_by = params[:group_by].nil? ? 'YEAR' : params[:group_by]
-
     @candidates = Candidate.for_table.merge(Candidate.by_status_codes(@status_list))
 
     respond_to do |format|
