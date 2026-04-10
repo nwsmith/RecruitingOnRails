@@ -17,7 +17,7 @@
     <td><%= education_level.description %></td>
     <td><%= link_to 'Show', education_level %></td>
     <td><%= link_to 'Edit', edit_education_level_path(education_level) %></td>
-    <td><%= link_to 'Destroy', education_level, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', education_level, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

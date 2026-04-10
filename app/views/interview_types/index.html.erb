@@ -17,7 +17,7 @@
     <td><%= interview_type.description %></td>
     <td><%= link_to 'Show', interview_type %></td>
     <td><%= link_to 'Edit', edit_interview_type_path(interview_type) %></td>
-    <td><%= link_to 'Destroy', interview_type, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', interview_type, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

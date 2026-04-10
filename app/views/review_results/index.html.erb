@@ -17,7 +17,7 @@
     <td><%= review_result.description %></td>
     <td><%= link_to 'Show', review_result %></td>
     <td><%= link_to 'Edit', edit_review_result_path(review_result) %></td>
-    <td><%= link_to 'Destroy', review_result, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', review_result, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

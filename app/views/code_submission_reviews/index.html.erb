@@ -15,7 +15,7 @@
     <td><%= code_submission_review.notes %></td>
     <td><%= link_to 'Show', code_submission_review %></td>
     <td><%= link_to 'Edit', edit_code_submission_review_path(code_submission_review) %></td>
-    <td><%= link_to 'Destroy', code_submission_review, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', code_submission_review, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

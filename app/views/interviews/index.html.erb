@@ -15,7 +15,7 @@
     <td><%= interview.notes %></td>
     <td><%= link_to 'Show', interview %></td>
     <td><%= link_to 'Edit', edit_interview_path(interview) %></td>
-    <td><%= link_to 'Destroy', interview, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', interview, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

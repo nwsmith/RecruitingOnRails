@@ -17,7 +17,7 @@
     <td><%= leave_reason.description %></td>
     <td><%= link_to 'Show', leave_reason %></td>
     <td><%= link_to 'Edit', edit_leave_reason_path(leave_reason) %></td>
-    <td><%= link_to 'Destroy', leave_reason, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= button_to 'Destroy', leave_reason, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

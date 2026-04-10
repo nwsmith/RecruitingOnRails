@@ -55,7 +55,7 @@
     <td><%= candidate.referred_by %></td>
     <td><%= link_to 'Show', candidate %></td>
     <td><%= link_to 'Edit', edit_candidate_path(candidate) %></td>
-    <td><%= link_to 'Destroy', candidate, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', candidate, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

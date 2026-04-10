@@ -17,7 +17,7 @@
     <td><%= experience_level.description %></td>
     <td><%= link_to 'Show', experience_level %></td>
     <td><%= link_to 'Edit', edit_experience_level_path(experience_level) %></td>
-    <td><%= link_to 'Destroy', experience_level, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', experience_level, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

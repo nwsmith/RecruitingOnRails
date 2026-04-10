@@ -17,7 +17,7 @@
     <td><%= candidate_source.description %></td>
     <td><%= link_to 'Show', candidate_source %></td>
     <td><%= link_to 'Edit', edit_candidate_source_path(candidate_source) %></td>
-    <td><%= link_to 'Destroy', candidate_source, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', candidate_source, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

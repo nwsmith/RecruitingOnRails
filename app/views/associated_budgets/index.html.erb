@@ -19,7 +19,7 @@
     <td><%= associated_budget.active %></td>
     <td><%= link_to 'Show', associated_budget %></td>
     <td><%= link_to 'Edit', edit_associated_budget_path(associated_budget) %></td>
-    <td><%= link_to 'Destroy', associated_budget, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= button_to 'Destroy', associated_budget, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

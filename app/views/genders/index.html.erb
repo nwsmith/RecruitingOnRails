@@ -17,7 +17,7 @@
     <td><%= gender.description %></td>
     <td><%= link_to 'Show', gender %></td>
     <td><%= link_to 'Edit', edit_gender_path(gender) %></td>
-    <td><%= link_to 'Destroy', gender, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', gender, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

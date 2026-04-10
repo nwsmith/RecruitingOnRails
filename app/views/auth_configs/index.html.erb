@@ -21,7 +21,7 @@
     <td><%= auth_config.ldap_domain %></td>
     <td><%= link_to 'Show', auth_config %></td>
     <td><%= link_to 'Edit', edit_auth_config_path(auth_config) %></td>
-    <td><%= link_to 'Destroy', auth_config, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', auth_config, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

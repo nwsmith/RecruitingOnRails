@@ -19,7 +19,7 @@
     <td><%= interview_review.notes %></td>
     <td><%= link_to 'Show', interview_review %></td>
     <td><%= link_to 'Edit', edit_interview_review_path(interview_review) %></td>
-    <td><%= link_to 'Destroy', interview_review, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', interview_review, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>

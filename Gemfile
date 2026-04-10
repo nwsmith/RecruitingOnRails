@@ -16,9 +16,6 @@ gem 'net-ldap'
 
 gem "sass", :require => 'sass'
 
-gem 'jquery-rails', '~> 4.3'
-gem 'jquery-ui-rails', '~> 6.0'
-
 gem 'bcrypt', '~> 3.1'
 
 # To use Jbuilder templates for JSON

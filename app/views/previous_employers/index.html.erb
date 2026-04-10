@@ -17,7 +17,7 @@
     <td><%= previous_employer.description %></td>
     <td><%= link_to 'Show', previous_employer %></td>
     <td><%= link_to 'Edit', edit_previous_employer_path(previous_employer) %></td>
-    <td><%= link_to 'Destroy', previous_employer, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= button_to 'Destroy', previous_employer, method: :delete, form: { data: { confirm: 'Are you sure?' } } %></td>
   </tr>
 <% end %>
 </table>
