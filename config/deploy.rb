@@ -1,40 +1,38 @@
-set :use_sudo, false
-set :ssh_options, {config: false}
+# config valid for current version and patch releases of Capistrano
+lock "~> 3.20.0"
 
-set :default_environment, {'PATH' => "/usr/bin:$PATH"}
+set :application, "recruiting_on_rails"
+set :repo_url,    "git@github.com:nwsmith/RecruitingOnRails.git"
 
-set :application, "Recruiting on Rails"
-set :repository,  "git@github.com:nwsmith/RecruitingOnRails"
-
-set :scm, :git
-set :scm_verbose, true
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-
-set :user, "nathan.smith"
 set :branch, "master"
-set :deploy_via, :remote_cache
-
-role :web, "172.16.50.115"                          # Your HTTP server, Apache/etc
-role :app, "172.16.50.115"                          # This may be the same as your `Web` server
-role :db,  "172.16.50.115", :primary => true # This is where Rails migrations will run
-
 set :deploy_to, "/var/www/recruiting.solium.com"
-default_run_options[:pty] = true
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+set :ssh_options, { user: "nathan.smith", config: false }
+set :pty, true
 
-# If you are using Passenger mod_rails uncomment this:
-namespace :deploy do
-   task :start, :roles => :app, :except => { :no_release => true } do
-     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-   end
-   task :symlink_shared do
-     run "ln -s #{shared_path}/aws.yml #{release_path}/config/"
-   end
-   before "deploy:restart", "deploy:symlink_shared"
-   task :stop do ; end
-   task :restart, :roles => :app, :except => { :no_release => true } do
-     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-   end
-end
+# Files that live in shared/ on the server and are symlinked into each release.
+# `aws.yml` must be placed in `#{shared_path}/config/aws.yml` on the server
+# before the first deploy (same operational requirement as the old
+# `symlink_shared` task).
+set :linked_files, %w[config/aws.yml]
+
+# Directories preserved across releases (logs, pids, bundled gems, uploads).
+set :linked_dirs, %w[
+  log
+  tmp/pids
+  tmp/cache
+  tmp/sockets
+  vendor/bundle
+  public/system
+  storage
+]
+
+# Keep the last 5 releases
+set :keep_releases, 5
+
+# Passenger restart is hooked into deploy:finished automatically by
+# capistrano-passenger, replacing the Cap 2.x manual `touch tmp/restart.txt`.
+# Pin to the touch-file approach so behavior matches what the Cap 2.x config
+# was doing — flip to `false` if/when the server is on Passenger >= 4.0.33
+# and `passenger-config restart-app` is available without sudo.
+set :passenger_restart_with_touch, true

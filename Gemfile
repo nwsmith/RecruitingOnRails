@@ -27,7 +27,12 @@ gem 'bcrypt', '~> 3.1'
 gem 'puma'
 
 # Deploy with Capistrano
-gem 'capistrano', '~> 2.15.5'
+group :development do
+  gem 'capistrano',           '~> 3.19'
+  gem 'capistrano-rails',     '~> 1.7'
+  gem 'capistrano-bundler',   '~> 2.1'
+  gem 'capistrano-passenger', '~> 0.2'
+end
 
 gem 'simple_calendar', '~> 2.0'
 
