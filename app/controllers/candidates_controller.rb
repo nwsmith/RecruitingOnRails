@@ -1,14 +1,18 @@
 class CandidatesController < ApplicationController
 
+  # Returns true if access is denied and a redirect has been issued.
+  # Callers MUST `return if check_access(...)` to avoid double-render.
   def check_access(candidate)
-    candidate_username = candidate.username
-    candidate_status = candidate.candidate_status
+    return false if current_user&.hr? || current_user&.manager? || current_user&.admin?
 
-    return if current_user&.hr? || current_user&.manager? || current_user&.admin?
+    candidate_status_code = candidate.candidate_status&.code
+    is_self = current_user&.user_name.to_s == candidate.username
+    self_allowed = is_self && (candidate_status_code == 'PEND' || candidate_status_code == 'VERBAL')
 
-    if current_user&.user_name.eql?(candidate_username) && !(candidate_status&.code.eql?('PEND') || candidate_status&.code.eql?('VERBAL'))
-      redirect_to(:controller => 'dashboard', :action => :index)
-    end
+    return false if self_allowed
+
+    redirect_to(controller: 'dashboard', action: :index)
+    true
   end
 
   # GET /candidates
@@ -78,15 +82,26 @@ class CandidatesController < ApplicationController
   end
 
   def search
-    query = params[:q]
-    name = query.split(' ')
-    if name.length == 2
-      conditions = ['first_name = ? AND last_name = ?', name[0], name[1]]
-    else
-      conditions = ['first_name LIKE ? OR last_name LIKE ?', "%#{name[0]}%", "%#{name[0]}%"]
-    end
+    query = params[:q].to_s.strip
+    parts = query.split(/\s+/)
 
-    @candidates = Candidate.where(conditions).all
+    @candidates =
+      if parts.empty?
+        Candidate.none
+      elsif parts.length == 1
+        term = "%#{escape_like(parts[0])}%"
+        Candidate.where('first_name LIKE ? OR last_name LIKE ?', term, term)
+      else
+        # Treat the first token as first name and the rest as last name, but
+        # also accept the reverse so "Doe John" and "John Marie Doe" both work.
+        first_term = "#{escape_like(parts.first)}%"
+        last_term  = "#{escape_like(parts.last)}%"
+        Candidate.where(
+          '(first_name LIKE ? AND last_name LIKE ?) OR (first_name LIKE ? AND last_name LIKE ?)',
+          first_term, last_term, last_term, first_term
+        )
+      end
+
     render 'list'
   end
 
@@ -108,7 +123,7 @@ class CandidatesController < ApplicationController
   def show
     @candidate = Candidate.find(params[:id])
 
-    check_access(@candidate)
+    return if check_access(@candidate)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -130,7 +145,7 @@ class CandidatesController < ApplicationController
   # GET /candidates/1/edit
   def edit
     @candidate = Candidate.find(params[:id])
-    check_access(@candidate)
+    return if check_access(@candidate)
   end
 
   # POST /candidates
@@ -154,6 +169,8 @@ class CandidatesController < ApplicationController
   def update
     @candidate = Candidate.find(params[:id])
 
+    return if check_access(@candidate)
+
     respond_to do |format|
       if @candidate.update(user_params)
         format.html { redirect_to @candidate, notice: 'Candidate was successfully updated.' }
@@ -169,6 +186,9 @@ class CandidatesController < ApplicationController
   # DELETE /candidates/1.json
   def destroy
     @candidate = Candidate.find(params[:id])
+
+    return if check_access(@candidate)
+
     @candidate.destroy
 
     respond_to do |format|
@@ -178,6 +198,11 @@ class CandidatesController < ApplicationController
   end
 
   private
+
+  # Escape LIKE wildcards so user input can't widen the match.
+  def escape_like(str)
+    str.to_s.gsub(/[\\%_]/) { |c| "\\#{c}" }
+  end
 
   def user_params
     params.require(:candidate).permit(

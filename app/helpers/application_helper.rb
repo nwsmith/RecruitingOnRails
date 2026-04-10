@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def approved_span(*args, &block)
-    reviewable_element ||= (args.nil? || args.first.nil?) ? nil : args.first
+    reviewable_element = args.first
     return '' if reviewable_element.nil?
 
     options = args.second || {}
@@ -28,27 +28,26 @@ module ApplicationHelper
 
     a_type = approval_type(reviewable_element)
 
-    if a_type.eql? :approved
-      color_property = 'style="color: green;"'
+    case a_type
+    when :approved
+      style = 'color: green;'
       out_text = approved_text
       my_class = 'approved'
-    elsif a_type.eql? :not_approved
-      color_property = 'style="color: red;"'
+    when :not_approved
+      style = 'color: red;'
       out_text = unapproved_text
       my_class = 'unapproved'
     else
-      color_property = ''
+      style = nil
       out_text = unknown_text
-      my_class = ''
+      my_class = nil
     end
 
     if link
-      out_text = link_to(text, reviewable_element, :class => my_class)
+      link_to(text, reviewable_element, class: my_class)
     else
-      out_text = "<span #{color_property}>#{out_text}</span>".html_safe
+      content_tag(:span, out_text, style: style)
     end
-
-    out_text
   end
 
   def approval_type(reviewable_element)
@@ -84,18 +83,18 @@ module ApplicationHelper
   end
 
   def color_span(*args, &block)
-    colorable = (args.nil? || args.first.nil?) ? nil : args.first
+    colorable = args.first
     options = args.second || {}
 
     content = options[:text]
-    content = yield(block) if block
+    content = capture(&block) if block
 
-    color = colorable.respond_to?('color') ? colorable.color : ''
-    style = "style='"
-    style += "color: #{color};" if (!color.nil? && !color.empty?)
-    style += "font-weight: bold;" if options[:bold]
-    style += "'"
-    "<span #{style}>#{content}</span>".html_safe
+    color = colorable.respond_to?(:color) ? colorable.color : nil
+    style_parts = []
+    style_parts << "color: #{color}" if color.present?
+    style_parts << 'font-weight: bold' if options[:bold]
+
+    content_tag(:span, content, style: style_parts.join('; ').presence)
   end
 
   def markdown(text)

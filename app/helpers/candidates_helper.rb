@@ -1,130 +1,96 @@
 module CandidatesHelper
+  EPOCH_DATE = Date.new(2020).freeze
+
   def candidates_table(*args)
     candidates = args.first
     opts = args.second || {}
 
-    candidates = candidates.sort { |a, b| (a.start_date.nil? ? Date.new(2020) : a.start_date) <=> (b.start_date.nil? ? Date.new(2020) : b.start_date) }
+    candidates = candidates.sort_by { |c| c.start_date || EPOCH_DATE }
     interview_column_count = candidates.map { |c| c.interviews.length }.max || 0
     code_submission_column_count = candidates.map { |c| c.code_submissions.length }.max || 0
 
-    out = '<table>'
-    out += '<tr>'
-    out += '<th>Name</th>'
-    out += '<th>Office</th>'
-    if opts[:include_status]
-      out += '<th>Status</th>'
-    end
-    if opts[:include_source]
-      out += '<th>Source</th>'
-    end
-    if opts[:include_position]
-      out += '<th>Position</th>'
-    end
-    if opts[:include_events]
-      0.upto(code_submission_column_count + interview_column_count - 1) do |i|
-        out += "<th>Event #{i+1}</th>"
-      end
-    else
-      if opts[:include_code_submissions]
-        1.upto(code_submission_column_count) do |i|
-          out += "<th>Code Submission #{i}</th>"
-        end
-      end
-      if opts[:include_interviews]
-        1.upto(interview_column_count) do |i|
-          out += "<th>Interview #{i}</th>"
-        end
+    tag.table do
+      concat(candidates_table_header(opts, interview_column_count, code_submission_column_count))
+      candidates.each do |candidate|
+        concat(candidates_table_row(candidate, opts, interview_column_count, code_submission_column_count))
       end
     end
-    if opts[:include_references]
-      out += '<th>References?</th>'
-    end
-    if opts[:include_time_served]
-      out += '<th>Service Period</th>'
-    end
-    if opts[:include_dates]
-      out += '<th>Start Date</th>'
-      out += '<th>End Date</th>'
-    end
-    out += '</tr>'
+  end
 
-    candidates.each do |candidate|
-      out += '<tr>'
-      out += '<td>'
-      out += format_candidate(candidate)
-      out += '</td>'
-      out += '<td>'
-      out += get_name candidate.office_location
-      out += '</td>'
-      if opts[:include_status]
-        out += '<td>'
-        out += get_name candidate.candidate_status
-        out += '</td>'
-      end
-      if opts[:include_source]
-        out += '<td>'
-        out += get_name candidate.candidate_source
-        out += '</td>'
-      end
-      if opts[:include_position]
-        out += '<td>'
-        out += get_name candidate.position
-        out += '</td>'
-      end
+  def candidates_table_header(opts, interview_count, code_submission_count)
+    tag.tr do
+      concat(tag.th('Name'))
+      concat(tag.th('Office'))
+      concat(tag.th('Status')) if opts[:include_status]
+      concat(tag.th('Source')) if opts[:include_source]
+      concat(tag.th('Position')) if opts[:include_position]
+
       if opts[:include_events]
-        events = candidate.interviews + candidate.code_submissions
-        events.sort! { |a, b| (a.event_date.nil? ? Date.new(2020) : a.event_date) <=> (b.event_date.nil? ? Date.new(2020) : b.event_date) }
+        (1..code_submission_count + interview_count).each { |i| concat(tag.th("Event #{i}")) }
+      else
+        if opts[:include_code_submissions]
+          (1..code_submission_count).each { |i| concat(tag.th("Code Submission #{i}")) }
+        end
+        if opts[:include_interviews]
+          (1..interview_count).each { |i| concat(tag.th("Interview #{i}")) }
+        end
+      end
 
-        0.upto(code_submission_column_count + interview_column_count - 1) do |i|
-          event = events[i]
+      concat(tag.th('References?')) if opts[:include_references]
+      concat(tag.th('Service Period')) if opts[:include_time_served]
+      if opts[:include_dates]
+        concat(tag.th('Start Date'))
+        concat(tag.th('End Date'))
+      end
+    end
+  end
 
-          out += '<td>'
+  def candidates_table_row(candidate, opts, interview_count, code_submission_count)
+    tag.tr do
+      concat(tag.td(format_candidate(candidate)))
+      concat(tag.td(get_name(candidate.office_location)))
+      concat(tag.td(get_name(candidate.candidate_status))) if opts[:include_status]
+      concat(tag.td(get_name(candidate.candidate_source))) if opts[:include_source]
+      concat(tag.td(get_name(candidate.position))) if opts[:include_position]
 
-          if event.is_a? CodeSubmission
-            out += format_submission(event)
-          elsif event.is_a? Interview
-            out += format_interview(event, :include_date => true)
-          elsif event.nil?
-            out += ''
-          else
-            out += 'Unknown Event'
-          end
+      if opts[:include_events]
+        events = (candidate.interviews + candidate.code_submissions)
+                   .sort_by { |e| e.event_date || EPOCH_DATE }
 
-          out += '</td>'
+        (code_submission_count + interview_count).times do |i|
+          concat(tag.td(format_event_cell(events[i])))
         end
       else
         if opts[:include_code_submissions]
-          0.upto(code_submission_column_count-1) do |i|
-            out += '<td>'
-            out += format_submission(candidate.code_submissions[i])
-            out += '</td>'
+          code_submission_count.times do |i|
+            concat(tag.td(format_submission(candidate.code_submissions[i])))
           end
         end
         if opts[:include_interviews]
-          0.upto(interview_column_count-1) do |i|
-            out += '<td>'
-            out += format_interview(candidate.interviews[i], :include_date => true)
-            out += '</td>'
+          interview_count.times do |i|
+            concat(tag.td(format_interview(candidate.interviews[i], include_date: true)))
           end
         end
       end
 
       if opts[:include_references]
-        out += '<td>'
-        out += approved_span(candidate.reference_checks, :text => candidate.reference_checks.length)
-        out += '</td>'
+        concat(tag.td(approved_span(candidate.reference_checks, text: candidate.reference_checks.length)))
       end
-      if opts[:include_time_served]
-        out += "<td>#{time_since_hire(candidate)}</td>"
-      end
+      concat(tag.td(time_since_hire(candidate))) if opts[:include_time_served]
       if opts[:include_dates]
-        out += "<td>#{candidate.start_date}</td>"
-        out += "<td>#{candidate.end_date}</td>"
+        concat(tag.td(candidate.start_date.to_s))
+        concat(tag.td(candidate.end_date.to_s))
       end
-      out += '</tr>'
     end
-    out += '</table>'
-    out.html_safe
+  end
+
+  def format_event_cell(event)
+    case event
+    when CodeSubmission then format_submission(event)
+    when Interview      then format_interview(event, include_date: true)
+    when nil            then ''
+    else 'Unknown Event'
+    end
   end
 
   def format_candidate(*args)

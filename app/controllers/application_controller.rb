@@ -9,9 +9,11 @@ class ApplicationController < ActionController::Base
   end
 
   def check_login
-    # API key auth path
-    if params[:api_key]
-      user = User.find_by(api_key: params[:api_key])
+    # API key auth path: only accept the key from the Authorization header
+    # (e.g. `Authorization: Bearer <key>`) so it never appears in URLs or logs.
+    api_key = bearer_token_from_header
+    if api_key.present?
+      user = User.find_by(api_key: api_key)
       if user&.active?
         @current_user = user
         return
@@ -22,7 +24,11 @@ class ApplicationController < ActionController::Base
     end
 
     # Session auth path
-    expires_at = begin; session[:expires_at]&.to_time; rescue; nil; end
+    expires_at = begin
+                   session[:expires_at]&.to_time
+                 rescue ArgumentError, TypeError
+                   nil
+                 end
     if expires_at.nil? || expires_at < Time.current
       redirect_to(:controller => 'login', :action => 'index')
       return
@@ -47,6 +53,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def bearer_token_from_header
+    header = request.headers['Authorization'].to_s
+    return nil if header.blank?
+    # Accept "Bearer <key>", "Token <key>", or a bare key.
+    header.sub(/\A(Bearer|Token)\s+/i, '').strip.presence
+  end
 
   def get_list_from_params(params, name)
     if params[name].nil?

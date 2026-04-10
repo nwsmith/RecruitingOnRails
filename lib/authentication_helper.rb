@@ -1,4 +1,5 @@
 require 'net/ldap'
+require 'timeout'
 
 module AuthenticationHelper
   class InternalLogin
@@ -13,20 +14,25 @@ module AuthenticationHelper
 
       ad_user = "#{user.user_name}@#{auth_config.ldap_domain}"
 
-      conn = Net::LDAP.new :host => auth_config.server,
-                           :port => auth_config.port,
-                           :base => auth_config.ldap_base,
-                           :auth => {:username => ad_user,
-                                     :password => password,
-                                     :method => :simple}
+      conn = Net::LDAP.new host: auth_config.server,
+                           port: auth_config.port,
+                           base: auth_config.ldap_base,
+                           connect_timeout: 5,
+                           auth: { username: ad_user,
+                                   password: password,
+                                   method: :simple }
       user_filter = Net::LDAP::Filter.eq('sAMAccountName', user.user_name)
       op_filter = Net::LDAP::Filter.eq('objectClass', 'organizationalPerson')
-      conn.bind
-      ldap_user = conn.search(:filter => op_filter & user_filter)
 
-      return ldap_user.nil? ? nil : user
-    rescue Net::LDAP::LdapError
-      return nil
+      # Cap the bind+search at 5s so a hung LDAP server can't pin a Rails thread.
+      ldap_user = Timeout.timeout(5) do
+        conn.bind
+        conn.search(filter: op_filter & user_filter)
+      end
+
+      ldap_user.nil? ? nil : user
+    rescue Net::LDAP::LdapError, Timeout::Error
+      nil
     end
   end
 

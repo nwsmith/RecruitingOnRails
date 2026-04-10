@@ -2,11 +2,11 @@ class User < ApplicationRecord
   has_secure_password
 
   has_and_belongs_to_many :groups
-  belongs_to :interview_review, optional: true
+  has_many :interview_reviews
   belongs_to :auth_config
 
   def name
-    first_name + ' ' + last_name
+    [first_name, last_name].compact.join(' ')
   end
 
   def User.fetch_by_auth_name(auth_name)
