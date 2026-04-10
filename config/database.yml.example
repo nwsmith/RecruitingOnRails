@@ -16,7 +16,12 @@ development:
   pool: 5
   username: <%= ENV.fetch("DB_USERNAME", "recruiting") %>
   password: <%= ENV.fetch("DB_PASSWORD", "recruiting") %>
+  <% if ENV["DB_HOST"] %>
+  host: <%= ENV["DB_HOST"] %>
+  port: <%= ENV.fetch("DB_PORT", 3306) %>
+  <% else %>
   socket: /tmp/mysql.sock
+  <% end %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -29,7 +34,12 @@ test:
   pool: 5
   username: <%= ENV.fetch("DB_USERNAME", "recruiting") %>
   password: <%= ENV.fetch("DB_PASSWORD", "recruiting") %>
+  <% if ENV["DB_HOST"] %>
+  host: <%= ENV["DB_HOST"] %>
+  port: <%= ENV.fetch("DB_PORT", 3306) %>
+  <% else %>
   socket: /tmp/mysql.sock
+  <% end %>
 
 production:
   adapter: mysql2
@@ -39,4 +49,9 @@ production:
   pool: 5
   username: <%= ENV.fetch("DB_USERNAME") %>
   password: <%= ENV.fetch("DB_PASSWORD") %>
+  <% if ENV["DB_HOST"] %>
+  host: <%= ENV["DB_HOST"] %>
+  port: <%= ENV.fetch("DB_PORT", 3306) %>
+  <% else %>
   socket: /var/run/mysqld/mysqld.sock
+  <% end %>
