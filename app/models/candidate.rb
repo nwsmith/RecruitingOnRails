@@ -20,6 +20,9 @@ class Candidate < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  # New candidates must enter the pipeline with a status. Legacy records may
+  # still have nil here, so this only fires on create — backfill before tightening.
+  validates :candidate_status_id, presence: true, on: :create
 
   def start_time=(start_time)
     @start_time = start_time
