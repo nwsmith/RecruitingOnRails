@@ -1,0 +1,59 @@
+admin:
+  user_name: admin
+  auth_name: admin
+  first_name: Admin
+  last_name: User
+  password_digest: <%= BCrypt::Password.create('password') %>
+  active: true
+  admin: true
+  manager: false
+  hr: false
+  auth_config: internal
+
+manager:
+  user_name: manager
+  auth_name: manager
+  first_name: Manager
+  last_name: User
+  password_digest: <%= BCrypt::Password.create('password') %>
+  active: true
+  admin: false
+  manager: true
+  hr: false
+  auth_config: internal
+
+hr_user:
+  user_name: hruser
+  auth_name: hruser
+  first_name: HR
+  last_name: User
+  password_digest: <%= BCrypt::Password.create('password') %>
+  active: true
+  admin: false
+  manager: false
+  hr: true
+  auth_config: internal
+
+regular:
+  user_name: regular
+  auth_name: regular
+  first_name: Regular
+  last_name: User
+  password_digest: <%= BCrypt::Password.create('password') %>
+  active: true
+  admin: false
+  manager: false
+  hr: false
+  auth_config: internal
+
+inactive:
+  user_name: inactive
+  auth_name: inactive
+  first_name: Inactive
+  last_name: User
+  password_digest: <%= BCrypt::Password.create('password') %>
+  active: false
+  admin: false
+  manager: false
+  hr: false
+  auth_config: internal

@@ -10,6 +10,7 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+      - ./docker/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
 
   web:
     build: .

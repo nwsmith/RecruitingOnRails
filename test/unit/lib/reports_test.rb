@@ -1,7 +1,6 @@
-require 'test/unit'
 require 'test_helper'
 
-class ReportsTest < Test::Unit::TestCase
+class ReportsTest < ActiveSupport::TestCase
 
   def test_min_year_is_nil_if_not_set
     assert_nil(Reports::PeriodInfo.new.min_year)
@@ -92,17 +91,6 @@ class ReportsTest < Test::Unit::TestCase
                           Candidate.new({start_date: Date.new(2017, 7, 1)})
                       ])
     assert_equal(0, pi.median_tenure(Date.new(2017, 7, 1)))
-  end
-
-  def test_stuff
-    l = Reports::PeriodInfo.new
-    c = Candidate.new
-
-    l.add_candidate(c)
-
-    l.median_tenure(2012)
-
-
   end
 
 end

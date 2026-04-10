@@ -1,7 +1,6 @@
-require 'test/unit'
 require 'test_helper'
 
-class CandidateTest < ActiveRecord::TestCase
+class CandidateTest < ActiveSupport::TestCase
 
   def test_tenure_in_years_should_be_nil_for_no_dates
     c = Candidate.new

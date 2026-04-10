@@ -1,0 +1,4 @@
+internal:
+  code: INTERNAL
+  name: Internal
+  description: Internal authentication
