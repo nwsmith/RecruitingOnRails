@@ -9,6 +9,13 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
+  # Active Storage uses the `amazon` service from config/storage.yml,
+  # which reads bucket from ENV["S3_BUCKET"] (set this to sum-resumes-prod
+  # on the live server) and falls back to sum-resumes-dev. Without this
+  # line, has_one_attached raises "Missing Active Storage service name"
+  # on first attachment access.
+  config.active_storage.service = :amazon
+
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
