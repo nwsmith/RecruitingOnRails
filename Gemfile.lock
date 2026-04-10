@@ -244,7 +244,7 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
-    redcarpet (3.5.1)
+    redcarpet (3.6.1)
     reline (0.6.3)
       io-console (~> 0.5)
     sass (3.7.4)
@@ -320,7 +320,7 @@ DEPENDENCIES
   nokogiri (>= 1.15.6)
   puma
   rails (>= 7.1)
-  redcarpet (~> 3.5.1)
+  redcarpet (~> 3.6)
   sass
   sassc-rails
   simple_calendar (~> 2.0)
