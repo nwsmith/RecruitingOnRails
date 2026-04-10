@@ -45,10 +45,29 @@ class Candidate < ApplicationRecord
     code_submissions + interviews
   end
 
+  # Eager-loads everything candidates_table touches, so rendering a candidate
+  # list does a fixed number of queries instead of one per row per association.
+  scope :for_table, -> {
+    includes(
+      :office_location, :candidate_status, :candidate_source,
+      :position, :experience_level,
+      :reference_checks,
+      interviews: [:interview_type, :interview_reviews],
+      code_submissions: [:code_problem, :code_submission_reviews]
+    )
+  }
+
   def Candidate.by_status_code(status_code)
     status = CandidateStatus.find_by(code: status_code)
     return Candidate.none unless status
     Candidate.where(candidate_status_id: status.id)
+  end
+
+  # Single-query equivalent of mapping by_status_code over an array of codes.
+  def Candidate.by_status_codes(status_codes)
+    status_ids = CandidateStatus.where(code: status_codes).pluck(:id)
+    return Candidate.none if status_ids.empty?
+    Candidate.where(candidate_status_id: status_ids)
   end
 
   def Candidate.by_associated_budget_code(budget_code)

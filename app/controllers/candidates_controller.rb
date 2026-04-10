@@ -18,7 +18,7 @@ class CandidatesController < ApplicationController
   # GET /candidates
   # GET /candidates.json
   def index
-    @candidates = Candidate.all
+    @candidates = Candidate.for_table
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,20 +30,18 @@ class CandidatesController < ApplicationController
     p = params[:start_date] || Date.new.to_s
     d = Date.parse(p)
 
-    @candidates = Candidate.all
-    @candidates = @candidates.select{|c| !c.start_date.nil? && c.candidate_status&.code != 'QUIT' && c.candidate_status&.code != 'FIRED'}
-    @candidates.each {|c| c.start_time = Date.new(d.year, c.start_date.month, c.start_date.day)}
+    @candidates = Candidate.includes(:candidate_status).where.not(start_date: nil).reject do |c|
+      code = c.candidate_status&.code
+      code == 'QUIT' || code == 'FIRED'
+    end
+    @candidates.each { |c| c.start_time = Date.new(d.year, c.start_date.month, c.start_date.day) }
   end
 
   def timeline
-    @status_list = params[:status].nil? ? Array.new : (params[:status].split ',')
-    @status_list << 'HIRED' if @status_list.empty?
-
+    @status_list = requested_status_codes
     @group_by = params[:group_by].nil? ? 'YEAR' : params[:group_by]
 
-    @candidates = Array.new
-    @status_list.each {|s| @candidates << Candidate.by_status_code(s)}
-    @candidates = @candidates.flatten
+    @candidates = Candidate.for_table.merge(Candidate.by_status_codes(@status_list))
 
     respond_to do |format|
       format.html
@@ -51,34 +49,30 @@ class CandidatesController < ApplicationController
   end
 
   def events
-    status_list = params[:status].nil? ? Array.new : (params[:status].split ',')
-    status_list << 'HIRED' if status_list.empty?
+    today = Date.today
+    folks = Candidate.by_status_codes(requested_status_codes)
+                     .where.not(start_date: nil)
+                     .where('start_date <= ?', today)
+                     .to_a
 
-    candidates = Array.new
+    # Sort newest start first; tie-break on end_date. The previous version used
+    # `start_cmp || end_cmp`, but <=> returns -1/0/1 — all truthy — so the
+    # secondary comparison was dead code. Use a key-based sort to make the
+    # ordering explicit and nil-safe.
+    folks.sort_by! { |c| [-c.start_date.to_time.to_i, -(c.end_date || today).to_time.to_i] }
 
-    folks = Array.new
-    status_list.each { |s| folks << Candidate.by_status_code(s) }
-    folks = folks.flatten
-    folks = folks.sort { |a, b| b.start_date <=> a.start_date || b.end_date <=> a.end_date }
-
-    folks.each do |candidate|
-      next if candidate.start_date.nil? || candidate.start_date > Date.today
-      json = Hash.new
-      json['start'] = candidate.start_date.to_s
-      json['end'] = candidate.end_date.nil? ? Date.today.to_s : candidate.end_date.to_s
-      #json['isDuration'] = true
-      json['title'] = candidate.name
-      candidates << json
+    candidates = folks.map do |candidate|
+      {
+        'start' => candidate.start_date.to_s,
+        'end'   => (candidate.end_date || today).to_s,
+        'title' => candidate.name
+      }
     end
-
-    events = Hash.new
-    events['events'] = candidates
 
     respond_to do |format|
       format.html
-      format.json { render json: events }
+      format.json { render json: { 'events' => candidates } }
     end
-
   end
 
   def search
@@ -106,11 +100,7 @@ class CandidatesController < ApplicationController
   end
 
   def list
-    status_list = params[:status].nil? ? Array.new : (params[:status].split ',')
-    @candidates = Array.new
-
-    status_list.each { |s| @candidates << Candidate.by_status_code(s) }
-    @candidates = @candidates.flatten
+    @candidates = Candidate.for_table.merge(Candidate.by_status_codes(requested_status_codes))
 
     respond_to do |format|
       format.html
@@ -121,7 +111,12 @@ class CandidatesController < ApplicationController
   # GET /candidates/1
   # GET /candidates/1.json
   def show
-    @candidate = Candidate.find(params[:id])
+    @candidate = Candidate
+                   .includes(:work_history_rows, :diary_entries, :candidate_attachments,
+                             interviews: [:interview_type, :interview_reviews],
+                             code_submissions: [:code_problem, :code_submission_reviews],
+                             reference_checks: [])
+                   .find(params[:id])
 
     return if check_access(@candidate)
 
@@ -198,6 +193,15 @@ class CandidatesController < ApplicationController
   end
 
   private
+
+  # Reads the `status` query param as a comma-separated list. When the param is
+  # absent the page defaults to HIRED candidates; when the param is present but
+  # contains unknown codes, the resulting query returns no rows (rather than
+  # silently widening to HIRED, which used to mask bad input).
+  def requested_status_codes
+    return ['HIRED'] if params[:status].nil?
+    params[:status].split(',')
+  end
 
   # Escape LIKE wildcards so user input can't widen the match.
   def escape_like(str)
