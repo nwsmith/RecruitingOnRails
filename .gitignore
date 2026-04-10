@@ -19,3 +19,5 @@
 
 # Ignore files with secure information in 'em
 /config/aws.yml
+/config/database.yml
+/config/secrets.yml
