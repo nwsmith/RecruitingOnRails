@@ -57,3 +57,18 @@ inactive:
   manager: false
   hr: false
   auth_config: internal
+
+# Used by the candidates controller test to exercise the "user can view their
+# own candidate while application is pending" branch. The user_name must match
+# the dot-separated first.last format that Candidate#username generates.
+self_candidate_user:
+  user_name: self.candidate
+  auth_name: self.candidate
+  first_name: Self
+  last_name: Candidate
+  password_digest: <%= BCrypt::Password.create('password') %>
+  active: true
+  admin: false
+  manager: false
+  hr: false
+  auth_config: internal
