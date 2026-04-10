@@ -25,8 +25,7 @@ gem 'jquery-ui-rails', '~> 6.0'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the web server
-# gem 'unicorn'
+gem 'puma'
 
 # Deploy with Capistrano
 gem 'capistrano', '~> 2.15.5'

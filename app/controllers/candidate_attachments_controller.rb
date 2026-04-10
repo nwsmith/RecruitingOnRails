@@ -60,7 +60,7 @@ class CandidateAttachmentsController < ApplicationController
     @candidate_attachment = CandidateAttachment.find(params[:id])
 
     respond_to do |format|
-      if @candidate_attachment.update_attributes(user_params)
+      if @candidate_attachment.update(user_params)
         format.html { redirect_to @candidate_attachment, notice: 'Candidate attachment was successfully updated.' }
         format.json { head :no_content }
       else

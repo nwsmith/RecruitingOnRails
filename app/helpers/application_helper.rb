@@ -87,7 +87,7 @@ module ApplicationHelper
     options = args.second || {}
 
     content = options[:text]
-    content = yeild(block) if block
+    content = yield(block) if block
 
     color = colorable.respond_to?('color') ? colorable.color : ''
     style = "style='"

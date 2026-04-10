@@ -156,7 +156,7 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.find(params[:id])
 
     respond_to do |format|
-      if @candidate.update_attributes(user_params)
+      if @candidate.update(user_params)
         format.html { redirect_to @candidate, notice: 'Candidate was successfully updated.' }
         format.json { head :no_content }
       else

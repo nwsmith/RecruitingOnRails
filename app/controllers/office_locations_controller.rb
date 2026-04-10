@@ -59,7 +59,7 @@ class OfficeLocationsController < ApplicationController
     @office_location = OfficeLocation.find(params[:id])
 
     respond_to do |format|
-      if @office_location.update_attributes(user_params)
+      if @office_location.update(user_params)
         format.html { redirect_to @office_location, notice: 'Office location was successfully updated.' }
         format.json { head :no_content }
       else

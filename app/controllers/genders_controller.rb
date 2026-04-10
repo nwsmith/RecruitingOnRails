@@ -59,7 +59,7 @@ class GendersController < ApplicationController
     @gender = Gender.find(params[:id])
 
     respond_to do |format|
-      if @gender.update_attributes(user_params)
+      if @gender.update(user_params)
         format.html { redirect_to @gender, notice: 'Gender was successfully updated.' }
         format.json { head :no_content }
       else

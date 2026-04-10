@@ -61,7 +61,7 @@ class InterviewReviewsController < ApplicationController
     @interview_review = InterviewReview.find(params[:id])
 
     respond_to do |format|
-      if @interview_review.update_attributes(user_params)
+      if @interview_review.update(user_params)
         format.html { redirect_to @interview_review, notice: 'Interview review was successfully updated.' }
         format.json { head :no_content }
       else

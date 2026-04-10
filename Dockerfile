@@ -1,4 +1,4 @@
-FROM ruby:2.7.8-slim
+FROM ruby:3.2.3-slim
 
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
@@ -7,6 +7,7 @@ RUN apt-get update -qq && \
       default-mysql-client \
       nodejs \
       git \
+      shared-mime-info \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

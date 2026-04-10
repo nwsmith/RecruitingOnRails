@@ -60,7 +60,7 @@ class WorkHistoryRowsController < ApplicationController
     @work_history_row = WorkHistoryRow.find(params[:id])
 
     respond_to do |format|
-      if @work_history_row.update_attributes(user_params)
+      if @work_history_row.update(user_params)
         format.html { redirect_to @work_history_row, notice: 'Work history row was successfully updated.' }
         format.json { head :no_content }
       else

@@ -61,7 +61,7 @@ class AuthConfigTypesController < ApplicationController
     @auth_config_type = AuthConfigType.find(params[:id])
 
     respond_to do |format|
-      if @auth_config_type.update_attributes(user_params)
+      if @auth_config_type.update(user_params)
         format.html { redirect_to @auth_config_type, notice: 'Auth config type was successfully updated.' }
         format.json { head :no_content }
       else

@@ -61,7 +61,7 @@ class RegistriesController < ApplicationController
     @registry = Registry.find(params[:id])
 
     respond_to do |format|
-      if @registry.update_attributes(user_params)
+      if @registry.update(user_params)
         format.html { redirect_to @registry, notice: 'Registry was successfully updated.' }
         format.json { head :no_content }
       else

@@ -59,7 +59,7 @@ class SchoolsController < ApplicationController
     @school = School.find(params[:id])
 
     respond_to do |format|
-      if @school.update_attributes(user_params)
+      if @school.update(user_params)
         format.html { redirect_to @school, notice: 'School was successfully updated.' }
         format.json { head :no_content }
       else

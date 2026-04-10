@@ -59,7 +59,7 @@ class AssociatedBudgetsController < ApplicationController
     @associated_budget = AssociatedBudget.find(params[:id])
 
     respond_to do |format|
-      if @associated_budget.update_attributes(user_params)
+      if @associated_budget.update(user_params)
         format.html { redirect_to @associated_budget, notice: 'Associated budget was successfully updated.' }
         format.json { head :no_content }
       else

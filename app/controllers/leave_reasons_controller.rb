@@ -59,7 +59,7 @@ class LeaveReasonsController < ApplicationController
     @leave_reason = LeaveReason.find(params[:id])
 
     respond_to do |format|
-      if @leave_reason.update_attributes(user_params)
+      if @leave_reason.update(user_params)
         format.html { redirect_to @leave_reason, notice: 'Leave reason was successfully updated.' }
         format.json { head :no_content }
       else

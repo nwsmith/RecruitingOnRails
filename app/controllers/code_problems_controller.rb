@@ -59,7 +59,7 @@ class CodeProblemsController < ApplicationController
     @code_problem = CodeProblem.find(params[:id])
 
     respond_to do |format|
-      if @code_problem.update_attributes(user_params)
+      if @code_problem.update(user_params)
         format.html { redirect_to @code_problem, notice: 'Code problem was successfully updated.' }
         format.json { head :no_content }
       else

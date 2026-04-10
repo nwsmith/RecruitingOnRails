@@ -59,7 +59,7 @@ class ReviewResultsController < ApplicationController
     @review_result = ReviewResult.find(params[:id])
 
     respond_to do |format|
-      if @review_result.update_attributes(user_params)
+      if @review_result.update(user_params)
         format.html { redirect_to @review_result, notice: 'Review result was successfully updated.' }
         format.json { head :no_content }
       else

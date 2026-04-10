@@ -59,7 +59,7 @@ class PreviousEmployersController < ApplicationController
     @previous_employer = PreviousEmployer.find(params[:id])
 
     respond_to do |format|
-      if @previous_employer.update_attributes(user_params)
+      if @previous_employer.update(user_params)
         format.html { redirect_to @previous_employer, notice: 'Previous employer was successfully updated.' }
         format.json { head :no_content }
       else

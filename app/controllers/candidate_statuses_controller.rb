@@ -59,7 +59,7 @@ class CandidateStatusesController < ApplicationController
     @candidate_status = CandidateStatus.find(params[:id])
 
     respond_to do |format|
-      if @candidate_status.update_attributes(user_params)
+      if @candidate_status.update(user_params)
         format.html { redirect_to @candidate_status, notice: 'Candidate status was successfully updated.' }
         format.json { head :no_content }
       else

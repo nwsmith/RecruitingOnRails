@@ -10,94 +10,94 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2017_07_19_000343) do
+ActiveRecord::Schema[8.1].define(version: 2017_07_19_000343) do
   create_table "associated_budgets", charset: "utf8mb3", force: :cascade do |t|
-    t.string "code"
-    t.string "name"
-    t.string "description"
     t.boolean "active"
+    t.string "code"
+    t.string "description"
+    t.string "name"
   end
 
   create_table "auth_config_types", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "auth_configs", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "auth_config_type_id"
-    t.string "name"
-    t.string "server"
-    t.integer "port"
+    t.datetime "created_at", null: false
     t.string "ldap_base"
     t.string "ldap_domain"
-    t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "port"
+    t.string "server"
     t.datetime "updated_at", null: false
     t.index ["auth_config_type_id"], name: "index_auth_configs_on_auth_config_type_id"
   end
 
   create_table "budgeting_types", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "candidate_attachments", charset: "utf8mb3", force: :cascade do |t|
-    t.string "notes"
-    t.string "attachment_file_name"
     t.string "attachment_content_type"
+    t.string "attachment_file_name"
     t.bigint "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.bigint "candidate_id"
+    t.string "notes"
     t.index ["candidate_id"], name: "index_candidate_attachments_on_candidate_id"
   end
 
   create_table "candidate_sources", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "candidate_statuses", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "candidates", charset: "utf8mb3", force: :cascade do |t|
-    t.bigint "candidate_status_id"
-    t.bigint "candidate_source_id"
-    t.string "first_name"
-    t.string "middle_name"
-    t.string "last_name"
     t.date "application_date"
-    t.date "first_contact_date"
-    t.boolean "is_referral"
-    t.string "referred_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "experience_level_id"
-    t.bigint "position_id"
-    t.bigint "school_id"
-    t.bigint "education_level_id"
-    t.date "offer_date"
-    t.date "offer_accept_date"
-    t.date "offer_turndown_date"
-    t.date "start_date"
-    t.date "fire_date"
-    t.date "quit_date"
-    t.date "end_date"
-    t.date "rejection_notification_date"
-    t.text "notes"
-    t.bigint "office_location_id"
-    t.bigint "gender_id"
-    t.bigint "budgeting_type_id"
-    t.string "replacement_for"
-    t.date "rejection_call_request_date"
-    t.string "salary_range"
-    t.integer "sadness_factor"
-    t.bigint "leave_reason_id"
     t.bigint "associated_budget_id"
+    t.bigint "budgeting_type_id"
+    t.bigint "candidate_source_id"
+    t.bigint "candidate_status_id"
+    t.datetime "created_at", null: false
+    t.bigint "education_level_id"
+    t.date "end_date"
+    t.bigint "experience_level_id"
+    t.date "fire_date"
+    t.date "first_contact_date"
+    t.string "first_name"
+    t.bigint "gender_id"
+    t.boolean "is_referral"
+    t.string "last_name"
+    t.bigint "leave_reason_id"
+    t.string "middle_name"
+    t.text "notes"
+    t.date "offer_accept_date"
+    t.date "offer_date"
+    t.date "offer_turndown_date"
+    t.bigint "office_location_id"
+    t.bigint "position_id"
+    t.date "quit_date"
+    t.string "referred_by"
+    t.date "rejection_call_request_date"
+    t.date "rejection_notification_date"
+    t.string "replacement_for"
+    t.integer "sadness_factor"
+    t.string "salary_range"
+    t.bigint "school_id"
+    t.date "start_date"
+    t.datetime "updated_at", null: false
     t.index ["associated_budget_id"], name: "index_candidates_on_associated_budget_id"
     t.index ["budgeting_type_id"], name: "index_candidates_on_budgeting_type_id"
     t.index ["candidate_source_id"], name: "index_candidates_on_candidate_source_id"
@@ -113,39 +113,39 @@ ActiveRecord::Schema[7.0].define(version: 2017_07_19_000343) do
 
   create_table "code_problems", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "code_submission_reviews", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "code_submission_id"
-    t.bigint "user_id"
-    t.text "notes"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text "notes"
     t.bigint "review_result_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["code_submission_id"], name: "index_code_submission_reviews_on_code_submission_id"
     t.index ["review_result_id"], name: "index_code_submission_reviews_on_review_result_id"
     t.index ["user_id"], name: "index_code_submission_reviews_on_user_id"
   end
 
   create_table "code_submissions", charset: "utf8mb3", force: :cascade do |t|
-    t.bigint "code_problem_id"
     t.bigint "candidate_id"
-    t.date "submission_date"
+    t.bigint "code_problem_id"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date "sent_date"
     t.text "notes"
+    t.date "sent_date"
+    t.date "submission_date"
+    t.datetime "updated_at", null: false
     t.index ["candidate_id"], name: "index_code_submissions_on_candidate_id"
     t.index ["code_problem_id"], name: "index_code_submissions_on_code_problem_id"
   end
 
   create_table "diary_entries", charset: "utf8mb3", force: :cascade do |t|
-    t.date "entry_date"
-    t.text "notes"
     t.bigint "candidate_id"
     t.bigint "diary_entry_type_id"
+    t.date "entry_date"
+    t.text "notes"
     t.bigint "user_id"
     t.index ["candidate_id"], name: "index_diary_entries_on_candidate_id"
     t.index ["diary_entry_type_id"], name: "index_diary_entries_on_diary_entry_type_id"
@@ -154,37 +154,37 @@ ActiveRecord::Schema[7.0].define(version: 2017_07_19_000343) do
 
   create_table "diary_entry_types", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
-    t.boolean "positive"
+    t.string "name"
     t.boolean "negative"
+    t.boolean "positive"
   end
 
   create_table "education_levels", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
-    t.string "description"
     t.datetime "created_at", null: false
+    t.string "description"
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
   create_table "experience_levels", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
-    t.string "description"
     t.string "color"
+    t.string "description"
+    t.string "name"
   end
 
   create_table "genders", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "groups", charset: "utf8mb3", force: :cascade do |t|
-    t.string "name"
     t.boolean "active"
     t.datetime "created_at", null: false
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
@@ -194,12 +194,12 @@ ActiveRecord::Schema[7.0].define(version: 2017_07_19_000343) do
   end
 
   create_table "interview_reviews", charset: "utf8mb3", force: :cascade do |t|
-    t.bigint "user_id"
+    t.datetime "created_at", null: false
     t.bigint "interview_id"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "review_result_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["interview_id"], name: "index_interview_reviews_on_interview_id"
     t.index ["review_result_id"], name: "index_interview_reviews_on_review_result_id"
     t.index ["user_id"], name: "index_interview_reviews_on_user_id"
@@ -207,105 +207,105 @@ ActiveRecord::Schema[7.0].define(version: 2017_07_19_000343) do
 
   create_table "interview_types", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "interviews", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "candidate_id"
+    t.bigint "interview_type_id"
     t.date "meeting_time"
     t.text "notes"
-    t.bigint "interview_type_id"
-    t.bigint "candidate_id"
     t.index ["candidate_id"], name: "index_interviews_on_candidate_id"
     t.index ["interview_type_id"], name: "index_interviews_on_interview_type_id"
   end
 
   create_table "leave_reasons", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "office_locations", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "positions", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
-    t.string "description"
     t.datetime "created_at", null: false
+    t.string "description"
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
   create_table "previous_employers", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
+    t.string "name"
   end
 
   create_table "reference_checks", charset: "utf8mb3", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "phone"
-    t.text "notes"
     t.bigint "candidate_id"
+    t.string "company"
+    t.string "email"
+    t.string "name"
+    t.text "notes"
+    t.string "phone"
+    t.string "relationship"
     t.bigint "review_result_id"
     t.string "title"
-    t.string "company"
-    t.string "relationship"
     t.integer "years_known"
     t.index ["candidate_id"], name: "index_reference_checks_on_candidate_id"
     t.index ["review_result_id"], name: "index_reference_checks_on_review_result_id"
   end
 
   create_table "registries", charset: "utf8mb3", force: :cascade do |t|
-    t.string "key"
-    t.string "value"
     t.datetime "created_at", null: false
+    t.string "key"
     t.datetime "updated_at", null: false
+    t.string "value"
   end
 
   create_table "review_results", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
     t.string "description"
     t.boolean "is_approval"
     t.boolean "is_disapproval"
+    t.string "name"
   end
 
   create_table "schools", charset: "utf8mb3", force: :cascade do |t|
     t.string "code"
-    t.string "name"
-    t.string "description"
     t.datetime "created_at", null: false
+    t.string "description"
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.boolean "admin"
     t.boolean "active"
-    t.string "auth_name"
-    t.string "user_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "auth_config_id"
-    t.string "password"
+    t.boolean "admin"
     t.string "api_key"
-    t.boolean "manager"
+    t.bigint "auth_config_id"
+    t.string "auth_name"
+    t.datetime "created_at", null: false
+    t.string "first_name"
     t.boolean "hr"
+    t.string "last_name"
+    t.boolean "manager"
+    t.string "password"
+    t.datetime "updated_at", null: false
+    t.string "user_name"
     t.index ["auth_config_id"], name: "index_users_on_auth_config_id"
   end
 
   create_table "work_history_rows", charset: "utf8mb3", force: :cascade do |t|
-    t.date "start_date"
+    t.bigint "candidate_id"
     t.date "end_date"
     t.bigint "previous_employer_id"
-    t.bigint "candidate_id"
+    t.date "start_date"
     t.index ["candidate_id"], name: "index_work_history_rows_on_candidate_id"
     t.index ["previous_employer_id"], name: "index_work_history_rows_on_previous_employer_id"
   end

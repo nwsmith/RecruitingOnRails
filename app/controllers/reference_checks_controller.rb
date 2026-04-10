@@ -60,7 +60,7 @@ class ReferenceChecksController < ApplicationController
     @reference_check = ReferenceCheck.find(params[:id])
 
     respond_to do |format|
-      if @reference_check.update_attributes(user_params)
+      if @reference_check.update(user_params)
         format.html { redirect_to @reference_check, notice: 'Reference check was successfully updated.' }
         format.json { head :no_content }
       else

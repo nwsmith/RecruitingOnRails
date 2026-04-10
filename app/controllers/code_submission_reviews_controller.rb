@@ -61,7 +61,7 @@ class CodeSubmissionReviewsController < ApplicationController
     @code_submission_review = CodeSubmissionReview.find(params[:id])
 
     respond_to do |format|
-      if @code_submission_review.update_attributes(user_params)
+      if @code_submission_review.update(user_params)
         format.html { redirect_to @code_submission_review, notice: 'Code submission review was successfully updated.' }
         format.json { head :no_content }
       else

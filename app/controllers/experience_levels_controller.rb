@@ -59,7 +59,7 @@ class ExperienceLevelsController < ApplicationController
     @experience_level = ExperienceLevel.find(params[:id])
 
     respond_to do |format|
-      if @experience_level.update_attributes(user_params)
+      if @experience_level.update(user_params)
         format.html { redirect_to @experience_level, notice: 'Experience level was successfully updated.' }
         format.json { head :no_content }
       else

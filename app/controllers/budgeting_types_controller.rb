@@ -59,7 +59,7 @@ class BudgetingTypesController < ApplicationController
     @budgeting_type = BudgetingType.find(params[:id])
 
     respond_to do |format|
-      if @budgeting_type.update_attributes(user_params)
+      if @budgeting_type.update(user_params)
         format.html { redirect_to @budgeting_type, notice: 'Budgeting type was successfully updated.' }
         format.json { head :no_content }
       else

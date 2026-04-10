@@ -59,7 +59,7 @@ class EducationLevelsController < ApplicationController
     @education_level = EducationLevel.find(params[:id])
 
     respond_to do |format|
-      if @education_level.update_attributes(user_params)
+      if @education_level.update(user_params)
         format.html { redirect_to @education_level, notice: 'Education level was successfully updated.' }
         format.json { head :no_content }
       else
