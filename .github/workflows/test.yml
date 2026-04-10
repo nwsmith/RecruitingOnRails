@@ -1,0 +1,70 @@
+name: test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: recruiting
+          MYSQL_PASSWORD: recruiting
+          MYSQL_DATABASE: RecruitingOnRails_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    env:
+      RAILS_ENV: test
+      DB_USERNAME: recruiting
+      DB_PASSWORD: recruiting
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MySQL client headers
+        run: sudo apt-get update && sudo apt-get install -y default-libmysqlclient-dev
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Wait for MySQL
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h 127.0.0.1 -uroot -proot --silent; then
+              echo "MySQL is up"
+              break
+            fi
+            echo "Waiting for MySQL... ($i)"
+            sleep 2
+          done
+
+      - name: Grant privileges to recruiting user
+        run: |
+          mysql -h 127.0.0.1 -uroot -proot -e "
+            GRANT ALL PRIVILEGES ON \`RecruitingOnRails_test\`.* TO 'recruiting'@'%';
+            FLUSH PRIVILEGES;
+          "
+
+      - name: Load schema
+        run: bundle exec rake db:schema:load
+
+      - name: Run tests
+        run: bundle exec rake test
