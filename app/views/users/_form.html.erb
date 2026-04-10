@@ -47,7 +47,7 @@
       <%= f.label :api_key %><br/>
       <%= f.text_field :api_key %>
     </div>
-    <% if session[:admin] %>
+    <% if current_user&.admin? %>
         <!--<div class="field">-->
           <!--<%= f.label :password %>-->
           <!--<%= f.text_field :password %>-->

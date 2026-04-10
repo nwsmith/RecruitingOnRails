@@ -15,7 +15,7 @@
   <%= @candidate.last_name %>
 </p>
 
-<% if session[:manager] %>
+<% if current_user&.manager? || current_user&.admin? %>
     <div style="background:lightgrey;width:20%">
       <h3>Manager Fields</h3>
       <p>
@@ -32,7 +32,7 @@
       </p>
     </div>
 <% end %>
-<% if session[:hr] %>
+<% if current_user&.hr? || current_user&.manager? || current_user&.admin? %>
     <div style="background:lightblue;width:20%">
       <h3>HR Fields</h3>
       <p>
@@ -159,7 +159,7 @@
 
 <%= link_to 'Add Attachment', new_candidate_attachment_path(:candidate_id => @candidate.id) %>
 
-<% if session[:manager] %>
+<% if current_user&.manager? || current_user&.admin? %>
     <h1>Diary</h1>
     <% @candidate.diary_entries.each do |diary_entry| %>
         <%= link_to diary_entry.summary, diary_entry_path(diary_entry), {style: "color: #{diary_entry.color}"} %> <br/>

@@ -26,7 +26,7 @@
       <br/>
       <%= f.text_field :last_name, :required => true%>
     </div>
-    <% if session[:manager] %>
+    <% if current_user&.manager? || current_user&.admin? %>
         <div style="background:lightgrey;width:20%">
           <h3>Manager Fields</h3>
           <div class="field">
@@ -46,7 +46,7 @@
           </div>
         </div>
     <% end %>
-    <% if session[:hr] %>
+    <% if current_user&.hr? || current_user&.manager? || current_user&.admin? %>
         <div style="background:lightblue;width:20%">
           <h3>HR Fields</h3>
           <div class="field">

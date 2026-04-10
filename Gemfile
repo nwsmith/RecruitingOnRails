@@ -19,8 +19,7 @@ gem "sass", :require => 'sass'
 gem 'jquery-rails', '~> 4.3'
 gem 'jquery-ui-rails', '~> 6.0'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt', '~> 3.1'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

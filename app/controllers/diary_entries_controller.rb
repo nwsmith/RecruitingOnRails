@@ -16,7 +16,7 @@ class DiaryEntriesController < ApplicationController
     @diary_entry = DiaryEntry.new
     @diary_entry.entry_date ||= Date.today
     @diary_entry.candidate_id = params[:candidate_id]
-    @diary_entry.user_id = session[:user_id]
+    @diary_entry.user_id = current_user.id
   end
 
   # GET /diary_entries/1/edit

@@ -26,7 +26,7 @@ class CodeSubmissionReviewsController < ApplicationController
   def new
     @code_submission_review = CodeSubmissionReview.new
     @code_submission_review.code_submission_id = params[:code_submission_id]
-    @code_submission_review.user_id = session[:user_id]
+    @code_submission_review.user_id = current_user.id
 
     respond_to do |format|
       format.html # new.html.erb

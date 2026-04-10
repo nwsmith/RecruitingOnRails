@@ -17,7 +17,6 @@ class LoginController < ApplicationController
       return
     end
 
-    session[:username] = user.auth_name
     session[:user_id] = user.id
     session[:expires_at] = Time.current + 2.hours
 

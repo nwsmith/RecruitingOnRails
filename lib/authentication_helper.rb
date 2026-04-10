@@ -1,11 +1,9 @@
-require 'digest/sha2'
 require 'net/ldap'
 
 module AuthenticationHelper
   class InternalLogin
     def authenticate(user, password)
-      hashed_password = Digest::SHA2.base64digest(password)
-      user.password.eql?(hashed_password) ? user : nil
+      user.authenticate(password) || nil
     end
   end
 

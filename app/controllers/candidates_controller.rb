@@ -1,13 +1,12 @@
 class CandidatesController < ApplicationController
 
   def check_access(candidate)
-    username = session[:username]
     candidate_username = candidate.username
     candidate_status = candidate.candidate_status
 
-    return if session[:hr]
+    return if current_user&.hr? || current_user&.manager? || current_user&.admin?
 
-    if username.eql?(candidate_username) || !(candidate_status.code.eql?('PEND') || candidate_status.code.eql?('VERBAL'))
+    if current_user&.user_name.eql?(candidate_username) || !(candidate_status.code.eql?('PEND') || candidate_status.code.eql?('VERBAL'))
       redirect_to(:controller => 'dashboard', :action => :index)
     end
   end

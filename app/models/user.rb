@@ -1,13 +1,9 @@
-require 'digest/sha2'
-
 class User < ApplicationRecord
-  has_and_belongs_to_many :groups
-  belongs_to :interview_review
-  belongs_to :auth_config
+  has_secure_password
 
-  def password=(val)
-    write_attribute(:password, Digest::SHA2.base64digest(val))
-  end
+  has_and_belongs_to_many :groups
+  belongs_to :interview_review, optional: true
+  belongs_to :auth_config
 
   def name
     first_name + ' ' + last_name

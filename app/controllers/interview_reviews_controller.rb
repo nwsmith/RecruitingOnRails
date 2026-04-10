@@ -26,7 +26,7 @@ class InterviewReviewsController < ApplicationController
   def new
     @interview_review = InterviewReview.new
     @interview_review.interview_id = params[:interview_id]
-    @interview_review.user_id = session[:user_id]
+    @interview_review.user_id = current_user.id
 
     respond_to do |format|
       format.html # new.html.erb
