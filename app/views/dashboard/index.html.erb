@@ -2,7 +2,7 @@
 
 <%= link_to 'New Candidate', new_candidate_path %>
 
-<%= form_tag('/candidates/search') do -%>
+<%= form_tag(search_candidates_path, method: :get) do -%>
     <%= label_tag(:q, 'Search by name:') %>
     <%= text_field_tag(:q) %>
     <%= submit_tag('Search') %>

@@ -1,18 +1,48 @@
 <h1>Reports</h1>
-<%= link_to "Team By Year", :controller => 'reports/team_by_year' %>
-<br/>
-<%= link_to "Cycle Time", :controller => 'reports/cycle_time_report' %>
-<br/>
-<%= link_to "Candidates By Source", :controller => 'reports/candidates_by_source' %>
-<br/>
-<%= link_to "Candidates By Status", :controller => 'reports/candidates_by_status' %>
-<br/>
-<%= link_to "Leavers By Reason", :controller => 'reports/candidate_by_leave_type' %>
-<br/>
-<%= link_to "Hires/Leavers By Year", :controller => 'reports/hires_by_year' %>
-<br/>
-<%= link_to "Hires/Leaver Count By Month", :controller => 'reports/hire_leaver_count_by_month' %>
-<br/>
-<%= link_to "Associated Budget Report", :controller => 'reports/budget_report' %>
-<br/>
-<%= link_to "Calendar", :controller => 'candidates/calendar', start_date: Date.today.to_s %>
+
+<div class="report-grid">
+  <%= link_to reports_team_by_year_index_path, class: 'report-card' do %>
+    <strong>Team By Year</strong>
+    <small>Tenure and headcount over time</small>
+  <% end %>
+
+  <%= link_to reports_cycle_time_report_index_path, class: 'report-card' do %>
+    <strong>Cycle Time</strong>
+    <small>How long candidates spend in each stage</small>
+  <% end %>
+
+  <%= link_to reports_candidates_by_source_index_path, class: 'report-card' do %>
+    <strong>Candidates By Source</strong>
+    <small>Where applicants come from</small>
+  <% end %>
+
+  <%= link_to reports_candidates_by_status_index_path, class: 'report-card' do %>
+    <strong>Candidates By Status</strong>
+    <small>Pipeline breakdown</small>
+  <% end %>
+
+  <%= link_to reports_candidate_by_leave_type_index_path, class: 'report-card' do %>
+    <strong>Leavers By Reason</strong>
+    <small>Why people leave</small>
+  <% end %>
+
+  <%= link_to reports_hires_by_year_index_path, class: 'report-card' do %>
+    <strong>Hires/Leavers By Year</strong>
+    <small>Annual hiring and attrition</small>
+  <% end %>
+
+  <%= link_to reports_hire_leaver_count_by_month_index_path, class: 'report-card' do %>
+    <strong>Hires/Leaver Count By Month</strong>
+    <small>Monthly hiring trends</small>
+  <% end %>
+
+  <%= link_to reports_budget_report_index_path, class: 'report-card' do %>
+    <strong>Associated Budget Report</strong>
+    <small>Headcount against budgets</small>
+  <% end %>
+
+  <%= link_to calendar_candidates_path(start_date: Date.today.to_s), class: 'report-card' do %>
+    <strong>Calendar</strong>
+    <small>Candidate start dates by month</small>
+  <% end %>
+</div>

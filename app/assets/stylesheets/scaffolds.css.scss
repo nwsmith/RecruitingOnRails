@@ -19,6 +19,40 @@ header.container nav {
   margin-bottom: 1rem;
 }
 
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+
+    .logo-mark {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.logo-mark {
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(16, 149, 193, 0.25));
+  transition: transform 0.15s ease;
+}
+
+.logo-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--pico-h1-color);
+}
+
+.logo-text-accent {
+  color: var(--pico-primary);
+  font-weight: 800;
+}
+
 .user-chip {
   display: inline-block;
   padding: 0.25rem 0.65rem;
@@ -65,6 +99,70 @@ td {
 
 tr:hover td {
   background: var(--pico-secondary-background);
+}
+
+// Reports landing grid
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.report-card {
+  display: block;
+  padding: 1.25rem;
+  border-radius: var(--pico-border-radius);
+  border: 1px solid var(--pico-muted-border-color);
+  background: var(--pico-card-background-color);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+
+  strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--pico-h2-color);
+    margin-bottom: 0.25rem;
+  }
+
+  small {
+    color: var(--pico-muted-color);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--pico-primary);
+    box-shadow: 0 4px 12px rgba(16, 149, 193, 0.12);
+    text-decoration: none;
+  }
+}
+
+// Restricted-role form sections
+.role-section {
+  margin: 1.25rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: var(--pico-border-radius);
+  border: 1px solid var(--pico-muted-border-color);
+  background: var(--pico-card-background-color);
+  border-left-width: 4px;
+
+  legend {
+    padding: 0 0.5rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--pico-muted-color);
+  }
+}
+
+.role-section--manager {
+  border-left-color: var(--pico-primary);
+}
+
+.role-section--hr {
+  border-left-color: #6f42c1;
 }
 
 // Forms: tighten up Rails default scaffold

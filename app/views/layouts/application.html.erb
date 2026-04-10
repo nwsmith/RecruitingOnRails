@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RecruitingOnRails</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'><rect width='44' height='44' rx='10' fill='%231095c1'/><text x='22' y='28' font-family='system-ui,sans-serif' font-size='22' font-weight='800' fill='white' text-anchor='middle'>R</text><line x1='10' y1='35' x2='34' y2='35' stroke='white' stroke-width='2' stroke-linecap='round'/><line x1='10' y1='38' x2='34' y2='38' stroke='white' stroke-width='2' stroke-linecap='round' opacity='0.6'/></svg>">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -22,7 +23,23 @@
 <header class="container">
   <nav>
     <ul>
-      <li><strong><%= link_to "Recruiting on Rails", '/dashboard' %></strong></li>
+      <li>
+        <%= link_to '/dashboard', class: 'logo-link' do %>
+          <svg class="logo-mark" width="40" height="40" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1095c1"/>
+                <stop offset="100%" stop-color="#0a5d75"/>
+              </linearGradient>
+            </defs>
+            <rect width="44" height="44" rx="10" fill="url(#logoGradient)"/>
+            <text x="22" y="28" font-family="-apple-system, system-ui, 'Segoe UI', sans-serif" font-size="22" font-weight="800" fill="white" text-anchor="middle" letter-spacing="-1">R</text>
+            <line x1="10" y1="34" x2="34" y2="34" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="37" x2="34" y2="37" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+          </svg>
+          <span class="logo-text">Recruiting<span class="logo-text-accent">onRails</span></span>
+        <% end %>
+      </li>
     </ul>
     <ul>
       <li><%= link_to "Dashboard", '/dashboard' %></li>

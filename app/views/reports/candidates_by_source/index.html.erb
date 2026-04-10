@@ -1,6 +1,6 @@
 <h1>Candidates by Source</h1>
 
-<%= form_tag(:action => :run) do -%>
+<%= form_tag(reports_candidates_by_source_run_path, method: :get) do -%>
     <%= render '/reports/status_param' %>
     <br/>
     <%= submit_tag 'Run' %>

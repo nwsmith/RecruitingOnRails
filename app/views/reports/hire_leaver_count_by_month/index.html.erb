@@ -1,5 +1,5 @@
 <h1>Hire/Leaver Count by Month</h1>
 
-<%= form_tag(:action => :run) do -%>
+<%= form_tag(reports_hire_leaver_count_by_month_run_path, method: :get) do -%>
     <%= submit_tag 'Run' %>
 <% end -%>

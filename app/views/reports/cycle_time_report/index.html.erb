@@ -1,6 +1,6 @@
 <h1>CycleTimeReport</h1>
 
-<%= form_tag(:action => :run) do -%>
+<%= form_tag(reports_cycle_time_report_run_path, method: :get) do -%>
     <%= render '/reports/status_param' %>
     <br/>
     <%= submit_tag 'Run' %>

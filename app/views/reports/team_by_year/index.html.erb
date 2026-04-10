@@ -1,6 +1,6 @@
 <h1>Team by Year</h1>
 
-<%= form_tag(:action => :run) do -%>
+<%= form_tag(reports_team_by_year_run_path, method: :get) do -%>
     <%= submit_tag 'Run' %>
 <% end -%>
 
