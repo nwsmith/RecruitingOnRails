@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @user }
+      format.json { render json: @user.as_json(except: JSON_EXCLUDE) }
     end
   end
 
