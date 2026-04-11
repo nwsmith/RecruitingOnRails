@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   before_action :check_admin
 
-  # Columns that must never appear in any JSON response. password_digest is
-  # the bcrypt hash; api_key is the bearer-auth secret. Both are credentials.
-  JSON_EXCLUDE = %i[password_digest api_key].freeze
+  # Columns that must never appear in any JSON response. password_digest
+  # is the bcrypt hash; api_key_digest is the HMAC of the bearer-auth
+  # secret. Both are credentials and would be useful to an attacker who
+  # got read access to the JSON API.
+  JSON_EXCLUDE = %i[password_digest api_key_digest].freeze
 
   def index
     @users = User.all
@@ -74,11 +76,31 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /users/:id/regenerate_api_key
+  #
+  # Issues a fresh API key, stores its HMAC digest, and renders the
+  # plaintext to the admin exactly once via flash. The plaintext is not
+  # stored anywhere — if the admin doesn't capture it from this response,
+  # they have to regenerate again.
+  def regenerate_api_key
+    @user = User.find(params[:id])
+    plaintext = @user.regenerate_api_key!
+
+    respond_to do |format|
+      format.html do
+        flash[:notice] = "New API key for #{@user.name}: #{plaintext} " \
+                         '(this is shown only once — capture it now)'
+        redirect_to @user
+      end
+      format.json { render json: { api_key: plaintext } }
+    end
+  end
+
   private
 
   def user_params
     params.require(:user).permit(
-      :first_name, :last_name, :user_name, :auth_name, :api_key,
+      :first_name, :last_name, :user_name, :auth_name,
       :active, :admin, :manager, :hr, :auth_config_id,
       :password, :password_confirmation
     )

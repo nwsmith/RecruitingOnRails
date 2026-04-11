@@ -11,9 +11,11 @@ class ApplicationController < ActionController::Base
   def check_login
     # API key auth path: only accept the key from the Authorization header
     # (e.g. `Authorization: Bearer <key>`) so it never appears in URLs or logs.
+    # The presented plaintext is HMAC-SHA256'd before lookup — see
+    # User.find_by_api_key.
     api_key = bearer_token_from_header
     if api_key.present?
-      user = User.find_by(api_key: api_key)
+      user = User.find_by_api_key(api_key)
       if user&.active?
         @current_user = user
         return

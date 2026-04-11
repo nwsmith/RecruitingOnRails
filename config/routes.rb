@@ -62,5 +62,9 @@ RecruitingOnRails::Application.routes.draw do
   resources :candidate_sources
   resources :candidate_statuses
   resources :groups
-  resources :users
+  resources :users do
+    member do
+      post :regenerate_api_key
+    end
+  end
 end

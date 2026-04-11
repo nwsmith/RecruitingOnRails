@@ -122,31 +122,71 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   # ----- credential leakage in JSON -----
   #
-  # The default ActiveRecord JSON serializer dumps every column. For the User
-  # model that includes password_digest and api_key, both of which are secrets.
-  # These tests document the expected behavior — if they fail, the controller
-  # needs to filter the serialized fields.
+  # The default ActiveRecord JSON serializer dumps every column. For the
+  # User model that includes password_digest and api_key_digest, both of
+  # which are credentials. These tests document the expected behavior —
+  # if they fail, the controller needs to filter the serialized fields.
 
-  test 'json show does not leak password_digest' do
-    @target.update_columns(api_key: 'leaky-key')
+  test 'json show does not leak password_digest or api_key_digest' do
+    @target.update_columns(api_key_digest: User.encode_api_key('leaky-key'))
     login_as 'admin'
     get user_path(@target, format: :json)
     assert_response :success
     body = response.body
     assert_no_match(/password_digest/, body)
-    assert_no_match(/api_key/, body)
+    assert_no_match(/api_key_digest/, body)
     assert_no_match(/leaky-key/, body)
   end
 
-  test 'json index does not leak password_digest' do
-    @target.update_columns(api_key: 'leaky-key-2')
+  test 'json index does not leak password_digest or api_key_digest' do
+    @target.update_columns(api_key_digest: User.encode_api_key('leaky-key-2'))
     login_as 'admin'
     get users_path(format: :json)
     assert_response :success
     body = response.body
     assert_no_match(/password_digest/, body)
-    assert_no_match(/api_key/, body)
+    assert_no_match(/api_key_digest/, body)
     assert_no_match(/leaky-key-2/, body)
+  end
+
+  # ----- regenerate_api_key -----
+
+  test 'admin can regenerate an api key and the new key authenticates' do
+    login_as 'admin'
+
+    assert_changes -> { @target.reload.api_key_digest } do
+      post regenerate_api_key_user_path(@target)
+    end
+    assert_redirected_to user_path(@target)
+
+    # The flash carries the plaintext exactly once. Pull it out and verify
+    # the bearer-token auth path accepts it.
+    flash_text = flash[:notice].to_s
+    plaintext = flash_text[/New API key for [^:]+: (\S+)/, 1]
+    assert plaintext.present?, "no plaintext key in flash: #{flash_text.inspect}"
+
+    get dashboard_path, headers: { 'Authorization' => "Bearer #{plaintext}" }
+    assert_response :success
+  end
+
+  test 'regenerate_api_key json returns the plaintext exactly once' do
+    login_as 'admin'
+    post regenerate_api_key_user_path(@target, format: :json)
+    assert_response :success
+
+    body = JSON.parse(response.body)
+    assert body['api_key'].present?, 'json response should include the new plaintext'
+
+    # And the digest stored is the HMAC of the returned plaintext.
+    assert_equal User.encode_api_key(body['api_key']), @target.reload.api_key_digest
+  end
+
+  test 'manager cannot regenerate an api key' do
+    login_as 'manager'
+    assert_no_changes -> { @target.reload.api_key_digest } do
+      post regenerate_api_key_user_path(@target)
+    end
+    assert_redirected_to controller: 'dashboard', action: 'index'
   end
 
   private

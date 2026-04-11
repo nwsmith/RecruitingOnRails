@@ -41,7 +41,11 @@
 
 <p>
   <b>API Key:</b>
-  <%= @user.api_key %>
+  <%= @user.api_key_digest.present? ? '(set — plaintext is not stored)' : '(none)' %>
+  <%= button_to 'Regenerate API Key',
+                regenerate_api_key_user_path(@user),
+                method: :post,
+                form: { data: { confirm: 'Issue a new API key? Any current key will stop working immediately.' } } %>
 </p>
 <% if current_user&.admin? %>
     <p>
