@@ -1,8 +1,6 @@
 class PositionsController < ApplicationController
   before_action :check_staff
 
-  # GET /positions
-  # GET /positions.json
   def index
     @positions = Position.all
 
@@ -12,8 +10,6 @@ class PositionsController < ApplicationController
     end
   end
 
-  # GET /positions/1
-  # GET /positions/1.json
   def show
     @position = Position.find(params[:id])
 
@@ -23,8 +19,6 @@ class PositionsController < ApplicationController
     end
   end
 
-  # GET /positions/new
-  # GET /positions/new.json
   def new
     @position = Position.new
 
@@ -34,15 +28,12 @@ class PositionsController < ApplicationController
     end
   end
 
-  # GET /positions/1/edit
   def edit
     @position = Position.find(params[:id])
   end
 
-  # POST /positions
-  # POST /positions.json
   def create
-    @position = Position.new(user_params)
+    @position = Position.new(position_params)
 
     respond_to do |format|
       if @position.save
@@ -55,13 +46,11 @@ class PositionsController < ApplicationController
     end
   end
 
-  # PUT /positions/1
-  # PUT /positions/1.json
   def update
     @position = Position.find(params[:id])
 
     respond_to do |format|
-      if @position.update(user_params)
+      if @position.update(position_params)
         format.html { redirect_to @position, notice: 'Position was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class PositionsController < ApplicationController
     end
   end
 
-  # DELETE /positions/1
-  # DELETE /positions/1.json
   def destroy
     @position = Position.find(params[:id])
     @position.destroy
@@ -85,7 +72,7 @@ class PositionsController < ApplicationController
 
   private
 
-  def user_params
+  def position_params
     params.require(:position).permit(:code, :name, :description)
   end
 end

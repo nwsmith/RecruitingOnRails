@@ -1,8 +1,6 @@
 class BudgetingTypesController < ApplicationController
   before_action :check_staff
 
-  # GET /budgeting_types
-  # GET /budgeting_types.json
   def index
     @budgeting_types = BudgetingType.all
 
@@ -12,8 +10,6 @@ class BudgetingTypesController < ApplicationController
     end
   end
 
-  # GET /budgeting_types/1
-  # GET /budgeting_types/1.json
   def show
     @budgeting_type = BudgetingType.find(params[:id])
 
@@ -23,8 +19,6 @@ class BudgetingTypesController < ApplicationController
     end
   end
 
-  # GET /budgeting_types/new
-  # GET /budgeting_types/new.json
   def new
     @budgeting_type = BudgetingType.new
 
@@ -34,15 +28,12 @@ class BudgetingTypesController < ApplicationController
     end
   end
 
-  # GET /budgeting_types/1/edit
   def edit
     @budgeting_type = BudgetingType.find(params[:id])
   end
 
-  # POST /budgeting_types
-  # POST /budgeting_types.json
   def create
-    @budgeting_type = BudgetingType.new(user_params)
+    @budgeting_type = BudgetingType.new(budgeting_type_params)
 
     respond_to do |format|
       if @budgeting_type.save
@@ -55,13 +46,11 @@ class BudgetingTypesController < ApplicationController
     end
   end
 
-  # PUT /budgeting_types/1
-  # PUT /budgeting_types/1.json
   def update
     @budgeting_type = BudgetingType.find(params[:id])
 
     respond_to do |format|
-      if @budgeting_type.update(user_params)
+      if @budgeting_type.update(budgeting_type_params)
         format.html { redirect_to @budgeting_type, notice: 'Budgeting type was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class BudgetingTypesController < ApplicationController
     end
   end
 
-  # DELETE /budgeting_types/1
-  # DELETE /budgeting_types/1.json
   def destroy
     @budgeting_type = BudgetingType.find(params[:id])
     @budgeting_type.destroy
@@ -85,7 +72,7 @@ class BudgetingTypesController < ApplicationController
 
   private
 
-  def user_params
+  def budgeting_type_params
     params.require(:budgeting_type).permit(:code, :name, :description)
   end
 end

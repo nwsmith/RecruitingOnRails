@@ -19,8 +19,6 @@ class CandidatesController < ApplicationController
     check_candidate_access(candidate)
   end
 
-  # GET /candidates
-  # GET /candidates.json
   def index
     @candidates = Candidate.for_table
 
@@ -99,8 +97,6 @@ class CandidatesController < ApplicationController
     end
   end
 
-  # GET /candidates/1
-  # GET /candidates/1.json
   def show
     @candidate = Candidate
                    .includes(:work_history_rows, :diary_entries, :candidate_attachments,
@@ -117,8 +113,6 @@ class CandidatesController < ApplicationController
     end
   end
 
-  # GET /candidates/new
-  # GET /candidates/new.json
   def new
     @candidate = Candidate.new
 
@@ -128,16 +122,13 @@ class CandidatesController < ApplicationController
     end
   end
 
-  # GET /candidates/1/edit
   def edit
     @candidate = Candidate.find(params[:id])
     return if check_access(@candidate)
   end
 
-  # POST /candidates
-  # POST /candidates.json
   def create
-    @candidate = Candidate.new(user_params)
+    @candidate = Candidate.new(candidate_params)
 
     respond_to do |format|
       if @candidate.save
@@ -150,15 +141,13 @@ class CandidatesController < ApplicationController
     end
   end
 
-  # PUT /candidates/1
-  # PUT /candidates/1.json
   def update
     @candidate = Candidate.find(params[:id])
 
     return if check_access(@candidate)
 
     respond_to do |format|
-      if @candidate.update(user_params)
+      if @candidate.update(candidate_params)
         format.html { redirect_to @candidate, notice: 'Candidate was successfully updated.' }
         format.json { head :no_content }
       else
@@ -168,8 +157,6 @@ class CandidatesController < ApplicationController
     end
   end
 
-  # DELETE /candidates/1
-  # DELETE /candidates/1.json
   def destroy
     @candidate = Candidate.find(params[:id])
 
@@ -199,7 +186,7 @@ class CandidatesController < ApplicationController
     str.to_s.gsub(/[\\%_]/) { |c| "\\#{c}" }
   end
 
-  def user_params
+  def candidate_params
     params.require(:candidate).permit(
       :first_name, :middle_name, :last_name, :notes,
       :application_date, :first_contact_date, :start_date, :end_date,

@@ -1,6 +1,4 @@
 class InterviewReviewsController < ApplicationController
-  # GET /interview_reviews
-  # GET /interview_reviews.json
   def index
     @interview_reviews = InterviewReview.all
 
@@ -10,8 +8,6 @@ class InterviewReviewsController < ApplicationController
     end
   end
 
-  # GET /interview_reviews/1
-  # GET /interview_reviews/1.json
   def show
     @interview_review = InterviewReview.find(params[:id])
 
@@ -21,8 +17,6 @@ class InterviewReviewsController < ApplicationController
     end
   end
 
-  # GET /interview_reviews/new
-  # GET /interview_reviews/new.json
   def new
     @interview_review = InterviewReview.new
     @interview_review.interview_id = params[:interview_id]
@@ -34,15 +28,12 @@ class InterviewReviewsController < ApplicationController
     end
   end
 
-  # GET /interview_reviews/1/edit
   def edit
     @interview_review = InterviewReview.find(params[:id])
   end
 
-  # POST /interview_reviews
-  # POST /interview_reviews.json
   def create
-    @interview_review = InterviewReview.new(user_params)
+    @interview_review = InterviewReview.new(interview_review_params)
 
     respond_to do |format|
       if @interview_review.save
@@ -55,13 +46,11 @@ class InterviewReviewsController < ApplicationController
     end
   end
 
-  # PUT /interview_reviews/1
-  # PUT /interview_reviews/1.json
   def update
     @interview_review = InterviewReview.find(params[:id])
 
     respond_to do |format|
-      if @interview_review.update(user_params)
+      if @interview_review.update(interview_review_params)
         format.html { redirect_to @interview_review, notice: 'Interview review was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class InterviewReviewsController < ApplicationController
     end
   end
 
-  # DELETE /interview_reviews/1
-  # DELETE /interview_reviews/1.json
   def destroy
     @interview_review = InterviewReview.find(params[:id])
     @interview_review.destroy
@@ -85,7 +72,7 @@ class InterviewReviewsController < ApplicationController
 
   private
 
-  def user_params
+  def interview_review_params
     params.require(:interview_review).permit(:interview_id, :user_id, :review_result_id, :notes)
   end
 end

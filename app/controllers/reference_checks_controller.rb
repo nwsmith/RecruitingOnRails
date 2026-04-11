@@ -6,8 +6,6 @@ class ReferenceChecksController < ApplicationController
   # do NOT use check_candidate_access here.
   before_action :check_staff
 
-  # GET /reference_checks
-  # GET /reference_checks.json
   def index
     @reference_checks = ReferenceCheck.all
 
@@ -17,8 +15,6 @@ class ReferenceChecksController < ApplicationController
     end
   end
 
-  # GET /reference_checks/1
-  # GET /reference_checks/1.json
   def show
     @reference_check = ReferenceCheck.find(params[:id])
 
@@ -28,8 +24,6 @@ class ReferenceChecksController < ApplicationController
     end
   end
 
-  # GET /reference_checks/new
-  # GET /reference_checks/new.json
   def new
     @reference_check = ReferenceCheck.new
     @reference_check.candidate_id = params[:candidate_id]
@@ -40,15 +34,12 @@ class ReferenceChecksController < ApplicationController
     end
   end
 
-  # GET /reference_checks/1/edit
   def edit
     @reference_check = ReferenceCheck.find(params[:id])
   end
 
-  # POST /reference_checks
-  # POST /reference_checks.json
   def create
-    @reference_check = ReferenceCheck.new(user_params)
+    @reference_check = ReferenceCheck.new(reference_check_params)
 
     respond_to do |format|
       if @reference_check.save
@@ -61,13 +52,11 @@ class ReferenceChecksController < ApplicationController
     end
   end
 
-  # PUT /reference_checks/1
-  # PUT /reference_checks/1.json
   def update
     @reference_check = ReferenceCheck.find(params[:id])
 
     respond_to do |format|
-      if @reference_check.update(user_params)
+      if @reference_check.update(reference_check_params)
         format.html { redirect_to @reference_check, notice: 'Reference check was successfully updated.' }
         format.json { head :no_content }
       else
@@ -77,8 +66,6 @@ class ReferenceChecksController < ApplicationController
     end
   end
 
-  # DELETE /reference_checks/1
-  # DELETE /reference_checks/1.json
   def destroy
     @reference_check = ReferenceCheck.find(params[:id])
     @reference_check.destroy
@@ -91,7 +78,7 @@ class ReferenceChecksController < ApplicationController
 
   private
 
-  def user_params
+  def reference_check_params
     params.require(:reference_check).permit(:candidate_id, :name, :title, :company, :phone, :email, :relationship, :years_known, :review_result_id, :notes)
   end
 end

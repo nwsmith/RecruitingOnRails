@@ -1,8 +1,6 @@
 class AuthConfigsController < ApplicationController
   before_action :check_admin
 
-  # GET /auth_configs
-  # GET /auth_configs.json
   def index
     @auth_configs = AuthConfig.all
 
@@ -12,8 +10,6 @@ class AuthConfigsController < ApplicationController
     end
   end
 
-  # GET /auth_configs/1
-  # GET /auth_configs/1.json
   def show
     @auth_config = AuthConfig.find(params[:id])
 
@@ -23,8 +19,6 @@ class AuthConfigsController < ApplicationController
     end
   end
 
-  # GET /auth_configs/new
-  # GET /auth_configs/new.json
   def new
     @auth_config = AuthConfig.new
 
@@ -34,15 +28,12 @@ class AuthConfigsController < ApplicationController
     end
   end
 
-  # GET /auth_configs/1/edit
   def edit
     @auth_config = AuthConfig.find(params[:id])
   end
 
-  # POST /auth_configs
-  # POST /auth_configs.json
   def create
-    @auth_config = AuthConfig.new(user_params)
+    @auth_config = AuthConfig.new(auth_config_params)
 
     respond_to do |format|
       if @auth_config.save
@@ -55,13 +46,11 @@ class AuthConfigsController < ApplicationController
     end
   end
 
-  # PUT /auth_configs/1
-  # PUT /auth_configs/1.json
   def update
     @auth_config = AuthConfig.find(params[:id])
 
     respond_to do |format|
-      if @auth_config.update(user_params)
+      if @auth_config.update(auth_config_params)
         format.html { redirect_to @auth_config, notice: 'Auth config was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class AuthConfigsController < ApplicationController
     end
   end
 
-  # DELETE /auth_configs/1
-  # DELETE /auth_configs/1.json
   def destroy
     @auth_config = AuthConfig.find(params[:id])
     @auth_config.destroy
@@ -85,7 +72,7 @@ class AuthConfigsController < ApplicationController
 
   private
 
-  def user_params
+  def auth_config_params
     params.require(:auth_config).permit(:name, :auth_config_type_id, :server, :port, :ldap_base, :ldap_domain)
   end
 end

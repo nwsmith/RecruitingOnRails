@@ -2,25 +2,20 @@ class DiaryEntryTypesController < ApplicationController
   before_action :check_staff
   before_action :set_diary_entry_type, only: [:show, :edit, :update, :destroy]
 
-  # GET /diary_entry_types
   def index
     @diary_entry_types = DiaryEntryType.all
   end
 
-  # GET /diary_entry_types/1
   def show
   end
 
-  # GET /diary_entry_types/new
   def new
     @diary_entry_type = DiaryEntryType.new
   end
 
-  # GET /diary_entry_types/1/edit
   def edit
   end
 
-  # POST /diary_entry_types
   def create
     @diary_entry_type = DiaryEntryType.new(diary_entry_type_params)
 
@@ -40,7 +35,6 @@ class DiaryEntryTypesController < ApplicationController
     end
   end
 
-  # DELETE /diary_entry_types/1
   def destroy
     @diary_entry_type.destroy
     redirect_to diary_entry_types_url, notice: 'Diary entry type was successfully destroyed.'

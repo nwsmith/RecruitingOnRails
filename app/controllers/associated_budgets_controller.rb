@@ -1,8 +1,6 @@
 class AssociatedBudgetsController < ApplicationController
   before_action :check_staff
 
-  # GET /associated_budgets
-  # GET /associated_budgets.json
   def index
     @associated_budgets = AssociatedBudget.all
 
@@ -12,8 +10,6 @@ class AssociatedBudgetsController < ApplicationController
     end
   end
 
-  # GET /associated_budgets/1
-  # GET /associated_budgets/1.json
   def show
     @associated_budget = AssociatedBudget.find(params[:id])
 
@@ -23,8 +19,6 @@ class AssociatedBudgetsController < ApplicationController
     end
   end
 
-  # GET /associated_budgets/new
-  # GET /associated_budgets/new.json
   def new
     @associated_budget = AssociatedBudget.new
 
@@ -34,15 +28,12 @@ class AssociatedBudgetsController < ApplicationController
     end
   end
 
-  # GET /associated_budgets/1/edit
   def edit
     @associated_budget = AssociatedBudget.find(params[:id])
   end
 
-  # POST /associated_budgets
-  # POST /associated_budgets.json
   def create
-    @associated_budget = AssociatedBudget.new(user_params)
+    @associated_budget = AssociatedBudget.new(associated_budget_params)
 
     respond_to do |format|
       if @associated_budget.save
@@ -55,13 +46,11 @@ class AssociatedBudgetsController < ApplicationController
     end
   end
 
-  # PUT /associated_budgets/1
-  # PUT /associated_budgets/1.json
   def update
     @associated_budget = AssociatedBudget.find(params[:id])
 
     respond_to do |format|
-      if @associated_budget.update(user_params)
+      if @associated_budget.update(associated_budget_params)
         format.html { redirect_to @associated_budget, notice: 'Associated budget was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class AssociatedBudgetsController < ApplicationController
     end
   end
 
-  # DELETE /associated_budgets/1
-  # DELETE /associated_budgets/1.json
   def destroy
     @associated_budget = AssociatedBudget.find(params[:id])
     @associated_budget.destroy
@@ -85,7 +72,7 @@ class AssociatedBudgetsController < ApplicationController
 
   private
 
-  def user_params
+  def associated_budget_params
     params.require(:associated_budget).permit(:code, :name, :description, :active)
   end
 end

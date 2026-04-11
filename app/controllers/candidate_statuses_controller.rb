@@ -1,8 +1,6 @@
 class CandidateStatusesController < ApplicationController
   before_action :check_staff
 
-  # GET /candidate_statuses
-  # GET /candidate_statuses.json
   def index
     @candidate_statuses = CandidateStatus.all
 
@@ -12,8 +10,6 @@ class CandidateStatusesController < ApplicationController
     end
   end
 
-  # GET /candidate_statuses/1
-  # GET /candidate_statuses/1.json
   def show
     @candidate_status = CandidateStatus.find(params[:id])
 
@@ -23,8 +19,6 @@ class CandidateStatusesController < ApplicationController
     end
   end
 
-  # GET /candidate_statuses/new
-  # GET /candidate_statuses/new.json
   def new
     @candidate_status = CandidateStatus.new
 
@@ -34,15 +28,12 @@ class CandidateStatusesController < ApplicationController
     end
   end
 
-  # GET /candidate_statuses/1/edit
   def edit
     @candidate_status = CandidateStatus.find(params[:id])
   end
 
-  # POST /candidate_statuses
-  # POST /candidate_statuses.json
   def create
-    @candidate_status = CandidateStatus.new(user_params)
+    @candidate_status = CandidateStatus.new(candidate_status_params)
 
     respond_to do |format|
       if @candidate_status.save
@@ -55,13 +46,11 @@ class CandidateStatusesController < ApplicationController
     end
   end
 
-  # PUT /candidate_statuses/1
-  # PUT /candidate_statuses/1.json
   def update
     @candidate_status = CandidateStatus.find(params[:id])
 
     respond_to do |format|
-      if @candidate_status.update(user_params)
+      if @candidate_status.update(candidate_status_params)
         format.html { redirect_to @candidate_status, notice: 'Candidate status was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class CandidateStatusesController < ApplicationController
     end
   end
 
-  # DELETE /candidate_statuses/1
-  # DELETE /candidate_statuses/1.json
   def destroy
     @candidate_status = CandidateStatus.find(params[:id])
     @candidate_status.destroy
@@ -85,7 +72,7 @@ class CandidateStatusesController < ApplicationController
 
   private
 
-  def user_params
+  def candidate_status_params
     params.require(:candidate_status).permit(:code, :name, :description)
   end
 end

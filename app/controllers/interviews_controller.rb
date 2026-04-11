@@ -1,6 +1,4 @@
 class InterviewsController < ApplicationController
-  # GET /interviews
-  # GET /interviews.json
   def index
     return if check_staff
 
@@ -12,8 +10,6 @@ class InterviewsController < ApplicationController
     end
   end
 
-  # GET /interviews/1
-  # GET /interviews/1.json
   def show
     @interview = Interview.find(params[:id])
     return if check_candidate_access(@interview.candidate)
@@ -24,8 +20,6 @@ class InterviewsController < ApplicationController
     end
   end
 
-  # GET /interviews/new
-  # GET /interviews/new.json
   def new
     @interview = Interview.new
     @interview.candidate_id = params[:candidate_id]
@@ -37,16 +31,13 @@ class InterviewsController < ApplicationController
     end
   end
 
-  # GET /interviews/1/edit
   def edit
     @interview = Interview.find(params[:id])
     return if check_candidate_access(@interview.candidate)
   end
 
-  # POST /interviews
-  # POST /interviews.json
   def create
-    @interview = Interview.new(user_params)
+    @interview = Interview.new(interview_params)
     return if check_candidate_access(@interview.candidate)
 
     respond_to do |format|
@@ -60,14 +51,12 @@ class InterviewsController < ApplicationController
     end
   end
 
-  # PUT /interviews/1
-  # PUT /interviews/1.json
   def update
     @interview = Interview.find(params[:id])
     return if check_candidate_access(@interview.candidate)
 
     respond_to do |format|
-      if @interview.update(user_params)
+      if @interview.update(interview_params)
         format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
         format.json { head :no_content }
       else
@@ -77,8 +66,6 @@ class InterviewsController < ApplicationController
     end
   end
 
-  # DELETE /interviews/1
-  # DELETE /interviews/1.json
   def destroy
     @interview = Interview.find(params[:id])
     return if check_candidate_access(@interview.candidate)
@@ -93,7 +80,7 @@ class InterviewsController < ApplicationController
 
   private
 
-  def user_params
+  def interview_params
     params.require(:interview).permit(:candidate_id, :interview_type_id, :meeting_time, :notes)
   end
 end

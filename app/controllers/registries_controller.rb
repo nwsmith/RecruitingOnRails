@@ -1,8 +1,6 @@
 class RegistriesController < ApplicationController
   before_action :check_admin
 
-  # GET /registries
-  # GET /registries.json
   def index
     @registries = Registry.all
 
@@ -12,8 +10,6 @@ class RegistriesController < ApplicationController
     end
   end
 
-  # GET /registries/1
-  # GET /registries/1.json
   def show
     @registry = Registry.find(params[:id])
 
@@ -23,8 +19,6 @@ class RegistriesController < ApplicationController
     end
   end
 
-  # GET /registries/new
-  # GET /registries/new.json
   def new
     @registry = Registry.new
 
@@ -34,15 +28,12 @@ class RegistriesController < ApplicationController
     end
   end
 
-  # GET /registries/1/edit
   def edit
     @registry = Registry.find(params[:id])
   end
 
-  # POST /registries
-  # POST /registries.json
   def create
-    @registry = Registry.new(user_params)
+    @registry = Registry.new(registry_params)
 
     respond_to do |format|
       if @registry.save
@@ -55,13 +46,11 @@ class RegistriesController < ApplicationController
     end
   end
 
-  # PUT /registries/1
-  # PUT /registries/1.json
   def update
     @registry = Registry.find(params[:id])
 
     respond_to do |format|
-      if @registry.update(user_params)
+      if @registry.update(registry_params)
         format.html { redirect_to @registry, notice: 'Registry was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class RegistriesController < ApplicationController
     end
   end
 
-  # DELETE /registries/1
-  # DELETE /registries/1.json
   def destroy
     @registry = Registry.find(params[:id])
     @registry.destroy
@@ -85,7 +72,7 @@ class RegistriesController < ApplicationController
 
   private
 
-  def user_params
+  def registry_params
     params.require(:registry).permit(:key, :value)
   end
 end

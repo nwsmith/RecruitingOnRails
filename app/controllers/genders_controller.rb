@@ -1,8 +1,6 @@
 class GendersController < ApplicationController
   before_action :check_staff
 
-  # GET /genders
-  # GET /genders.json
   def index
     @genders = Gender.all
 
@@ -12,8 +10,6 @@ class GendersController < ApplicationController
     end
   end
 
-  # GET /genders/1
-  # GET /genders/1.json
   def show
     @gender = Gender.find(params[:id])
 
@@ -23,8 +19,6 @@ class GendersController < ApplicationController
     end
   end
 
-  # GET /genders/new
-  # GET /genders/new.json
   def new
     @gender = Gender.new
 
@@ -34,15 +28,12 @@ class GendersController < ApplicationController
     end
   end
 
-  # GET /genders/1/edit
   def edit
     @gender = Gender.find(params[:id])
   end
 
-  # POST /genders
-  # POST /genders.json
   def create
-    @gender = Gender.new(user_params)
+    @gender = Gender.new(gender_params)
 
     respond_to do |format|
       if @gender.save
@@ -55,13 +46,11 @@ class GendersController < ApplicationController
     end
   end
 
-  # PUT /genders/1
-  # PUT /genders/1.json
   def update
     @gender = Gender.find(params[:id])
 
     respond_to do |format|
-      if @gender.update(user_params)
+      if @gender.update(gender_params)
         format.html { redirect_to @gender, notice: 'Gender was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class GendersController < ApplicationController
     end
   end
 
-  # DELETE /genders/1
-  # DELETE /genders/1.json
   def destroy
     @gender = Gender.find(params[:id])
     @gender.destroy
@@ -85,7 +72,7 @@ class GendersController < ApplicationController
 
   private
 
-  def user_params
+  def gender_params
     params.require(:gender).permit(:code, :name, :description)
   end
 end

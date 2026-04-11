@@ -1,8 +1,6 @@
 class AuthConfigTypesController < ApplicationController
   before_action :check_admin
 
-  # GET /auth_config_types
-  # GET /auth_config_types.json
   def index
     @auth_config_types = AuthConfigType.all
 
@@ -12,8 +10,6 @@ class AuthConfigTypesController < ApplicationController
     end
   end
 
-  # GET /auth_config_types/1
-  # GET /auth_config_types/1.json
   def show
     @auth_config_type = AuthConfigType.find(params[:id])
 
@@ -23,8 +19,6 @@ class AuthConfigTypesController < ApplicationController
     end
   end
 
-  # GET /auth_config_types/new
-  # GET /auth_config_types/new.json
   def new
     @auth_config_type = AuthConfigType.new
 
@@ -34,15 +28,12 @@ class AuthConfigTypesController < ApplicationController
     end
   end
 
-  # GET /auth_config_types/1/edit
   def edit
     @auth_config_type = AuthConfigType.find(params[:id])
   end
 
-  # POST /auth_config_types
-  # POST /auth_config_types.json
   def create
-    @auth_config_type = AuthConfigType.new(user_params)
+    @auth_config_type = AuthConfigType.new(auth_config_type_params)
 
     respond_to do |format|
       if @auth_config_type.save
@@ -55,13 +46,11 @@ class AuthConfigTypesController < ApplicationController
     end
   end
 
-  # PUT /auth_config_types/1
-  # PUT /auth_config_types/1.json
   def update
     @auth_config_type = AuthConfigType.find(params[:id])
 
     respond_to do |format|
-      if @auth_config_type.update(user_params)
+      if @auth_config_type.update(auth_config_type_params)
         format.html { redirect_to @auth_config_type, notice: 'Auth config type was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class AuthConfigTypesController < ApplicationController
     end
   end
 
-  # DELETE /auth_config_types/1
-  # DELETE /auth_config_types/1.json
   def destroy
     @auth_config_type = AuthConfigType.find(params[:id])
     @auth_config_type.destroy
@@ -85,7 +72,7 @@ class AuthConfigTypesController < ApplicationController
 
   private
 
-  def user_params
+  def auth_config_type_params
     params.require(:auth_config_type).permit(:code, :name, :description)
   end
 end

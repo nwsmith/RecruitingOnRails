@@ -1,8 +1,6 @@
 class PreviousEmployersController < ApplicationController
   before_action :check_staff
 
-  # GET /previous_employers
-  # GET /previous_employers.json
   def index
     @previous_employers = PreviousEmployer.all
 
@@ -12,8 +10,6 @@ class PreviousEmployersController < ApplicationController
     end
   end
 
-  # GET /previous_employers/1
-  # GET /previous_employers/1.json
   def show
     @previous_employer = PreviousEmployer.find(params[:id])
 
@@ -23,8 +19,6 @@ class PreviousEmployersController < ApplicationController
     end
   end
 
-  # GET /previous_employers/new
-  # GET /previous_employers/new.json
   def new
     @previous_employer = PreviousEmployer.new
 
@@ -34,15 +28,12 @@ class PreviousEmployersController < ApplicationController
     end
   end
 
-  # GET /previous_employers/1/edit
   def edit
     @previous_employer = PreviousEmployer.find(params[:id])
   end
 
-  # POST /previous_employers
-  # POST /previous_employers.json
   def create
-    @previous_employer = PreviousEmployer.new(user_params)
+    @previous_employer = PreviousEmployer.new(previous_employer_params)
 
     respond_to do |format|
       if @previous_employer.save
@@ -55,13 +46,11 @@ class PreviousEmployersController < ApplicationController
     end
   end
 
-  # PUT /previous_employers/1
-  # PUT /previous_employers/1.json
   def update
     @previous_employer = PreviousEmployer.find(params[:id])
 
     respond_to do |format|
-      if @previous_employer.update(user_params)
+      if @previous_employer.update(previous_employer_params)
         format.html { redirect_to @previous_employer, notice: 'Previous employer was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class PreviousEmployersController < ApplicationController
     end
   end
 
-  # DELETE /previous_employers/1
-  # DELETE /previous_employers/1.json
   def destroy
     @previous_employer = PreviousEmployer.find(params[:id])
     @previous_employer.destroy
@@ -85,7 +72,7 @@ class PreviousEmployersController < ApplicationController
 
   private
 
-  def user_params
+  def previous_employer_params
     params.require(:previous_employer).permit(:code, :name, :description)
   end
 end

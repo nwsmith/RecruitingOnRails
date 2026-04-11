@@ -1,8 +1,6 @@
 class InterviewTypesController < ApplicationController
   before_action :check_staff
 
-  # GET /interview_types
-  # GET /interview_types.json
   def index
     @interview_types = InterviewType.all
 
@@ -12,8 +10,6 @@ class InterviewTypesController < ApplicationController
     end
   end
 
-  # GET /interview_types/1
-  # GET /interview_types/1.json
   def show
     @interview_type = InterviewType.find(params[:id])
 
@@ -23,8 +19,6 @@ class InterviewTypesController < ApplicationController
     end
   end
 
-  # GET /interview_types/new
-  # GET /interview_types/new.json
   def new
     @interview_type = InterviewType.new
 
@@ -34,15 +28,12 @@ class InterviewTypesController < ApplicationController
     end
   end
 
-  # GET /interview_types/1/edit
   def edit
     @interview_type = InterviewType.find(params[:id])
   end
 
-  # POST /interview_types
-  # POST /interview_types.json
   def create
-    @interview_type = InterviewType.new(user_params)
+    @interview_type = InterviewType.new(interview_type_params)
 
     respond_to do |format|
       if @interview_type.save
@@ -55,13 +46,11 @@ class InterviewTypesController < ApplicationController
     end
   end
 
-  # PUT /interview_types/1
-  # PUT /interview_types/1.json
   def update
     @interview_type = InterviewType.find(params[:id])
 
     respond_to do |format|
-      if @interview_type.update(user_params)
+      if @interview_type.update(interview_type_params)
         format.html { redirect_to @interview_type, notice: 'Interview type was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class InterviewTypesController < ApplicationController
     end
   end
 
-  # DELETE /interview_types/1
-  # DELETE /interview_types/1.json
   def destroy
     @interview_type = InterviewType.find(params[:id])
     @interview_type.destroy
@@ -85,7 +72,7 @@ class InterviewTypesController < ApplicationController
 
   private
 
-  def user_params
+  def interview_type_params
     params.require(:interview_type).permit(:code, :name, :description)
   end
 end

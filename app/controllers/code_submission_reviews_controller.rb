@@ -1,6 +1,4 @@
 class CodeSubmissionReviewsController < ApplicationController
-  # GET /code_submission_reviews
-  # GET /code_submission_reviews.json
   def index
     @code_submission_reviews = CodeSubmissionReview.all
 
@@ -10,8 +8,6 @@ class CodeSubmissionReviewsController < ApplicationController
     end
   end
 
-  # GET /code_submission_reviews/1
-  # GET /code_submission_reviews/1.json
   def show
     @code_submission_review = CodeSubmissionReview.find(params[:id])
 
@@ -21,8 +17,6 @@ class CodeSubmissionReviewsController < ApplicationController
     end
   end
 
-  # GET /code_submission_reviews/new
-  # GET /code_submission_reviews/new.json
   def new
     @code_submission_review = CodeSubmissionReview.new
     @code_submission_review.code_submission_id = params[:code_submission_id]
@@ -34,15 +28,12 @@ class CodeSubmissionReviewsController < ApplicationController
     end
   end
 
-  # GET /code_submission_reviews/1/edit
   def edit
     @code_submission_review = CodeSubmissionReview.find(params[:id])
   end
 
-  # POST /code_submission_reviews
-  # POST /code_submission_reviews.json
   def create
-    @code_submission_review = CodeSubmissionReview.new(user_params)
+    @code_submission_review = CodeSubmissionReview.new(code_submission_review_params)
 
     respond_to do |format|
       if @code_submission_review.save
@@ -55,13 +46,11 @@ class CodeSubmissionReviewsController < ApplicationController
     end
   end
 
-  # PUT /code_submission_reviews/1
-  # PUT /code_submission_reviews/1.json
   def update
     @code_submission_review = CodeSubmissionReview.find(params[:id])
 
     respond_to do |format|
-      if @code_submission_review.update(user_params)
+      if @code_submission_review.update(code_submission_review_params)
         format.html { redirect_to @code_submission_review, notice: 'Code submission review was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class CodeSubmissionReviewsController < ApplicationController
     end
   end
 
-  # DELETE /code_submission_reviews/1
-  # DELETE /code_submission_reviews/1.json
   def destroy
     @code_submission_review = CodeSubmissionReview.find(params[:id])
     @code_submission_review.destroy
@@ -85,7 +72,7 @@ class CodeSubmissionReviewsController < ApplicationController
 
   private
 
-  def user_params
+  def code_submission_review_params
     params.require(:code_submission_review).permit(:code_submission_id, :user_id, :review_result_id, :notes)
   end
 end

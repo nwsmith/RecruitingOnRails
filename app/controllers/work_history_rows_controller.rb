@@ -1,6 +1,4 @@
 class WorkHistoryRowsController < ApplicationController
-  # GET /work_history_rows
-  # GET /work_history_rows.json
   def index
     return if check_staff
 
@@ -12,8 +10,6 @@ class WorkHistoryRowsController < ApplicationController
     end
   end
 
-  # GET /work_history_rows/1
-  # GET /work_history_rows/1.json
   def show
     @work_history_row = WorkHistoryRow.find(params[:id])
     return if check_candidate_access(@work_history_row.candidate)
@@ -24,8 +20,6 @@ class WorkHistoryRowsController < ApplicationController
     end
   end
 
-  # GET /work_history_rows/new
-  # GET /work_history_rows/new.json
   def new
     @work_history_row = WorkHistoryRow.new
     @work_history_row.candidate_id = params[:candidate_id]
@@ -37,16 +31,13 @@ class WorkHistoryRowsController < ApplicationController
     end
   end
 
-  # GET /work_history_rows/1/edit
   def edit
     @work_history_row = WorkHistoryRow.find(params[:id])
     return if check_candidate_access(@work_history_row.candidate)
   end
 
-  # POST /work_history_rows
-  # POST /work_history_rows.json
   def create
-    @work_history_row = WorkHistoryRow.new(user_params)
+    @work_history_row = WorkHistoryRow.new(work_history_row_params)
     return if check_candidate_access(@work_history_row.candidate)
 
     respond_to do |format|
@@ -60,14 +51,12 @@ class WorkHistoryRowsController < ApplicationController
     end
   end
 
-  # PUT /work_history_rows/1
-  # PUT /work_history_rows/1.json
   def update
     @work_history_row = WorkHistoryRow.find(params[:id])
     return if check_candidate_access(@work_history_row.candidate)
 
     respond_to do |format|
-      if @work_history_row.update(user_params)
+      if @work_history_row.update(work_history_row_params)
         format.html { redirect_to @work_history_row, notice: 'Work history row was successfully updated.' }
         format.json { head :no_content }
       else
@@ -77,8 +66,6 @@ class WorkHistoryRowsController < ApplicationController
     end
   end
 
-  # DELETE /work_history_rows/1
-  # DELETE /work_history_rows/1.json
   def destroy
     @work_history_row = WorkHistoryRow.find(params[:id])
     return if check_candidate_access(@work_history_row.candidate)
@@ -93,7 +80,7 @@ class WorkHistoryRowsController < ApplicationController
 
   private
 
-  def user_params
+  def work_history_row_params
     params.require(:work_history_row).permit(:candidate_id, :previous_employer_id, :start_date, :end_date)
   end
 end

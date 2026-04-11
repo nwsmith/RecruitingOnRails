@@ -1,8 +1,6 @@
 class OfficeLocationsController < ApplicationController
   before_action :check_staff
 
-  # GET /office_locations
-  # GET /office_locations.json
   def index
     @office_locations = OfficeLocation.all
 
@@ -12,8 +10,6 @@ class OfficeLocationsController < ApplicationController
     end
   end
 
-  # GET /office_locations/1
-  # GET /office_locations/1.json
   def show
     @office_location = OfficeLocation.find(params[:id])
 
@@ -23,8 +19,6 @@ class OfficeLocationsController < ApplicationController
     end
   end
 
-  # GET /office_locations/new
-  # GET /office_locations/new.json
   def new
     @office_location = OfficeLocation.new
 
@@ -34,15 +28,12 @@ class OfficeLocationsController < ApplicationController
     end
   end
 
-  # GET /office_locations/1/edit
   def edit
     @office_location = OfficeLocation.find(params[:id])
   end
 
-  # POST /office_locations
-  # POST /office_locations.json
   def create
-    @office_location = OfficeLocation.new(user_params)
+    @office_location = OfficeLocation.new(office_location_params)
 
     respond_to do |format|
       if @office_location.save
@@ -55,13 +46,11 @@ class OfficeLocationsController < ApplicationController
     end
   end
 
-  # PUT /office_locations/1
-  # PUT /office_locations/1.json
   def update
     @office_location = OfficeLocation.find(params[:id])
 
     respond_to do |format|
-      if @office_location.update(user_params)
+      if @office_location.update(office_location_params)
         format.html { redirect_to @office_location, notice: 'Office location was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class OfficeLocationsController < ApplicationController
     end
   end
 
-  # DELETE /office_locations/1
-  # DELETE /office_locations/1.json
   def destroy
     @office_location = OfficeLocation.find(params[:id])
     @office_location.destroy
@@ -85,7 +72,7 @@ class OfficeLocationsController < ApplicationController
 
   private
 
-  def user_params
+  def office_location_params
     params.require(:office_location).permit(:code, :name, :description)
   end
 end

@@ -1,8 +1,6 @@
 class EducationLevelsController < ApplicationController
   before_action :check_staff
 
-  # GET /education_levels
-  # GET /education_levels.json
   def index
     @education_levels = EducationLevel.all
 
@@ -12,8 +10,6 @@ class EducationLevelsController < ApplicationController
     end
   end
 
-  # GET /education_levels/1
-  # GET /education_levels/1.json
   def show
     @education_level = EducationLevel.find(params[:id])
 
@@ -23,8 +19,6 @@ class EducationLevelsController < ApplicationController
     end
   end
 
-  # GET /education_levels/new
-  # GET /education_levels/new.json
   def new
     @education_level = EducationLevel.new
 
@@ -34,15 +28,12 @@ class EducationLevelsController < ApplicationController
     end
   end
 
-  # GET /education_levels/1/edit
   def edit
     @education_level = EducationLevel.find(params[:id])
   end
 
-  # POST /education_levels
-  # POST /education_levels.json
   def create
-    @education_level = EducationLevel.new(user_params)
+    @education_level = EducationLevel.new(education_level_params)
 
     respond_to do |format|
       if @education_level.save
@@ -55,13 +46,11 @@ class EducationLevelsController < ApplicationController
     end
   end
 
-  # PUT /education_levels/1
-  # PUT /education_levels/1.json
   def update
     @education_level = EducationLevel.find(params[:id])
 
     respond_to do |format|
-      if @education_level.update(user_params)
+      if @education_level.update(education_level_params)
         format.html { redirect_to @education_level, notice: 'Education level was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class EducationLevelsController < ApplicationController
     end
   end
 
-  # DELETE /education_levels/1
-  # DELETE /education_levels/1.json
   def destroy
     @education_level = EducationLevel.find(params[:id])
     @education_level.destroy
@@ -85,7 +72,7 @@ class EducationLevelsController < ApplicationController
 
   private
 
-  def user_params
+  def education_level_params
     params.require(:education_level).permit(:code, :name, :description)
   end
 end

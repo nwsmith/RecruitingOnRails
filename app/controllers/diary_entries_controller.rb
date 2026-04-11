@@ -2,16 +2,13 @@ class DiaryEntriesController < ApplicationController
   before_action :check_manager
   before_action :set_diary_entry, only: [:show, :edit, :update, :destroy]
 
-  # GET /diary_entries
   def index
     @diary_entries = DiaryEntry.all
   end
 
-  # GET /diary_entries/1
   def show
   end
 
-  # GET /diary_entries/new
   def new
     @diary_entry = DiaryEntry.new
     @diary_entry.entry_date ||= Date.today
@@ -19,11 +16,9 @@ class DiaryEntriesController < ApplicationController
     @diary_entry.user_id = current_user.id
   end
 
-  # GET /diary_entries/1/edit
   def edit
   end
 
-  # POST /diary_entries
   def create
     @diary_entry = DiaryEntry.new(diary_entry_params)
 
@@ -43,7 +38,6 @@ class DiaryEntriesController < ApplicationController
     end
   end
 
-  # DELETE /diary_entries/1
   def destroy
     @diary_entry.destroy
     redirect_to diary_entries_url, notice: 'Diary entry was successfully destroyed.'

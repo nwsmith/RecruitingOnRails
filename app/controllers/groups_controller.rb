@@ -1,8 +1,6 @@
 class GroupsController < ApplicationController
   before_action :check_staff
 
-  # GET /groups
-  # GET /groups.json
   def index
     @groups = Group.all
 
@@ -12,8 +10,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  # GET /groups/1
-  # GET /groups/1.json
   def show
     @group = Group.find(params[:id])
 
@@ -23,8 +19,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  # GET /groups/new
-  # GET /groups/new.json
   def new
     @group = Group.new
 
@@ -34,15 +28,12 @@ class GroupsController < ApplicationController
     end
   end
 
-  # GET /groups/1/edit
   def edit
     @group = Group.find(params[:id])
   end
 
-  # POST /groups
-  # POST /groups.json
   def create
-    @group = Group.new(user_params)
+    @group = Group.new(group_params)
 
     respond_to do |format|
       if @group.save
@@ -55,13 +46,11 @@ class GroupsController < ApplicationController
     end
   end
 
-  # PUT /groups/1
-  # PUT /groups/1.json
   def update
     @group = Group.find(params[:id])
 
     respond_to do |format|
-      if @group.update(user_params)
+      if @group.update(group_params)
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  # DELETE /groups/1
-  # DELETE /groups/1.json
   def destroy
     @group = Group.find(params[:id])
     @group.destroy
@@ -85,7 +72,7 @@ class GroupsController < ApplicationController
 
   private
 
-  def user_params
+  def group_params
     params.require(:group).permit(:name, :active)
   end
 end

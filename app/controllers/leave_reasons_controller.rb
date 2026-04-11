@@ -1,8 +1,6 @@
 class LeaveReasonsController < ApplicationController
   before_action :check_staff
 
-  # GET /leave_reasons
-  # GET /leave_reasons.json
   def index
     @leave_reasons = LeaveReason.all
 
@@ -12,8 +10,6 @@ class LeaveReasonsController < ApplicationController
     end
   end
 
-  # GET /leave_reasons/1
-  # GET /leave_reasons/1.json
   def show
     @leave_reason = LeaveReason.find(params[:id])
 
@@ -23,8 +19,6 @@ class LeaveReasonsController < ApplicationController
     end
   end
 
-  # GET /leave_reasons/new
-  # GET /leave_reasons/new.json
   def new
     @leave_reason = LeaveReason.new
 
@@ -34,15 +28,12 @@ class LeaveReasonsController < ApplicationController
     end
   end
 
-  # GET /leave_reasons/1/edit
   def edit
     @leave_reason = LeaveReason.find(params[:id])
   end
 
-  # POST /leave_reasons
-  # POST /leave_reasons.json
   def create
-    @leave_reason = LeaveReason.new(user_params)
+    @leave_reason = LeaveReason.new(leave_reason_params)
 
     respond_to do |format|
       if @leave_reason.save
@@ -55,13 +46,11 @@ class LeaveReasonsController < ApplicationController
     end
   end
 
-  # PUT /leave_reasons/1
-  # PUT /leave_reasons/1.json
   def update
     @leave_reason = LeaveReason.find(params[:id])
 
     respond_to do |format|
-      if @leave_reason.update(user_params)
+      if @leave_reason.update(leave_reason_params)
         format.html { redirect_to @leave_reason, notice: 'Leave reason was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class LeaveReasonsController < ApplicationController
     end
   end
 
-  # DELETE /leave_reasons/1
-  # DELETE /leave_reasons/1.json
   def destroy
     @leave_reason = LeaveReason.find(params[:id])
     @leave_reason.destroy
@@ -85,7 +72,7 @@ class LeaveReasonsController < ApplicationController
 
   private
 
-  def user_params
+  def leave_reason_params
     params.require(:leave_reason).permit(:code, :name, :description)
   end
 end

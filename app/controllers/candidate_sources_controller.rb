@@ -1,8 +1,6 @@
 class CandidateSourcesController < ApplicationController
   before_action :check_staff
 
-  # GET /candidate_sources
-  # GET /candidate_sources.json
   def index
     @candidate_sources = CandidateSource.all
 
@@ -12,8 +10,6 @@ class CandidateSourcesController < ApplicationController
     end
   end
 
-  # GET /candidate_sources/1
-  # GET /candidate_sources/1.json
   def show
     @candidate_source = CandidateSource.find(params[:id])
 
@@ -23,8 +19,6 @@ class CandidateSourcesController < ApplicationController
     end
   end
 
-  # GET /candidate_sources/new
-  # GET /candidate_sources/new.json
   def new
     @candidate_source = CandidateSource.new
 
@@ -34,15 +28,12 @@ class CandidateSourcesController < ApplicationController
     end
   end
 
-  # GET /candidate_sources/1/edit
   def edit
     @candidate_source = CandidateSource.find(params[:id])
   end
 
-  # POST /candidate_sources
-  # POST /candidate_sources.json
   def create
-    @candidate_source = CandidateSource.new(user_params)
+    @candidate_source = CandidateSource.new(candidate_source_params)
 
     respond_to do |format|
       if @candidate_source.save
@@ -55,13 +46,11 @@ class CandidateSourcesController < ApplicationController
     end
   end
 
-  # PUT /candidate_sources/1
-  # PUT /candidate_sources/1.json
   def update
     @candidate_source = CandidateSource.find(params[:id])
 
     respond_to do |format|
-      if @candidate_source.update(user_params)
+      if @candidate_source.update(candidate_source_params)
         format.html { redirect_to @candidate_source, notice: 'Candidate source was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class CandidateSourcesController < ApplicationController
     end
   end
 
-  # DELETE /candidate_sources/1
-  # DELETE /candidate_sources/1.json
   def destroy
     @candidate_source = CandidateSource.find(params[:id])
     @candidate_source.destroy
@@ -85,7 +72,7 @@ class CandidateSourcesController < ApplicationController
 
   private
 
-  def user_params
+  def candidate_source_params
     params.require(:candidate_source).permit(:code, :name, :description)
   end
 end

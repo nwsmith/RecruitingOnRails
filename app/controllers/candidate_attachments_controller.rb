@@ -1,6 +1,4 @@
 class CandidateAttachmentsController < ApplicationController
-  # GET /candidate_attachments
-  # GET /candidate_attachments.json
   def index
     return if check_staff
 
@@ -12,8 +10,6 @@ class CandidateAttachmentsController < ApplicationController
     end
   end
 
-  # GET /candidate_attachments/1
-  # GET /candidate_attachments/1.json
   def show
     @candidate_attachment = CandidateAttachment.find(params[:id])
     return if check_candidate_access(@candidate_attachment.candidate)
@@ -24,8 +20,6 @@ class CandidateAttachmentsController < ApplicationController
     end
   end
 
-  # GET /candidate_attachments/new
-  # GET /candidate_attachments/new.json
   def new
     @candidate_attachment = CandidateAttachment.new
     @candidate_attachment.candidate_id = params[:candidate_id]
@@ -37,16 +31,13 @@ class CandidateAttachmentsController < ApplicationController
     end
   end
 
-  # GET /candidate_attachments/1/edit
   def edit
     @candidate_attachment = CandidateAttachment.find(params[:id])
     return if check_candidate_access(@candidate_attachment.candidate)
   end
 
-  # POST /candidate_attachments
-  # POST /candidate_attachments.json
   def create
-    @candidate_attachment = CandidateAttachment.new(user_params)
+    @candidate_attachment = CandidateAttachment.new(candidate_attachment_params)
     return if check_candidate_access(@candidate_attachment.candidate)
 
     respond_to do |format|
@@ -60,14 +51,12 @@ class CandidateAttachmentsController < ApplicationController
     end
   end
 
-  # PUT /candidate_attachments/1
-  # PUT /candidate_attachments/1.json
   def update
     @candidate_attachment = CandidateAttachment.find(params[:id])
     return if check_candidate_access(@candidate_attachment.candidate)
 
     respond_to do |format|
-      if @candidate_attachment.update(user_params)
+      if @candidate_attachment.update(candidate_attachment_params)
         format.html { redirect_to @candidate_attachment, notice: 'Candidate attachment was successfully updated.' }
         format.json { head :no_content }
       else
@@ -77,8 +66,6 @@ class CandidateAttachmentsController < ApplicationController
     end
   end
 
-  # DELETE /candidate_attachments/1
-  # DELETE /candidate_attachments/1.json
   def destroy
     @candidate_attachment = CandidateAttachment.find(params[:id])
     return if check_candidate_access(@candidate_attachment.candidate)
@@ -93,7 +80,7 @@ class CandidateAttachmentsController < ApplicationController
 
   private
 
-  def user_params
+  def candidate_attachment_params
     params.require(:candidate_attachment).permit(:notes, :candidate_id, :attachment)
   end
 end

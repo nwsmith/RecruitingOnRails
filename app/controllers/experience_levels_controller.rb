@@ -1,8 +1,6 @@
 class ExperienceLevelsController < ApplicationController
   before_action :check_staff
 
-  # GET /experience_levels
-  # GET /experience_levels.json
   def index
     @experience_levels = ExperienceLevel.all
 
@@ -12,8 +10,6 @@ class ExperienceLevelsController < ApplicationController
     end
   end
 
-  # GET /experience_levels/1
-  # GET /experience_levels/1.json
   def show
     @experience_level = ExperienceLevel.find(params[:id])
 
@@ -23,8 +19,6 @@ class ExperienceLevelsController < ApplicationController
     end
   end
 
-  # GET /experience_levels/new
-  # GET /experience_levels/new.json
   def new
     @experience_level = ExperienceLevel.new
 
@@ -34,15 +28,12 @@ class ExperienceLevelsController < ApplicationController
     end
   end
 
-  # GET /experience_levels/1/edit
   def edit
     @experience_level = ExperienceLevel.find(params[:id])
   end
 
-  # POST /experience_levels
-  # POST /experience_levels.json
   def create
-    @experience_level = ExperienceLevel.new(user_params)
+    @experience_level = ExperienceLevel.new(experience_level_params)
 
     respond_to do |format|
       if @experience_level.save
@@ -55,13 +46,11 @@ class ExperienceLevelsController < ApplicationController
     end
   end
 
-  # PUT /experience_levels/1
-  # PUT /experience_levels/1.json
   def update
     @experience_level = ExperienceLevel.find(params[:id])
 
     respond_to do |format|
-      if @experience_level.update(user_params)
+      if @experience_level.update(experience_level_params)
         format.html { redirect_to @experience_level, notice: 'Experience level was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class ExperienceLevelsController < ApplicationController
     end
   end
 
-  # DELETE /experience_levels/1
-  # DELETE /experience_levels/1.json
   def destroy
     @experience_level = ExperienceLevel.find(params[:id])
     @experience_level.destroy
@@ -85,7 +72,7 @@ class ExperienceLevelsController < ApplicationController
 
   private
 
-  def user_params
+  def experience_level_params
     params.require(:experience_level).permit(:code, :name, :description, :color)
   end
 end

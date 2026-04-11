@@ -1,8 +1,6 @@
 class CodeProblemsController < ApplicationController
   before_action :check_staff
 
-  # GET /code_problems
-  # GET /code_problems.json
   def index
     @code_problems = CodeProblem.all
 
@@ -12,8 +10,6 @@ class CodeProblemsController < ApplicationController
     end
   end
 
-  # GET /code_problems/1
-  # GET /code_problems/1.json
   def show
     @code_problem = CodeProblem.find(params[:id])
 
@@ -23,8 +19,6 @@ class CodeProblemsController < ApplicationController
     end
   end
 
-  # GET /code_problems/new
-  # GET /code_problems/new.json
   def new
     @code_problem = CodeProblem.new
 
@@ -34,15 +28,12 @@ class CodeProblemsController < ApplicationController
     end
   end
 
-  # GET /code_problems/1/edit
   def edit
     @code_problem = CodeProblem.find(params[:id])
   end
 
-  # POST /code_problems
-  # POST /code_problems.json
   def create
-    @code_problem = CodeProblem.new(user_params)
+    @code_problem = CodeProblem.new(code_problem_params)
 
     respond_to do |format|
       if @code_problem.save
@@ -55,13 +46,11 @@ class CodeProblemsController < ApplicationController
     end
   end
 
-  # PUT /code_problems/1
-  # PUT /code_problems/1.json
   def update
     @code_problem = CodeProblem.find(params[:id])
 
     respond_to do |format|
-      if @code_problem.update(user_params)
+      if @code_problem.update(code_problem_params)
         format.html { redirect_to @code_problem, notice: 'Code problem was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class CodeProblemsController < ApplicationController
     end
   end
 
-  # DELETE /code_problems/1
-  # DELETE /code_problems/1.json
   def destroy
     @code_problem = CodeProblem.find(params[:id])
     @code_problem.destroy
@@ -85,7 +72,7 @@ class CodeProblemsController < ApplicationController
 
   private
 
-  def user_params
+  def code_problem_params
     params.require(:code_problem).permit(:code, :name, :description)
   end
 end

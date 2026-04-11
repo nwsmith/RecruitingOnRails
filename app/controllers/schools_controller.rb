@@ -1,8 +1,6 @@
 class SchoolsController < ApplicationController
   before_action :check_staff
 
-  # GET /schools
-  # GET /schools.json
   def index
     @schools = School.all
 
@@ -12,8 +10,6 @@ class SchoolsController < ApplicationController
     end
   end
 
-  # GET /schools/1
-  # GET /schools/1.json
   def show
     @school = School.find(params[:id])
 
@@ -23,8 +19,6 @@ class SchoolsController < ApplicationController
     end
   end
 
-  # GET /schools/new
-  # GET /schools/new.json
   def new
     @school = School.new
 
@@ -34,15 +28,12 @@ class SchoolsController < ApplicationController
     end
   end
 
-  # GET /schools/1/edit
   def edit
     @school = School.find(params[:id])
   end
 
-  # POST /schools
-  # POST /schools.json
   def create
-    @school = School.new(user_params)
+    @school = School.new(school_params)
 
     respond_to do |format|
       if @school.save
@@ -55,13 +46,11 @@ class SchoolsController < ApplicationController
     end
   end
 
-  # PUT /schools/1
-  # PUT /schools/1.json
   def update
     @school = School.find(params[:id])
 
     respond_to do |format|
-      if @school.update(user_params)
+      if @school.update(school_params)
         format.html { redirect_to @school, notice: 'School was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,8 +60,6 @@ class SchoolsController < ApplicationController
     end
   end
 
-  # DELETE /schools/1
-  # DELETE /schools/1.json
   def destroy
     @school = School.find(params[:id])
     @school.destroy
@@ -85,7 +72,7 @@ class SchoolsController < ApplicationController
 
   private
 
-  def user_params
+  def school_params
     params.require(:school).permit(:code, :name, :description)
   end
 end
