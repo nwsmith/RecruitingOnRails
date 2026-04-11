@@ -33,7 +33,9 @@ class WorkHistoryRowsController < ApplicationController
 
   def edit
     @work_history_row = WorkHistoryRow.find(params[:id])
-    return if check_candidate_access(@work_history_row.candidate)
+    # check_candidate_access redirects internally if access is denied;
+    # the implicit return nil is the desired behavior either way.
+    check_candidate_access(@work_history_row.candidate)
   end
 
   def create
@@ -42,7 +44,7 @@ class WorkHistoryRowsController < ApplicationController
 
     respond_to do |format|
       if @work_history_row.save
-        format.html { redirect_to @work_history_row, notice: 'Work history row was successfully created.' }
+        format.html { redirect_to @work_history_row, notice: "Work history row was successfully created." }
         format.json { render json: @work_history_row, status: :created, location: @work_history_row }
       else
         format.html { render action: "new", status: :unprocessable_entity }
@@ -57,7 +59,7 @@ class WorkHistoryRowsController < ApplicationController
 
     respond_to do |format|
       if @work_history_row.update(work_history_row_params)
-        format.html { redirect_to @work_history_row, notice: 'Work history row was successfully updated.' }
+        format.html { redirect_to @work_history_row, notice: "Work history row was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit", status: :unprocessable_entity }

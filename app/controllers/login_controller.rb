@@ -13,14 +13,13 @@ class LoginController < ApplicationController
     user = AuthenticationHelper::Authenticator.new.authenticate(username, password)
 
     if user.nil? || !user.active?
-      redirect_to(:action => :index)
+      redirect_to(action: :index)
       return
     end
 
     session[:user_id] = user.id
     session[:expires_at] = Time.current + 2.hours
 
-    redirect_to :controller => :dashboard
+    redirect_to controller: :dashboard
   end
-
 end

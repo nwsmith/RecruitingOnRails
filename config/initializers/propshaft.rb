@@ -17,7 +17,7 @@ Rails.application.config.assets.excluded_paths << Rails.root.join("app/assets/st
   "action_text-trix" => %w[app/assets/javascripts app/assets/stylesheets],
   "actioncable"      => %w[app/assets/javascripts],
   "activestorage"    => %w[app/assets/javascripts],
-  "actionview"       => %w[app/assets/javascripts],
+  "actionview"       => %w[app/assets/javascripts]
 }.each do |gem_name, subdirs|
   spec = Gem.loaded_specs[gem_name]
   next unless spec

@@ -1,5 +1,5 @@
 RecruitingOnRails::Application.routes.draw do
-  root :to => 'login#index'
+  root to: "login#index"
 
   get  "login",               to: "login#index"
   post "login/attempt_login", to: "login#attempt_login"
@@ -52,10 +52,10 @@ RecruitingOnRails::Application.routes.draw do
 
   resources :candidates do
     collection do
-      get 'list'
-      get 'timeline'
-      get 'events'
-      get 'search'
+      get "list"
+      get "timeline"
+      get "events"
+      get "search"
     end
   end
 

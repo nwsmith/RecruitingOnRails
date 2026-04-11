@@ -1,6 +1,6 @@
 class DiaryEntriesController < ApplicationController
   before_action :check_manager
-  before_action :set_diary_entry, only: [:show, :edit, :update, :destroy]
+  before_action :set_diary_entry, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @diary_entries = DiaryEntry.all
@@ -23,7 +23,7 @@ class DiaryEntriesController < ApplicationController
     @diary_entry = DiaryEntry.new(diary_entry_params)
 
     if @diary_entry.save
-      redirect_to @diary_entry, notice: 'Diary entry was successfully created.'
+      redirect_to @diary_entry, notice: "Diary entry was successfully created."
     else
       render :new
     end
@@ -32,7 +32,7 @@ class DiaryEntriesController < ApplicationController
   # PATCH/PUT /diary_entries/1
   def update
     if @diary_entry.update(diary_entry_params)
-      redirect_to @diary_entry, notice: 'Diary entry was successfully updated.'
+      redirect_to @diary_entry, notice: "Diary entry was successfully updated."
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class DiaryEntriesController < ApplicationController
 
   def destroy
     @diary_entry.destroy
-    redirect_to diary_entries_url, notice: 'Diary entry was successfully destroyed.'
+    redirect_to diary_entries_url, notice: "Diary entry was successfully destroyed."
   end
 
   private

@@ -33,7 +33,9 @@ class CodeSubmissionsController < ApplicationController
 
   def edit
     @code_submission = CodeSubmission.find(params[:id])
-    return if check_candidate_access(@code_submission.candidate)
+    # check_candidate_access redirects internally if access is denied;
+    # the implicit return nil is the desired behavior either way.
+    check_candidate_access(@code_submission.candidate)
   end
 
   def create
@@ -42,7 +44,7 @@ class CodeSubmissionsController < ApplicationController
 
     respond_to do |format|
       if @code_submission.save
-        format.html { redirect_to @code_submission, notice: 'Code submission was successfully created.' }
+        format.html { redirect_to @code_submission, notice: "Code submission was successfully created." }
         format.json { render json: @code_submission, status: :created, location: @code_submission }
       else
         format.html { render action: "new", status: :unprocessable_entity }
@@ -57,7 +59,7 @@ class CodeSubmissionsController < ApplicationController
 
     respond_to do |format|
       if @code_submission.update(code_submission_params)
-        format.html { redirect_to @code_submission, notice: 'Code submission was successfully updated.' }
+        format.html { redirect_to @code_submission, notice: "Code submission was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit", status: :unprocessable_entity }

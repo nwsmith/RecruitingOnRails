@@ -1,6 +1,6 @@
 class DiaryEntryTypesController < ApplicationController
   before_action :check_staff
-  before_action :set_diary_entry_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_diary_entry_type, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @diary_entry_types = DiaryEntryType.all
@@ -20,7 +20,7 @@ class DiaryEntryTypesController < ApplicationController
     @diary_entry_type = DiaryEntryType.new(diary_entry_type_params)
 
     if @diary_entry_type.save
-      redirect_to @diary_entry_type, notice: 'Diary entry type was successfully created.'
+      redirect_to @diary_entry_type, notice: "Diary entry type was successfully created."
     else
       render :new
     end
@@ -29,7 +29,7 @@ class DiaryEntryTypesController < ApplicationController
   # PATCH/PUT /diary_entry_types/1
   def update
     if @diary_entry_type.update(diary_entry_type_params)
-      redirect_to @diary_entry_type, notice: 'Diary entry type was successfully updated.'
+      redirect_to @diary_entry_type, notice: "Diary entry type was successfully updated."
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class DiaryEntryTypesController < ApplicationController
 
   def destroy
     @diary_entry_type.destroy
-    redirect_to diary_entry_types_url, notice: 'Diary entry type was successfully destroyed.'
+    redirect_to diary_entry_types_url, notice: "Diary entry type was successfully destroyed."
   end
 
   private

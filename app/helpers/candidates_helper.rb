@@ -19,11 +19,11 @@ module CandidatesHelper
 
   def candidates_table_header(opts, interview_count, code_submission_count)
     tag.tr do
-      concat(tag.th('Name'))
-      concat(tag.th('Office'))
-      concat(tag.th('Status')) if opts[:include_status]
-      concat(tag.th('Source')) if opts[:include_source]
-      concat(tag.th('Position')) if opts[:include_position]
+      concat(tag.th("Name"))
+      concat(tag.th("Office"))
+      concat(tag.th("Status")) if opts[:include_status]
+      concat(tag.th("Source")) if opts[:include_source]
+      concat(tag.th("Position")) if opts[:include_position]
 
       if opts[:include_events]
         (1..code_submission_count + interview_count).each { |i| concat(tag.th("Event #{i}")) }
@@ -36,11 +36,11 @@ module CandidatesHelper
         end
       end
 
-      concat(tag.th('References?')) if opts[:include_references]
-      concat(tag.th('Service Period')) if opts[:include_time_served]
+      concat(tag.th("References?")) if opts[:include_references]
+      concat(tag.th("Service Period")) if opts[:include_time_served]
       if opts[:include_dates]
-        concat(tag.th('Start Date'))
-        concat(tag.th('End Date'))
+        concat(tag.th("Start Date"))
+        concat(tag.th("End Date"))
       end
     end
   end
@@ -88,15 +88,15 @@ module CandidatesHelper
     case event
     when CodeSubmission then format_submission(event)
     when Interview      then format_interview(event, include_date: true)
-    when nil            then ''
-    else 'Unknown Event'
+    when nil            then ""
+    else "Unknown Event"
     end
   end
 
   def format_candidate(*args)
     candidate = args.first
 
-    out = color_span candidate.experience_level, {text: "#{candidate.name}"}
+    out = color_span candidate.experience_level, { text: "#{candidate.name}" }
     out += " (#{time_since_application(candidate)})" if candidate.in_pipeline?
 
     link_to out, candidate_path(candidate)
@@ -111,7 +111,7 @@ module CandidatesHelper
 
   def time_since_hire(candidate)
     if candidate.start_date.nil? || candidate.start_date > Date.today
-      'N/A'
+      "N/A"
     else
       if candidate.end_date.nil?
         distance_of_time_in_words_to_now(candidate.start_date)

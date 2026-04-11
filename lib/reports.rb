@@ -1,5 +1,4 @@
 module Reports
-
   class YearInfo
     attr_accessor :year, :started_in_year, :left_in_year, :still_here
 
@@ -24,7 +23,7 @@ module Reports
     end
 
     def add_candidates(candidates)
-      candidates.each {|c| add_candidate(c)}
+      candidates.each { |c| add_candidate(c) }
     end
 
     def add_candidate(candidate)
@@ -44,7 +43,6 @@ module Reports
         end_year_info = get(end_year)
         end_year_info.left_in_year << candidate unless end_year_info.left_in_year.include? candidate
       end
-
     end
 
     def get(year)
@@ -53,7 +51,7 @@ module Reports
     end
 
     def min_year
-      @year_info_map.empty? ? nil : @year_info_map.keys.sort {|a,b| a <=> b}.first.to_i
+      @year_info_map.empty? ? nil : @year_info_map.keys.sort { |a, b| a <=> b }.first.to_i
     end
 
 
@@ -63,22 +61,22 @@ module Reports
     end
 
     def voluntary_turnover(date)
-      left_in_year = get(date.year).left_in_year.select {|c| !c.candidate_status.code.eql?('FIRED')}.size
+      left_in_year = get(date.year).left_in_year.select { |c| !c.candidate_status.code.eql?("FIRED") }.size
       left_in_year == 0 ? 0 : (left_in_year.to_f/size(date)) * 100
     end
 
     def sad_turnover(date)
-      left_in_year = get(date.year).left_in_year.select{|c| c.sadness_factor == 4 || c.sadness_factor == 5}.size
+      left_in_year = get(date.year).left_in_year.select { |c| c.sadness_factor == 4 || c.sadness_factor == 5 }.size
       left_in_year == 0 ? 0 : (left_in_year.to_f/size(date)) * 100
     end
 
     def med_turnover(date)
-      left_in_year = get(date.year).left_in_year.select{|c| c.sadness_factor == 3}.size
+      left_in_year = get(date.year).left_in_year.select { |c| c.sadness_factor == 3 }.size
       left_in_year == 0 ? 0 : (left_in_year.to_f/size(date)) * 100
     end
 
     def happy_turnover(date)
-      left_in_year = get(date.year).left_in_year.select{|c| c.sadness_factor == 2 || c.sadness_factor == 1}.size
+      left_in_year = get(date.year).left_in_year.select { |c| c.sadness_factor == 2 || c.sadness_factor == 1 }.size
       left_in_year == 0 ? 0 : (left_in_year.to_f/size(date)) * 100
     end
 
@@ -100,19 +98,19 @@ module Reports
     def tenure_list(date)
       tenure_list = Array.new
       return tenure_list unless min_year
-      date.year.downto(min_year) {|curr_year| get(curr_year).still_here.each {|c| tenure_list << c.tenure_as_at(date)}}
+      date.year.downto(min_year) { |curr_year| get(curr_year).still_here.each { |c| tenure_list << c.tenure_as_at(date) } }
       tenure_list
     end
 
     def left_list
       left_list = Array.new
-      @year_info_map.each_value {|y| left_list << y.left_in_year}
+      @year_info_map.each_value { |y| left_list << y.left_in_year }
       left_list.flatten
     end
 
     def hired_list_ignore_left
       hired_list = Array.new
-      @year_info_map.each_value {|y| hired_list << y.started_in_year}
+      @year_info_map.each_value { |y| hired_list << y.started_in_year }
       hired_list.flatten
     end
 
@@ -139,5 +137,4 @@ module Reports
       @header = @rows = []
     end
   end
-
 end

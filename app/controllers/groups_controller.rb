@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to @group, notice: "Group was successfully created." }
         format.json { render json: @group, status: :created, location: @group }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to @group, notice: "Group was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -43,7 +43,7 @@ class ReferenceChecksController < ApplicationController
 
     respond_to do |format|
       if @reference_check.save
-        format.html { redirect_to @reference_check, notice: 'Reference check was successfully created.' }
+        format.html { redirect_to @reference_check, notice: "Reference check was successfully created." }
         format.json { render json: @reference_check, status: :created, location: @reference_check }
       else
         format.html { render action: "new", status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class ReferenceChecksController < ApplicationController
 
     respond_to do |format|
       if @reference_check.update(reference_check_params)
-        format.html { redirect_to @reference_check, notice: 'Reference check was successfully updated.' }
+        format.html { redirect_to @reference_check, notice: "Reference check was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit", status: :unprocessable_entity }

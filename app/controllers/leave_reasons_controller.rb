@@ -37,7 +37,7 @@ class LeaveReasonsController < ApplicationController
 
     respond_to do |format|
       if @leave_reason.save
-        format.html { redirect_to @leave_reason, notice: 'Leave reason was successfully created.' }
+        format.html { redirect_to @leave_reason, notice: "Leave reason was successfully created." }
         format.json { render json: @leave_reason, status: :created, location: @leave_reason }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class LeaveReasonsController < ApplicationController
 
     respond_to do |format|
       if @leave_reason.update(leave_reason_params)
-        format.html { redirect_to @leave_reason, notice: 'Leave reason was successfully updated.' }
+        format.html { redirect_to @leave_reason, notice: "Leave reason was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

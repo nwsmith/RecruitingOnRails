@@ -37,7 +37,7 @@ class CandidateSourcesController < ApplicationController
 
     respond_to do |format|
       if @candidate_source.save
-        format.html { redirect_to @candidate_source, notice: 'Candidate source was successfully created.' }
+        format.html { redirect_to @candidate_source, notice: "Candidate source was successfully created." }
         format.json { render json: @candidate_source, status: :created, location: @candidate_source }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class CandidateSourcesController < ApplicationController
 
     respond_to do |format|
       if @candidate_source.update(candidate_source_params)
-        format.html { redirect_to @candidate_source, notice: 'Candidate source was successfully updated.' }
+        format.html { redirect_to @candidate_source, notice: "Candidate source was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

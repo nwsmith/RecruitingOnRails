@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :check_login
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   helper_method :current_user
 
@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
     is_self_by_fk   = candidate.user_id.present? && candidate.user_id == current_user&.id
     is_self_by_name = candidate.user_id.nil? && current_user&.user_name.to_s == candidate.username
     is_self = is_self_by_fk || is_self_by_name
-    self_allowed = is_self && (candidate_status_code == 'PEND' || candidate_status_code == 'VERBAL')
+    self_allowed = is_self && (candidate_status_code == "PEND" || candidate_status_code == "VERBAL")
 
     return false if self_allowed
 
@@ -111,18 +111,17 @@ class ApplicationController < ActionController::Base
 
 
   def bearer_token_from_header
-    header = request.headers['Authorization'].to_s
+    header = request.headers["Authorization"].to_s
     return nil if header.blank?
     # Accept "Bearer <key>", "Token <key>", or a bare key.
-    header.sub(/\A(Bearer|Token)\s+/i, '').strip.presence
+    header.sub(/\A(Bearer|Token)\s+/i, "").strip.presence
   end
 
   def get_list_from_params(params, name)
     if params[name].nil?
       Array.new
     else
-      (params[name].is_a? String) ? params[name].split(',') : params[name]
+      (params[name].is_a? String) ? params[name].split(",") : params[name]
     end
   end
-
 end

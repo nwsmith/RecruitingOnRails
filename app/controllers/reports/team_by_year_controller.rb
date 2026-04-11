@@ -6,20 +6,19 @@ class Reports::TeamByYearController < ApplicationController
 
   def run
     candidates = Array.new
-    candidates << Candidate.by_status_code('FIRED')
-    candidates << Candidate.by_status_code('HIRED')
-    candidates << Candidate.by_status_code('QUIT')
+    candidates << Candidate.by_status_code("FIRED")
+    candidates << Candidate.by_status_code("HIRED")
+    candidates << Candidate.by_status_code("QUIT")
     candidates = candidates.flatten
 
     period_info = Reports::PeriodInfo.new
     period_info.add_candidates(candidates)
 
-    @table = Reports::ReportTable.new('Team By Year')
+    @table = Reports::ReportTable.new("Team By Year")
 
-    @table.header = ['Year', 'Hired', 'Here', 'Left', 'Net', 'Cum', 'Sad TO', 'Med TO', 'Hap TO', 'Vol. TO', 'Tot. TO', 'AVG', 'Med']
+    @table.header = [ "Year", "Hired", "Here", "Left", "Net", "Cum", "Sad TO", "Med TO", "Hap TO", "Vol. TO", "Tot. TO", "AVG", "Med" ]
 
-    period_info.year_info_map.values.sort{|a,b| a.year <=> b.year}.each do |year_info|
-
+    period_info.year_info_map.values.sort { |a, b| a.year <=> b.year }.each do |year_info|
       year = year_info.year
       hired = year_info.started_in_year.size
 
@@ -42,6 +41,5 @@ class Reports::TeamByYearController < ApplicationController
 
       @table.rows << row
     end
-
   end
 end

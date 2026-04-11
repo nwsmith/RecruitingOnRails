@@ -4,7 +4,7 @@ module InterviewsHelper
     opts = args.second || {}
 
 
-    return '' if interview.nil?
+    return "" if interview.nil?
 
 
     out = get_name(interview.interview_type)
@@ -14,9 +14,9 @@ module InterviewsHelper
     end
 
     if opts[:include_date]
-      out += " (#{interview.meeting_time.to_s})"
+      out += " (#{interview.meeting_time})"
     end
 
-    link_to approved_span(interview, :text=>out), interview_path(interview)
+    link_to approved_span(interview, text: out), interview_path(interview)
   end
 end

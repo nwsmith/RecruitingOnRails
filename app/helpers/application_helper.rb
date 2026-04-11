@@ -1,22 +1,22 @@
-require 'redcarpet'
+require "redcarpet"
 
 module ApplicationHelper
   def display_text(text)
-    return '' if text.nil?
-    ERB::Util.html_escape(text).gsub("\n", '<br>').html_safe
+    return "" if text.nil?
+    ERB::Util.html_escape(text).gsub("\n", "<br>").html_safe
   end
 
   def get_name(code)
-    code.nil? ? 'N/A' : code.name
+    code.nil? ? "N/A" : code.name
   end
 
   def user_select(f)
-    f.collection_select(:user_id, User.all_active.sort_by{|u| u.first_name}, :id, :name)
+    f.collection_select(:user_id, User.all_active.sort_by { |u| u.first_name }, :id, :name)
   end
 
   def approved_span(*args, &block)
     reviewable_element = args.first
-    return '' if reviewable_element.nil?
+    return "" if reviewable_element.nil?
 
     options = args.second || {}
 
@@ -31,10 +31,10 @@ module ApplicationHelper
     case a_type
     when :approved
       out_text = approved_text
-      my_class = 'approved'
+      my_class = "approved"
     when :not_approved
       out_text = unapproved_text
-      my_class = 'unapproved'
+      my_class = "unapproved"
     else
       out_text = unknown_text
       my_class = nil
@@ -52,7 +52,7 @@ module ApplicationHelper
 
     return a_type if reviewable_element.nil?
 
-    if reviewable_element.respond_to?('is_approval')
+    if reviewable_element.respond_to?("is_approval")
       if reviewable_element.is_approval?
         a_type = :approved
       end
@@ -62,11 +62,11 @@ module ApplicationHelper
       end
     end
 
-    if reviewable_element.respond_to?('review_result')
+    if reviewable_element.respond_to?("review_result")
       a_type = approval_type(reviewable_element.review_result)
     end
 
-    if reviewable_element.respond_to?('reviews') && !reviewable_element.reviews.empty?
+    if reviewable_element.respond_to?("reviews") && !reviewable_element.reviews.empty?
       a_type = :approved
       reviewable_element.reviews.each do |review|
         tmp = approval_type(review)
@@ -89,18 +89,18 @@ module ApplicationHelper
     color = colorable.respond_to?(:color) ? colorable.color : nil
     style_parts = []
     style_parts << "color: #{color}" if color.present?
-    style_parts << 'font-weight: bold' if options[:bold]
+    style_parts << "font-weight: bold" if options[:bold]
 
-    content_tag(:span, content, style: style_parts.join('; ').presence)
+    content_tag(:span, content, style: style_parts.join("; ").presence)
   end
 
   def markdown(text)
-    text ||= ''
+    text ||= ""
 
     options = {
         filter_html: true,
         hard_wrap: true,
-        link_attributes: { rel: 'nofollow', target: '_blank' },
+        link_attributes: { rel: "nofollow", target: "_blank" },
         space_after_headers: true,
         fenced_code_blocks: true
     }

@@ -46,9 +46,9 @@ candidate_statuses.each do |code, name|
 end
 
 experience_levels = {
-  'JR' => ['Junior',    '#a8d5e2'],
-  'MD' => ['Mid-level', '#7fbb8d'],
-  'SR' => ['Senior',    '#e6b54a']
+  'JR' => [ 'Junior',    '#a8d5e2' ],
+  'MD' => [ 'Mid-level', '#7fbb8d' ],
+  'SR' => [ 'Senior',    '#e6b54a' ]
 }
 experience_levels.each do |code, (name, color)|
   ExperienceLevel.find_or_create_by!(code: code) do |e|
@@ -58,9 +58,9 @@ experience_levels.each do |code, (name, color)|
 end
 
 review_results = {
-  'PASS' => ['Pass', true,  false],
-  'FAIL' => ['Fail', false, true],
-  'TBD'  => ['Pending', false, false]
+  'PASS' => [ 'Pass', true,  false ],
+  'FAIL' => [ 'Fail', false, true ],
+  'TBD'  => [ 'Pending', false, false ]
 }
 review_results.each do |code, (name, is_approval, is_disapproval)|
   ReviewResult.find_or_create_by!(code: code) do |r|

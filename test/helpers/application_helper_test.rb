@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ApplicationHelperTest < ActionView::TestCase
   def test_approval_type_nil
@@ -134,11 +134,10 @@ class ApplicationHelperTest < ActionView::TestCase
     code_submission.reviews << unapproved_review
     assert_equal(:not_approved, approval_type(code_submission))
 
-    #To make sure order doesn't matter
+    # To make sure order doesn't matter
     code_submission.reviews.clear
     code_submission.reviews << unapproved_review
     code_submission.reviews << approved_review
     assert_equal(:not_approved, approval_type(code_submission))
   end
-
 end

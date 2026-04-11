@@ -37,7 +37,7 @@ class PreviousEmployersController < ApplicationController
 
     respond_to do |format|
       if @previous_employer.save
-        format.html { redirect_to @previous_employer, notice: 'Previous employer was successfully created.' }
+        format.html { redirect_to @previous_employer, notice: "Previous employer was successfully created." }
         format.json { render json: @previous_employer, status: :created, location: @previous_employer }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class PreviousEmployersController < ApplicationController
 
     respond_to do |format|
       if @previous_employer.update(previous_employer_params)
-        format.html { redirect_to @previous_employer, notice: 'Previous employer was successfully updated.' }
+        format.html { redirect_to @previous_employer, notice: "Previous employer was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

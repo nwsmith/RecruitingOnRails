@@ -37,7 +37,7 @@ class OfficeLocationsController < ApplicationController
 
     respond_to do |format|
       if @office_location.save
-        format.html { redirect_to @office_location, notice: 'Office location was successfully created.' }
+        format.html { redirect_to @office_location, notice: "Office location was successfully created." }
         format.json { render json: @office_location, status: :created, location: @office_location }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class OfficeLocationsController < ApplicationController
 
     respond_to do |format|
       if @office_location.update(office_location_params)
-        format.html { redirect_to @office_location, notice: 'Office location was successfully updated.' }
+        format.html { redirect_to @office_location, notice: "Office location was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

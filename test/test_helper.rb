@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] = "test"
-require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
+require File.expand_path("../../config/environment", __FILE__)
+require "rails/test_help"
 
 class ActiveSupport::TestCase
   # Parallelization is intentionally OFF.
@@ -41,6 +41,6 @@ class ActionDispatch::IntegrationTest
   # all share the bcrypt password "password"; passing one of those user_names
   # is enough to get an authenticated session.
   def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
+    post login_attempt_login_path, params: { username: username, password: "password" }
   end
 end

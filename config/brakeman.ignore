@@ -1,0 +1,27 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "106af81a06f810ad2d030d0b9012b712cb660fa3a305dc8c68873b2517875ab9",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/users_controller.rb",
+      "line": 111,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:first_name, :last_name, :user_name, :auth_name, :active, :admin, :manager, :hr, :auth_config_id, :password, :password_confirmation)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "UsersController",
+        "method": "user_params"
+      },
+      "user_input": ":admin",
+      "confidence": "High",
+      "cwe_id": [
+        915
+      ],
+      "note": "Intentional. UsersController is admin-only via `before_action :check_admin`, so only existing admins can hit user_params. Letting admins set role flags (admin/manager/hr) is the entire purpose of this controller. The mass-assignment risk Brakeman flags assumes an unauthenticated attacker can reach the endpoint, which isn't possible here."
+    }
+  ]
+}

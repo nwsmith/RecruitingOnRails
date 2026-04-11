@@ -1,8 +1,8 @@
 class CleanUpReviewResults < ActiveRecord::Migration[7.0]
   def up
-    approved = ReviewResult.create({code: 'APPROVED', name: 'Thumbs Up', is_approval: true, is_disapproval: false})
-    unapproved = ReviewResult.create({code: 'REJECTED', name: 'Thumbs Down', is_approval: false, is_disapproval: true})
-    no_review = ReviewResult.create({code: 'NO_REVIEW', name: 'N/A', is_approval: false, is_disapproval: false})
+    approved = ReviewResult.create({ code: 'APPROVED', name: 'Thumbs Up', is_approval: true, is_disapproval: false })
+    unapproved = ReviewResult.create({ code: 'REJECTED', name: 'Thumbs Down', is_approval: false, is_disapproval: true })
+    no_review = ReviewResult.create({ code: 'NO_REVIEW', name: 'N/A', is_approval: false, is_disapproval: false })
 
     InterviewReview.all.each do |interview_review|
       if interview_review.approved?
@@ -30,7 +30,6 @@ class CleanUpReviewResults < ActiveRecord::Migration[7.0]
     remove_column :interview_reviews, :unapproved
     remove_column :code_submission_reviews, :approved
     remove_column :code_submission_reviews, :unapproved
-
   end
 
   def down

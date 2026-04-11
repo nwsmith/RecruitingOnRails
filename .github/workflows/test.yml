@@ -107,3 +107,9 @@ jobs:
 
       - name: Run tests
         run: bundle exec rake test
+
+      - name: Lint with rubocop (rails-omakase preset)
+        run: bundle exec rubocop --format github
+
+      - name: Security scan with brakeman
+        run: bundle exec brakeman --quiet --no-pager -i config/brakeman.ignore

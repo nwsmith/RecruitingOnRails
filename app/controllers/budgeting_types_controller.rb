@@ -37,7 +37,7 @@ class BudgetingTypesController < ApplicationController
 
     respond_to do |format|
       if @budgeting_type.save
-        format.html { redirect_to @budgeting_type, notice: 'Budgeting type was successfully created.' }
+        format.html { redirect_to @budgeting_type, notice: "Budgeting type was successfully created." }
         format.json { render json: @budgeting_type, status: :created, location: @budgeting_type }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class BudgetingTypesController < ApplicationController
 
     respond_to do |format|
       if @budgeting_type.update(budgeting_type_params)
-        format.html { redirect_to @budgeting_type, notice: 'Budgeting type was successfully updated.' }
+        format.html { redirect_to @budgeting_type, notice: "Budgeting type was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -37,7 +37,7 @@ class AssociatedBudgetsController < ApplicationController
 
     respond_to do |format|
       if @associated_budget.save
-        format.html { redirect_to @associated_budget, notice: 'Associated budget was successfully created.' }
+        format.html { redirect_to @associated_budget, notice: "Associated budget was successfully created." }
         format.json { render json: @associated_budget, status: :created, location: @associated_budget }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class AssociatedBudgetsController < ApplicationController
 
     respond_to do |format|
       if @associated_budget.update(associated_budget_params)
-        format.html { redirect_to @associated_budget, notice: 'Associated budget was successfully updated.' }
+        format.html { redirect_to @associated_budget, notice: "Associated budget was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

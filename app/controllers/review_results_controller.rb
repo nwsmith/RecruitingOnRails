@@ -37,7 +37,7 @@ class ReviewResultsController < ApplicationController
 
     respond_to do |format|
       if @review_result.save
-        format.html { redirect_to @review_result, notice: 'Review result was successfully created.' }
+        format.html { redirect_to @review_result, notice: "Review result was successfully created." }
         format.json { render json: @review_result, status: :created, location: @review_result }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class ReviewResultsController < ApplicationController
 
     respond_to do |format|
       if @review_result.update(review_result_params)
-        format.html { redirect_to @review_result, notice: 'Review result was successfully updated.' }
+        format.html { redirect_to @review_result, notice: "Review result was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

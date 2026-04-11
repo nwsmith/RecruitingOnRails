@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: "User was successfully created." }
         format.json { render json: @user.as_json(except: JSON_EXCLUDE), status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: "User was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:notice] = "New API key for #{@user.name}: #{plaintext} " \
-                         '(this is shown only once — capture it now)'
+                         "(this is shown only once — capture it now)"
         redirect_to @user
       end
       format.json { render json: { api_key: plaintext } }
@@ -98,6 +98,13 @@ class UsersController < ApplicationController
 
   private
 
+  # Permits role-flag attributes (:admin, :manager, :hr) which Brakeman
+  # flags as a mass-assignment risk by default. The risk is real in
+  # general — letting users grant themselves admin via a form post —
+  # but this controller is gated to admin-only via `before_action
+  # :check_admin`, so only existing admins can reach the create/update
+  # actions in the first place. The whole point of this controller IS
+  # admin role management.
   def user_params
     params.require(:user).permit(
       :first_name, :last_name, :user_name, :auth_name,

@@ -6,7 +6,7 @@ class User < ApplicationRecord
   belongs_to :auth_config
 
   def name
-    [first_name, last_name].compact.join(' ')
+    [ first_name, last_name ].compact.join(" ")
   end
 
   # Staff = anyone on the recruiting team (admin, manager, or HR). This is the
@@ -51,7 +51,7 @@ class User < ApplicationRecord
   # Compute the digest a presented key would have. Used by both the model
   # (when storing a fresh key) and the controller (when authenticating).
   def self.encode_api_key(plaintext)
-    OpenSSL::HMAC.hexdigest('SHA256', Rails.application.secret_key_base, plaintext.to_s)
+    OpenSSL::HMAC.hexdigest("SHA256", Rails.application.secret_key_base, plaintext.to_s)
   end
 
   # Look up the user a presented bearer key belongs to, or nil if no user

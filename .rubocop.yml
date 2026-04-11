@@ -1,0 +1,14 @@
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 3.3
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/2*_create_*.rb'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'public/**/*'
+    - 'node_modules/**/*'

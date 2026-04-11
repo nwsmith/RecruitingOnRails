@@ -61,8 +61,8 @@ class Candidate < ApplicationRecord
       :office_location, :candidate_status, :candidate_source,
       :position, :experience_level,
       :reference_checks,
-      interviews: [:interview_type, :interview_reviews],
-      code_submissions: [:code_problem, :code_submission_reviews]
+      interviews: [ :interview_type, :interview_reviews ],
+      code_submissions: [ :code_problem, :code_submission_reviews ]
     )
   }
 
@@ -102,10 +102,10 @@ class Candidate < ApplicationRecord
 
     fk_match = where(user_id: user.id)
 
-    parts = user.user_name.to_s.split('.', 2)
+    parts = user.user_name.to_s.split(".", 2)
     if parts.length == 2 && parts.all?(&:present?)
       name_match = where(user_id: nil)
-                     .where('LOWER(first_name) = ? AND LOWER(last_name) = ?', parts[0], parts[1])
+                     .where("LOWER(first_name) = ? AND LOWER(last_name) = ?", parts[0], parts[1])
       fk_match = fk_match.or(name_match)
     end
 

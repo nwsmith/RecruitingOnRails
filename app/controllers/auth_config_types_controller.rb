@@ -37,7 +37,7 @@ class AuthConfigTypesController < ApplicationController
 
     respond_to do |format|
       if @auth_config_type.save
-        format.html { redirect_to @auth_config_type, notice: 'Auth config type was successfully created.' }
+        format.html { redirect_to @auth_config_type, notice: "Auth config type was successfully created." }
         format.json { render json: @auth_config_type, status: :created, location: @auth_config_type }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class AuthConfigTypesController < ApplicationController
 
     respond_to do |format|
       if @auth_config_type.update(auth_config_type_params)
-        format.html { redirect_to @auth_config_type, notice: 'Auth config type was successfully updated.' }
+        format.html { redirect_to @auth_config_type, notice: "Auth config type was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -8,7 +8,7 @@ class DiaryEntry < ApplicationRecord
   end
 
   def color
-    return 'black' unless diary_entry_type
-    diary_entry_type.positive? ? 'green' : diary_entry_type.negative? ? 'red' : 'black'
+    return "black" unless diary_entry_type
+    diary_entry_type.positive? ? "green" : diary_entry_type.negative? ? "red" : "black"
   end
 end

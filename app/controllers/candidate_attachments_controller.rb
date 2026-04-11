@@ -33,7 +33,9 @@ class CandidateAttachmentsController < ApplicationController
 
   def edit
     @candidate_attachment = CandidateAttachment.find(params[:id])
-    return if check_candidate_access(@candidate_attachment.candidate)
+    # check_candidate_access redirects internally if access is denied;
+    # the implicit return nil is the desired behavior either way.
+    check_candidate_access(@candidate_attachment.candidate)
   end
 
   def create
@@ -42,7 +44,7 @@ class CandidateAttachmentsController < ApplicationController
 
     respond_to do |format|
       if @candidate_attachment.save
-        format.html { redirect_to @candidate_attachment, notice: 'Candidate attachment was successfully created.' }
+        format.html { redirect_to @candidate_attachment, notice: "Candidate attachment was successfully created." }
         format.json { render json: @candidate_attachment, status: :created, location: @candidate_attachment }
       else
         format.html { render action: "new", status: :unprocessable_entity }
@@ -57,7 +59,7 @@ class CandidateAttachmentsController < ApplicationController
 
     respond_to do |format|
       if @candidate_attachment.update(candidate_attachment_params)
-        format.html { redirect_to @candidate_attachment, notice: 'Candidate attachment was successfully updated.' }
+        format.html { redirect_to @candidate_attachment, notice: "Candidate attachment was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit", status: :unprocessable_entity }

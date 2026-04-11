@@ -37,7 +37,7 @@ class EducationLevelsController < ApplicationController
 
     respond_to do |format|
       if @education_level.save
-        format.html { redirect_to @education_level, notice: 'Education level was successfully created.' }
+        format.html { redirect_to @education_level, notice: "Education level was successfully created." }
         format.json { render json: @education_level, status: :created, location: @education_level }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class EducationLevelsController < ApplicationController
 
     respond_to do |format|
       if @education_level.update(education_level_params)
-        format.html { redirect_to @education_level, notice: 'Education level was successfully updated.' }
+        format.html { redirect_to @education_level, notice: "Education level was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

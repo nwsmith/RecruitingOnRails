@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-RecruitingOnRails::Application.config.secret_key_base = ENV.fetch("SECRET_KEY_BASE") { 'ec49d6eaeea05dce1e4a0f6459ed3aa5baa4f80ee5c09d72db8f3430b35c9c618f01baa6263863410c9b74d990698af905ef26efb2b0bea37d5bab41f1a54246' }
+RecruitingOnRails::Application.config.secret_key_base = ENV.fetch("SECRET_KEY_BASE") { "ec49d6eaeea05dce1e4a0f6459ed3aa5baa4f80ee5c09d72db8f3430b35c9c618f01baa6263863410c9b74d990698af905ef26efb2b0bea37d5bab41f1a54246" }

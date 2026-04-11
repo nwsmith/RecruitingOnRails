@@ -16,7 +16,7 @@
 
 namespace :internal_auth do
   desc "Set a bcrypt password for an existing internal-auth user. Usage: rake internal_auth:set_temp_password[user_name,new_password]"
-  task :set_temp_password, [:user_name, :new_password] => :environment do |_t, args|
+  task :set_temp_password, [ :user_name, :new_password ] => :environment do |_t, args|
     user_name = args[:user_name].to_s
     new_password = args[:new_password].to_s
 

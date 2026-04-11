@@ -37,7 +37,7 @@ class ExperienceLevelsController < ApplicationController
 
     respond_to do |format|
       if @experience_level.save
-        format.html { redirect_to @experience_level, notice: 'Experience level was successfully created.' }
+        format.html { redirect_to @experience_level, notice: "Experience level was successfully created." }
         format.json { render json: @experience_level, status: :created, location: @experience_level }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class ExperienceLevelsController < ApplicationController
 
     respond_to do |format|
       if @experience_level.update(experience_level_params)
-        format.html { redirect_to @experience_level, notice: 'Experience level was successfully updated.' }
+        format.html { redirect_to @experience_level, notice: "Experience level was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

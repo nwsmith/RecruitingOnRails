@@ -37,7 +37,7 @@ class PositionsController < ApplicationController
 
     respond_to do |format|
       if @position.save
-        format.html { redirect_to @position, notice: 'Position was successfully created.' }
+        format.html { redirect_to @position, notice: "Position was successfully created." }
         format.json { render json: @position, status: :created, location: @position }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class PositionsController < ApplicationController
 
     respond_to do |format|
       if @position.update(position_params)
-        format.html { redirect_to @position, notice: 'Position was successfully updated.' }
+        format.html { redirect_to @position, notice: "Position was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

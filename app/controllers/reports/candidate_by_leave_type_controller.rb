@@ -5,8 +5,8 @@ class Reports::CandidateByLeaveTypeController < ApplicationController
   end
 
   def run
-    @table = Reports::ReportTable.new('Leavers By Reason')
-    @table.header = ['Reason', 'Count', 'Lame Graphic']
+    @table = Reports::ReportTable.new("Leavers By Reason")
+    @table.header = [ "Reason", "Count", "Lame Graphic" ]
 
     candidates = Candidate.all
 
@@ -19,6 +19,6 @@ class Reports::CandidateByLeaveTypeController < ApplicationController
       by_reason[reason] += 1
     end
 
-    by_reason.sort_by {|k,v| -v}.each {|a| @table.rows << [a[0], a[1], "#{'*' * a[1]}"]}
+    by_reason.sort_by { |k, v| -v }.each { |a| @table.rows << [ a[0], a[1], "#{'*' * a[1]}" ] }
   end
 end

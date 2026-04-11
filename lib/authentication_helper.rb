@@ -1,5 +1,5 @@
-require 'net/ldap'
-require 'timeout'
+require "net/ldap"
+require "timeout"
 
 module AuthenticationHelper
   class InternalLogin
@@ -21,8 +21,8 @@ module AuthenticationHelper
                            auth: { username: ad_user,
                                    password: password,
                                    method: :simple }
-      user_filter = Net::LDAP::Filter.eq('sAMAccountName', user.user_name)
-      op_filter = Net::LDAP::Filter.eq('objectClass', 'organizationalPerson')
+      user_filter = Net::LDAP::Filter.eq("sAMAccountName", user.user_name)
+      op_filter = Net::LDAP::Filter.eq("objectClass", "organizationalPerson")
 
       # Cap the bind+search at 5s so a hung LDAP server can't pin a Rails thread.
       ldap_user = Timeout.timeout(5) do
@@ -38,7 +38,7 @@ module AuthenticationHelper
 
   class LoginFactory
     def LoginFactory.build(auth_type)
-      {:INTERNAL => AuthenticationHelper::InternalLogin, :AD => AuthenticationHelper::LDAPLogin}[auth_type].new
+      { INTERNAL: AuthenticationHelper::InternalLogin, AD: AuthenticationHelper::LDAPLogin }[auth_type].new
     end
   end
 
@@ -51,5 +51,4 @@ module AuthenticationHelper
       AuthenticationHelper::LoginFactory.build(auth_type).authenticate(user, password)
     end
   end
-
 end

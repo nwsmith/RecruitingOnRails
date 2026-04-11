@@ -37,7 +37,7 @@ class CodeSubmissionReviewsController < ApplicationController
 
     respond_to do |format|
       if @code_submission_review.save
-        format.html { redirect_to @code_submission_review, notice: 'Code submission review was successfully created.' }
+        format.html { redirect_to @code_submission_review, notice: "Code submission review was successfully created." }
         format.json { render json: @code_submission_review, status: :created, location: @code_submission_review }
       else
         format.html { render action: "new" }
@@ -51,7 +51,7 @@ class CodeSubmissionReviewsController < ApplicationController
 
     respond_to do |format|
       if @code_submission_review.update(code_submission_review_params)
-        format.html { redirect_to @code_submission_review, notice: 'Code submission review was successfully updated.' }
+        format.html { redirect_to @code_submission_review, notice: "Code submission review was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

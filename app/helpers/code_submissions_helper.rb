@@ -2,7 +2,7 @@ module CodeSubmissionsHelper
   def format_submission(*args)
     code_submission = args.first
 
-    return '' if code_submission.nil?
+    return "" if code_submission.nil?
 
     out = code_submission.name
 
@@ -14,6 +14,6 @@ module CodeSubmissionsHelper
       end
     end
 
-    link_to approved_span(code_submission, :text => out), code_submission_path(code_submission)
+    link_to approved_span(code_submission, text: out), code_submission_path(code_submission)
   end
 end
