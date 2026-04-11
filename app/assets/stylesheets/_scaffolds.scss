@@ -231,9 +231,11 @@ div.field label {
   }
 }
 
-// Approval colors
-a.approved { color: var(--pico-color-green-500); font-weight: 600; }
-a.unapproved { color: var(--pico-color-red-500); font-weight: 600; }
+// Approval colors — apply on either <a> or <span> (the approved_span helper
+// returns spans for non-link cases, links for link cases, both share the
+// same .approved/.unapproved class).
+.approved { color: var(--pico-color-green-500); font-weight: 600; }
+.unapproved { color: var(--pico-color-red-500); font-weight: 600; }
 
 // Login form polish
 form[action$="attempt_login"] {

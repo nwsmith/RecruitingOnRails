@@ -30,15 +30,12 @@ module ApplicationHelper
 
     case a_type
     when :approved
-      style = 'color: green;'
       out_text = approved_text
       my_class = 'approved'
     when :not_approved
-      style = 'color: red;'
       out_text = unapproved_text
       my_class = 'unapproved'
     else
-      style = nil
       out_text = unknown_text
       my_class = nil
     end
@@ -46,7 +43,7 @@ module ApplicationHelper
     if link
       link_to(text, reviewable_element, class: my_class)
     else
-      content_tag(:span, out_text, style: style)
+      content_tag(:span, out_text, class: my_class)
     end
   end
 
