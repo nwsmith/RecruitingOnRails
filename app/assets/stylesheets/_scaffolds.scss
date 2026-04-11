@@ -101,6 +101,15 @@ tr:hover td {
   background: var(--pico-secondary-background);
 }
 
+// Pico applies `margin-bottom: var(--pico-spacing)` (~1rem) to every
+// <input> that isn't a checkbox or radio, including the <input type="submit">
+// that Rails' button_to helper emits. Inside the destroy column of every
+// scaffold index table, that 1rem stretches the destroy cell taller than
+// its Show/Edit neighbors. Reset just for those specific buttons.
+td form.button_to input[type="submit"] {
+  margin-bottom: 0;
+}
+
 // Reports landing grid
 .report-grid {
   display: grid;
