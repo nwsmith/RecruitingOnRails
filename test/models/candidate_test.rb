@@ -122,4 +122,47 @@ class CandidateTest < ActiveSupport::TestCase
     assert_includes result, fk_match,   'FK match must be returned'
     assert_includes result, name_match, 'name match must still be returned (legacy path)'
   end
+
+  # ----- tenure_in_years / tenure_as_at -----
+
+  test 'tenure_in_years is nil when no dates are set' do
+    assert_nil Candidate.new.tenure_in_years
+  end
+
+  test 'tenure_in_years calculates a full two-year span between explicit start and end dates' do
+    c = Candidate.new(start_date: Date.new(2012, 1, 1), end_date: Date.new(2014, 1, 1))
+    assert_equal 2, c.tenure_in_years
+  end
+
+  test 'tenure_in_years uses today when end_date is missing' do
+    c = Candidate.new(start_date: Date.new(2012, 1, 1))
+    expected = ((Date.today - c.start_date).numerator / 365.0).round(2)
+    assert_equal expected, c.tenure_in_years
+  end
+
+  test 'tenure_as_at returns the integer year span between start and the given date' do
+    c = Candidate.new(start_date: Date.new(2012, 1, 1))
+    assert_equal 1, c.tenure_as_at(Date.new(2013, 1, 1))
+  end
+
+  test 'tenure_as_at is nil when no start date is set' do
+    assert_nil Candidate.new.tenure_as_at(Date.today)
+  end
+
+  test 'tenure_as_at uses end_date when end_date is earlier than the as_at date' do
+    c = Candidate.new(start_date: Date.new(2012, 1, 1), end_date: Date.new(2014, 1, 1))
+    assert_equal 2, c.tenure_as_at(Date.new(2015, 1, 1))
+  end
+
+  test 'tenure_as_at uses the as_at date when end_date is later than as_at' do
+    c = Candidate.new(start_date: Date.new(2012, 1, 1), end_date: Date.new(2014, 1, 1))
+    assert_equal 1, c.tenure_as_at(Date.new(2013, 1, 1))
+  end
+
+  test 'tenure_as_at(today) matches tenure_in_years for the same record' do
+    c = Candidate.new(start_date: Date.new(2012, 1, 1))
+    expected = ((Date.today - c.start_date).numerator / 365.0).round(2)
+    assert_equal expected, c.tenure_in_years
+    assert_equal expected, c.tenure_as_at(Date.today)
+  end
 end
