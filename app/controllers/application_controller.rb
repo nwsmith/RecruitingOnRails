@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
         @current_user = user
         return
       else
-        redirect_to(:controller => 'login', :action => 'index')
+        redirect_to root_path
         return
       end
     end
@@ -30,12 +30,12 @@ class ApplicationController < ActionController::Base
                    nil
                  end
     if expires_at.nil? || expires_at < Time.current
-      redirect_to(:controller => 'login', :action => 'index')
+      redirect_to root_path
       return
     end
 
     if current_user.nil?
-      redirect_to(:controller => 'login', :action => 'index')
+      redirect_to root_path
     else
       session[:expires_at] = Time.current + 2.hours
     end
@@ -43,13 +43,13 @@ class ApplicationController < ActionController::Base
 
   def check_admin
     unless current_user&.admin?
-      redirect_to(:controller => 'dashboard', :action => 'index')
+      redirect_to dashboard_path
     end
   end
 
   def check_manager
     unless current_user&.admin? || current_user&.manager?
-      redirect_to(:controller => 'dashboard', :action => 'index')
+      redirect_to dashboard_path
     end
   end
 
@@ -59,10 +59,19 @@ class ApplicationController < ActionController::Base
   #
   # Returns true if access is denied and a redirect has been issued.
   # Callers MUST `return if check_staff` to avoid double-render.
+  #
+  # All redirects in this file (here and in check_login / check_admin /
+  # check_manager / check_candidate_access) use named path helpers
+  # (`dashboard_path`, `root_path`) rather than the `controller:`/`action:`
+  # hash form. The hash form does namespace-relative resolution, so a
+  # redirect from a namespaced controller (e.g. Reports::BudgetReportController)
+  # would attempt to find Reports::DashboardController, which doesn't
+  # exist, and raise UrlGenerationError before any redirect actually fired.
+  # Path helpers sidestep that resolution entirely.
   def check_staff
     return false if current_user&.staff?
 
-    redirect_to(controller: 'dashboard', action: :index)
+    redirect_to dashboard_path
     true
   end
 
@@ -79,7 +88,7 @@ class ApplicationController < ActionController::Base
     return false if current_user&.staff?
 
     if candidate.nil?
-      redirect_to(controller: 'dashboard', action: :index)
+      redirect_to dashboard_path
       return true
     end
 
@@ -94,7 +103,7 @@ class ApplicationController < ActionController::Base
 
     return false if self_allowed
 
-    redirect_to(controller: 'dashboard', action: :index)
+    redirect_to dashboard_path
     true
   end
 
