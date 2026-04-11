@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '>= 7.1'
 gem 'sprockets-rails'
-gem 'sassc-rails'
+gem 'dartsass-rails'
 
 gem 'json', '>=2.3.0'
 
@@ -13,8 +13,6 @@ gem "nokogiri", ">= 1.15.6"
 
 gem 'mysql2', '~> 0.5'
 gem 'net-ldap'
-
-gem "sass", :require => 'sass'
 
 gem 'bcrypt', '~> 3.1'
 

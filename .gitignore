@@ -22,3 +22,10 @@
 /config/database.yml
 /storage
 /config/secrets.yml
+
+# dartsass-rails compiles app/assets/stylesheets/*.scss into here.
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+# Sprockets precompile output
+/public/assets

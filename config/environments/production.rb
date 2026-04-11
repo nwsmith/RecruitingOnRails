@@ -26,7 +26,9 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   # config.assets.js_compressor = :uglifier
-  config.assets.css_compressor = :sass
+  # CSS is already compressed by dartsass-rails; Sprockets' :sass compressor
+  # would try to load the old ruby-sass gem that was dropped with sassc-rails.
+  config.assets.css_compressor = nil
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
