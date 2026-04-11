@@ -24,16 +24,9 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Compress JavaScripts and CSS.
-  # config.assets.js_compressor = :uglifier
-  # CSS is already compressed by dartsass-rails; Sprockets' :sass compressor
-  # would try to load the old ruby-sass gem that was dropped with sassc-rails.
-  config.assets.css_compressor = nil
-
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
-
-  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
+  # Assets: Propshaft serves fingerprinted files from app/assets/ and
+  # app/assets/builds/ (the latter is where dartsass-rails emits the compiled
+  # CSS bundle). No JS compressor: importmap-rails serves ES modules as-is.
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'

@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails', '>= 7.1'
-gem 'sprockets-rails'
+gem 'propshaft'
 gem 'dartsass-rails'
+gem 'importmap-rails'
 
 gem 'json', '>=2.3.0'
 

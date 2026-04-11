@@ -1,3 +1,5 @@
+// Entry point served via importmap-rails. Configure the map in config/importmap.rb.
+
 // Vanilla replacement for jquery_ujs's data-confirm support.
 // Any <form data-confirm="..."> will prompt before submitting.
 document.addEventListener('submit', function (event) {

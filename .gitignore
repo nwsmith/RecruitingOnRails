@@ -27,5 +27,5 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
-# Sprockets precompile output
+# Propshaft precompile output
 /public/assets
