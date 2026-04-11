@@ -242,8 +242,15 @@ div.field label {
 // Approval colors — apply on either <a> or <span> (the approved_span helper
 // returns spans for non-link cases, links for link cases, both share the
 // same .approved/.unapproved class).
-.approved { color: var(--pico-color-green-500); font-weight: 600; }
-.unapproved { color: var(--pico-color-red-500); font-weight: 600; }
+//
+// Pico 2.1.1 doesn't actually expose --pico-color-green-500 / --pico-color-red-500
+// (an earlier version of these rules referenced those, silently inheriting
+// from the parent's color because the var didn't resolve). Use Pico's
+// semantic ins/del color tokens, which are real and convey "added/positive"
+// vs "removed/negative" — close enough to approved/unapproved for the
+// visual intent.
+.approved { color: var(--pico-ins-color); font-weight: 600; }
+.unapproved { color: var(--pico-del-color); font-weight: 600; }
 
 // Login form polish
 form[action$="attempt_login"] {
