@@ -63,6 +63,45 @@ jobs:
             FLUSH PRIVILEGES;
           "
 
+      - name: Generate config/database.yml
+        # config/database.yml is gitignored (legacy "may contain secrets"
+        # convention), so it doesn't exist in a fresh checkout. Write a
+        # minimal version that points the test environment at the MySQL
+        # service container. Production block must parse without env vars
+        # because Rails reads all environments at boot.
+        run: |
+          cat > config/database.yml <<'YML'
+          test:
+            adapter: mysql2
+            encoding: utf8
+            database: RecruitingOnRails_test
+            username: recruiting
+            password: recruiting
+            host: 127.0.0.1
+            port: 3306
+            pool: 5
+
+          development:
+            adapter: mysql2
+            encoding: utf8
+            database: RecruitingOnRails_development
+            username: recruiting
+            password: recruiting
+            host: 127.0.0.1
+            port: 3306
+            pool: 5
+
+          production:
+            adapter: mysql2
+            encoding: utf8
+            database: RecruitingOnRails_production
+            username: <%= ENV.fetch("DB_USERNAME", "unused") %>
+            password: <%= ENV.fetch("DB_PASSWORD", "unused") %>
+            host: 127.0.0.1
+            port: 3306
+            pool: 5
+          YML
+
       - name: Load schema
         run: bundle exec rake db:schema:load
 
