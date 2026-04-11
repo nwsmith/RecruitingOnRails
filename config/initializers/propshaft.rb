@@ -11,3 +11,9 @@ simple_calendar_spec = Gem.loaded_specs["simple_calendar"]
 if simple_calendar_spec
   Rails.application.config.assets.excluded_paths << Pathname.new(simple_calendar_spec.gem_dir).join("app/assets/stylesheets")
 end
+
+# Vendored third-party stylesheets (e.g. vis-timeline). importmap-rails already
+# adds vendor/javascript to the load path; the matching stylesheets directory
+# is not standard, so add it explicitly so Propshaft fingerprints and serves
+# the files.
+Rails.application.config.assets.paths << Rails.root.join("vendor/stylesheets")

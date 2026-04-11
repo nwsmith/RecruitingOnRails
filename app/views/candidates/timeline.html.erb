@@ -1,6 +1,6 @@
 <% content_for :for_head do %>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
+  <%= stylesheet_link_tag "vis-timeline-graph2d.min" %>
+  <%= javascript_include_tag "vis-timeline-graph2d.min" %>
 <% end %>
 
 <div id="my-timeline" style="height: <%= [@candidates.size * 25, 200].max %>px; border: 1px solid #aaa"></div>
