@@ -48,7 +48,7 @@ class CandidateAttachmentsController < ApplicationController
         format.html { redirect_to @candidate_attachment, notice: 'Candidate attachment was successfully created.' }
         format.json { render json: @candidate_attachment, status: :created, location: @candidate_attachment }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", status: :unprocessable_entity }
         format.json { render json: @candidate_attachment.errors, status: :unprocessable_entity }
       end
     end
@@ -64,7 +64,7 @@ class CandidateAttachmentsController < ApplicationController
         format.html { redirect_to @candidate_attachment, notice: 'Candidate attachment was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit", status: :unprocessable_entity }
         format.json { render json: @candidate_attachment.errors, status: :unprocessable_entity }
       end
     end
