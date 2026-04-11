@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :check_admin
 
+  # Columns that must never appear in any JSON response. password_digest is
+  # the bcrypt hash; api_key is the bearer-auth secret. Both are credentials.
+  JSON_EXCLUDE = %i[password_digest api_key].freeze
+
   # GET /users
   # GET /users.json
   def index
@@ -8,7 +12,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @users }
+      format.json { render json: @users.as_json(except: JSON_EXCLUDE) }
     end
   end
 
@@ -19,7 +23,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user }
+      format.json { render json: @user.as_json(except: JSON_EXCLUDE) }
     end
   end
 
@@ -47,7 +51,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
+        format.json { render json: @user.as_json(except: JSON_EXCLUDE), status: :created, location: @user }
       else
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
