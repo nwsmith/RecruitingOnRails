@@ -1,4 +1,6 @@
 class InterviewTypesController < ApplicationController
+  before_action :check_staff
+
   # GET /interview_types
   # GET /interview_types.json
   def index

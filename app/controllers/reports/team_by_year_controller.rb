@@ -1,4 +1,6 @@
 class Reports::TeamByYearController < ApplicationController
+  before_action :check_staff
+
   def index
   end
 

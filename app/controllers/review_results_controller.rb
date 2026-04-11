@@ -1,4 +1,6 @@
 class ReviewResultsController < ApplicationController
+  before_action :check_staff
+
   # GET /review_results
   # GET /review_results.json
   def index

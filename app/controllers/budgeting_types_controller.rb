@@ -1,4 +1,6 @@
 class BudgetingTypesController < ApplicationController
+  before_action :check_staff
+
   # GET /budgeting_types
   # GET /budgeting_types.json
   def index

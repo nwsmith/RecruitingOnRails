@@ -1,4 +1,6 @@
 class Reports::HiresByYearController < ApplicationController
+  before_action :check_staff
+
   def index
   end
 

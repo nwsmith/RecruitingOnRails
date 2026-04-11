@@ -1,4 +1,6 @@
 class AssociatedBudgetsController < ApplicationController
+  before_action :check_staff
+
   # GET /associated_budgets
   # GET /associated_budgets.json
   def index

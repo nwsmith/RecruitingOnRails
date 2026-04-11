@@ -1,4 +1,6 @@
 class PositionsController < ApplicationController
+  before_action :check_staff
+
   # GET /positions
   # GET /positions.json
   def index

@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  before_action :check_staff
+
   # GET /groups
   # GET /groups.json
   def index

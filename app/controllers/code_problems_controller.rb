@@ -1,4 +1,6 @@
 class CodeProblemsController < ApplicationController
+  before_action :check_staff
+
   # GET /code_problems
   # GET /code_problems.json
   def index

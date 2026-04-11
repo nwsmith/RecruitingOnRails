@@ -1,4 +1,6 @@
 class EducationLevelsController < ApplicationController
+  before_action :check_staff
+
   # GET /education_levels
   # GET /education_levels.json
   def index

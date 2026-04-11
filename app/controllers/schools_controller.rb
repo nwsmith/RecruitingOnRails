@@ -1,4 +1,6 @@
 class SchoolsController < ApplicationController
+  before_action :check_staff
+
   # GET /schools
   # GET /schools.json
   def index

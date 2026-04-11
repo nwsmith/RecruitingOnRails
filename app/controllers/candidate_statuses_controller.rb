@@ -1,4 +1,6 @@
 class CandidateStatusesController < ApplicationController
+  before_action :check_staff
+
   # GET /candidate_statuses
   # GET /candidate_statuses.json
   def index

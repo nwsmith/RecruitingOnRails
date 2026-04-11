@@ -1,4 +1,6 @@
 class Reports::CycleTimeReportController < ApplicationController
+  before_action :check_staff
+
 
   def index
 

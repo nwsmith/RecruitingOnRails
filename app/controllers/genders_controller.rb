@@ -1,4 +1,6 @@
 class GendersController < ApplicationController
+  before_action :check_staff
+
   # GET /genders
   # GET /genders.json
   def index

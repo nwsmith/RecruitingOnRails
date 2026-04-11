@@ -1,4 +1,6 @@
 class PreviousEmployersController < ApplicationController
+  before_action :check_staff
+
   # GET /previous_employers
   # GET /previous_employers.json
   def index

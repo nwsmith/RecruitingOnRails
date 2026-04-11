@@ -1,4 +1,6 @@
 class LeaveReasonsController < ApplicationController
+  before_action :check_staff
+
   # GET /leave_reasons
   # GET /leave_reasons.json
   def index

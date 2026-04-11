@@ -1,4 +1,6 @@
 class Reports::CandidatesByStatusController < ApplicationController
+  before_action :check_staff
+
   def index
   end
 

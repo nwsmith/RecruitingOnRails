@@ -1,4 +1,6 @@
 class OfficeLocationsController < ApplicationController
+  before_action :check_staff
+
   # GET /office_locations
   # GET /office_locations.json
   def index

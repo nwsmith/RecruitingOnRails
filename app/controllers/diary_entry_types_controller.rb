@@ -1,4 +1,5 @@
 class DiaryEntryTypesController < ApplicationController
+  before_action :check_staff
   before_action :set_diary_entry_type, only: [:show, :edit, :update, :destroy]
 
   # GET /diary_entry_types

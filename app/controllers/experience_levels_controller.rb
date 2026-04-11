@@ -1,4 +1,6 @@
 class ExperienceLevelsController < ApplicationController
+  before_action :check_staff
+
   # GET /experience_levels
   # GET /experience_levels.json
   def index
