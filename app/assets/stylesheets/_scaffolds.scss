@@ -110,6 +110,14 @@ td form.button_to input[type="submit"] {
   margin-bottom: 0;
 }
 
+// Timeline (vis-timeline) container. The dynamic height depends on the
+// number of candidates and is set in JS from a data-height attribute on
+// the element — the static border lives here so the view's <div> stays
+// inline-style-free (CSP).
+.timeline-container {
+  border: 1px solid var(--pico-muted-border-color);
+}
+
 // Reports landing grid
 .report-grid {
   display: grid;
