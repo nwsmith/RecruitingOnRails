@@ -55,7 +55,6 @@ RecruitingOnRails::Application.routes.draw do
       get 'list'
       get 'timeline'
       get 'events'
-      get 'calendar'
       get 'search'
     end
   end

@@ -4,19 +4,15 @@
 # alongside the compiled CSS.
 Rails.application.config.assets.excluded_paths << Rails.root.join("app/assets/stylesheets")
 
-# simple_calendar ships its own stylesheet via an engine load path. We fork
-# the relevant rules into app/assets/stylesheets/_simple_calendar.scss, so
-# exclude the gem's stylesheet to keep its raw source out of public/assets.
-#
-# The other entries here are Rails default frameworks that come along with
-# `require 'rails/all'` in config/application.rb. We don't actually use any
-# of their JS/CSS — no <%= action_text|trix|rails-ujs|action_cable %> tags,
-# no Active Storage direct uploads, no Action Text rich-text editors — but
-# Propshaft picks up every engine asset path by default and ships them in
-# precompile output anyway. Excluding them trims ~700 KB from public/assets/
-# without changing app behavior. The frameworks themselves stay loaded.
+# Rails default frameworks come along with `require 'rails/all'` in
+# config/application.rb, and each one's railtie registers its app/assets
+# directory with Propshaft. We don't actually use any of their JS/CSS — no
+# <%= action_text|trix|rails-ujs|action_cable %> tags, no Active Storage
+# direct uploads, no Action Text rich-text editors — but Propshaft would
+# ship them in precompile output anyway. Excluding their asset subdirectories
+# trims ~700 KB from public/assets/ without changing app behavior. The
+# frameworks themselves stay loaded.
 {
-  "simple_calendar"  => %w[app/assets/stylesheets],
   "actiontext"       => %w[app/assets/javascripts],
   "action_text-trix" => %w[app/assets/javascripts app/assets/stylesheets],
   "actioncable"      => %w[app/assets/javascripts],

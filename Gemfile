@@ -30,8 +30,6 @@ group :development do
   gem 'capistrano-passenger', '~> 0.2'
 end
 
-gem 'simple_calendar', '~> 2.0'
-
 # For Markdown parsing/rendering
 gem 'redcarpet', '~> 3.6'
 

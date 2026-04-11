@@ -313,12 +313,6 @@ class CandidatesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to controller: 'dashboard', action: 'index'
   end
 
-  test 'regular user cannot hit the calendar collection action' do
-    login_as 'regular'
-    get calendar_candidates_path
-    assert_redirected_to controller: 'dashboard', action: 'index'
-  end
-
   test 'regular user cannot search candidates' do
     login_as 'regular'
     get search_candidates_path(q: 'anything')

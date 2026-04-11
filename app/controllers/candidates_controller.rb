@@ -1,14 +1,14 @@
 class CandidatesController < ApplicationController
 
   # Staff-only gate on the collection actions. These routes enumerate
-  # candidates in bulk (index/list/timeline/events/calendar/search) or
-  # create new ones (new/create), none of which should be reachable by
-  # regular or self.candidate users. Per-record actions stay on the
+  # candidates in bulk (index/list/timeline/events/search) or create
+  # new ones (new/create), none of which should be reachable by regular
+  # or self.candidate users. Per-record actions stay on the
   # check_candidate_access helper below so a self.candidate user can
   # still reach their own /candidates/:id while their application is
   # PEND or VERBAL.
   before_action :check_staff, only: [
-    :index, :list, :timeline, :events, :calendar, :search, :new, :create
+    :index, :list, :timeline, :events, :search, :new, :create
   ]
 
   # Per-candidate access check. Delegates to ApplicationController's shared
@@ -28,17 +28,6 @@ class CandidatesController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @candidates }
     end
-  end
-
-  def calendar
-    p = params[:start_date] || Date.new.to_s
-    d = Date.parse(p)
-
-    @candidates = Candidate.includes(:candidate_status).where.not(start_date: nil).reject do |c|
-      code = c.candidate_status&.code
-      code == 'QUIT' || code == 'FIRED'
-    end
-    @candidates.each { |c| c.start_time = Date.new(d.year, c.start_date.month, c.start_date.day) }
   end
 
   def timeline
