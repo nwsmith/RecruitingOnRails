@@ -140,4 +140,44 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
 
     assert_no_match other_pending.name, response.body
   end
+
+  # ----- FK-path self-candidate dashboard (2026-04-11) -----
+  #
+  # These tests cover the user_id FK that replaced sole reliance on the
+  # "user_name == first.last" convention. The `regular` fixture has user_name
+  # "regular", which will never match any first.last candidate by name — so
+  # it's the clean vehicle to verify the FK path in isolation.
+
+  test 'regular user with linked pending candidate sees their own application via FK' do
+    Candidate.create!(
+      first_name: 'Renamed',
+      last_name: 'Person',
+      candidate_status: @pending_status,
+      user: users(:regular)
+    )
+
+    login_as 'regular'
+    get dashboard_path
+    assert_response :success
+    assert_match 'View your application', response.body
+    assert_match 'Pending', response.body
+    # The enumeration gap regression must still hold — they see only their
+    # own linked candidate, not the unrelated visible candidate.
+    assert_no_match 'UniqueVisible', response.body
+  end
+
+  test 'regular user with linked HIRED candidate falls back to staff message' do
+    Candidate.create!(
+      first_name: 'Post',
+      last_name: 'Hire',
+      candidate_status: @hired_status,
+      user: users(:regular)
+    )
+
+    login_as 'regular'
+    get dashboard_path
+    assert_response :success
+    assert_no_match 'View your application', response.body
+    assert_match 'recruiting staff', response.body
+  end
 end

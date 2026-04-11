@@ -84,7 +84,12 @@ class ApplicationController < ActionController::Base
     end
 
     candidate_status_code = candidate.candidate_status&.code
-    is_self = current_user&.user_name.to_s == candidate.username
+    # Self check tries the explicit user_id FK first (rename-proof, set by
+    # the admin on the candidate form) and falls back to the legacy
+    # first.last convention for candidates created before the FK existed.
+    is_self_by_fk   = candidate.user_id.present? && candidate.user_id == current_user&.id
+    is_self_by_name = candidate.user_id.nil? && current_user&.user_name.to_s == candidate.username
+    is_self = is_self_by_fk || is_self_by_name
     self_allowed = is_self && (candidate_status_code == 'PEND' || candidate_status_code == 'VERBAL')
 
     return false if self_allowed

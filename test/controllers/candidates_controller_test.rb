@@ -387,4 +387,79 @@ class CandidatesControllerTest < ActionDispatch::IntegrationTest
     get new_candidate_path
     assert_response :success
   end
+
+  # ----- FK-path self-candidate show (2026-04-11) -----
+  #
+  # Before the user_id FK, check_candidate_access relied exclusively on
+  # `current_user.user_name == candidate.username` ("first.last") to decide
+  # whether a self-candidate user could view their own record. That broke
+  # for any user whose user_name didn't match the convention. The FK path
+  # fixes it: users(:regular) has user_name "regular", which will never
+  # match by name.
+
+  test 'regular user with linked pending candidate can view their own candidate via show' do
+    linked_candidate = Candidate.create!(
+      first_name: 'Renamed',
+      last_name: 'Person',
+      candidate_status: @pending_status,
+      user: users(:regular)
+    )
+    login_as 'regular'
+    get candidate_path(linked_candidate)
+    assert_response :success
+  end
+
+  test 'regular user with linked hired candidate cannot view their own candidate (status closed)' do
+    linked_candidate = Candidate.create!(
+      first_name: 'Post',
+      last_name: 'Hire',
+      candidate_status: @hired_status,
+      user: users(:regular)
+    )
+    login_as 'regular'
+    get candidate_path(linked_candidate)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot view a different users linked candidate' do
+    other_users_candidate = Candidate.create!(
+      first_name: 'Someone',
+      last_name: 'Else',
+      candidate_status: @pending_status,
+      user: users(:hr_user)  # linked to a different user
+    )
+    login_as 'regular'
+    get candidate_path(other_users_candidate)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'name-collision does not leak a FK-owned candidate to a non-owner' do
+    # A candidate whose first.last name matches the self.candidate fixture's
+    # user_name, but whose FK points at `regular`. The self.candidate user
+    # must NOT be able to view it — the FK is the source of truth.
+    candidate = Candidate.create!(
+      first_name: 'Self',
+      last_name: 'Candidate',
+      candidate_status: @pending_status,
+      user: users(:regular)
+    )
+    login_as 'self.candidate'
+    get candidate_path(candidate)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'admin can set user_id when creating a candidate' do
+    login_as 'admin'
+    assert_difference -> { Candidate.count }, 1 do
+      post candidates_path, params: {
+        candidate: {
+          first_name: 'Linked',
+          last_name: 'Candidate',
+          candidate_status_id: @pending_status.id,
+          user_id: users(:regular).id
+        }
+      }
+    end
+    assert_equal users(:regular).id, Candidate.last.user_id
+  end
 end

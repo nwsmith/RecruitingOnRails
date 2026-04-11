@@ -62,6 +62,10 @@
             <%= f.label :salary_range %>
             <%= f.text_field :salary_range %>
           </div>
+          <div class="field">
+            <%= f.label :user_id, 'Linked user account' %>
+            <%= f.collection_select(:user_id, User.where(active: true).order(:last_name, :first_name), :id, :name, :include_blank => '-- None --') %>
+          </div>
         </fieldset>
     <% end %>
     <div class="field">

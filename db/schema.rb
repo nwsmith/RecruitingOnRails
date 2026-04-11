@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_10_000003) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -122,6 +122,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_10_000003) do
     t.bigint "school_id"
     t.date "start_date"
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["associated_budget_id"], name: "index_candidates_on_associated_budget_id"
     t.index ["budgeting_type_id"], name: "index_candidates_on_budgeting_type_id"
     t.index ["candidate_source_id"], name: "index_candidates_on_candidate_source_id"
@@ -133,6 +134,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_10_000003) do
     t.index ["office_location_id"], name: "index_candidates_on_office_location_id"
     t.index ["position_id"], name: "index_candidates_on_position_id"
     t.index ["school_id"], name: "index_candidates_on_school_id"
+    t.index ["user_id"], name: "index_candidates_on_user_id"
   end
 
   create_table "code_problems", charset: "utf8mb3", force: :cascade do |t|
@@ -334,7 +336,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_10_000003) do
     t.index ["previous_employer_id"], name: "index_work_history_rows_on_previous_employer_id"
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "auth_configs", "auth_config_types", name: "fk_config_type"
   add_foreign_key "candidate_attachments", "candidates", name: "fk_attachment_candidate"
@@ -349,6 +350,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_10_000003) do
   add_foreign_key "candidates", "office_locations", name: "fk_candidate_off_loc"
   add_foreign_key "candidates", "positions", name: "fk_candidate_position"
   add_foreign_key "candidates", "schools", name: "fk_candidate_school"
+  add_foreign_key "candidates", "users"
   add_foreign_key "code_submission_reviews", "code_submissions", name: "fk_code_submission_review"
   add_foreign_key "code_submission_reviews", "review_results", name: "fk_submission_rev_res"
   add_foreign_key "code_submission_reviews", "users", name: "fk_code_submission_review_user"

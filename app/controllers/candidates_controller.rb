@@ -220,7 +220,8 @@ class CandidatesController < ApplicationController
       :salary_range, :replacement_for, :sadness_factor,
       :candidate_status_id, :candidate_source_id, :experience_level_id,
       :position_id, :office_location_id, :education_level_id, :school_id,
-      :gender_id, :leave_reason_id, :associated_budget_id, :budgeting_type_id
+      :gender_id, :leave_reason_id, :associated_budget_id, :budgeting_type_id,
+      :user_id
     )
   end
 end
