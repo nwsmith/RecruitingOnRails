@@ -1,4 +1,11 @@
 class ReferenceChecksController < ApplicationController
+  # Reference check feedback can be sensitive (e.g. "do not hire"
+  # signals from past managers). Lock writes and reads to staff:
+  # admin / manager / hr only. The candidate themselves should not
+  # see what their references said about them, so we deliberately
+  # do NOT use check_candidate_access here.
+  before_action :check_staff
+
   # GET /reference_checks
   # GET /reference_checks.json
   def index
@@ -48,7 +55,7 @@ class ReferenceChecksController < ApplicationController
         format.html { redirect_to @reference_check, notice: 'Reference check was successfully created.' }
         format.json { render json: @reference_check, status: :created, location: @reference_check }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", status: :unprocessable_entity }
         format.json { render json: @reference_check.errors, status: :unprocessable_entity }
       end
     end
@@ -64,7 +71,7 @@ class ReferenceChecksController < ApplicationController
         format.html { redirect_to @reference_check, notice: 'Reference check was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit", status: :unprocessable_entity }
         format.json { render json: @reference_check.errors, status: :unprocessable_entity }
       end
     end

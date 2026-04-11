@@ -2,6 +2,8 @@ class WorkHistoryRowsController < ApplicationController
   # GET /work_history_rows
   # GET /work_history_rows.json
   def index
+    return if check_staff
+
     @work_history_rows = WorkHistoryRow.all
 
     respond_to do |format|
@@ -14,6 +16,7 @@ class WorkHistoryRowsController < ApplicationController
   # GET /work_history_rows/1.json
   def show
     @work_history_row = WorkHistoryRow.find(params[:id])
+    return if check_candidate_access(@work_history_row.candidate)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,6 +29,7 @@ class WorkHistoryRowsController < ApplicationController
   def new
     @work_history_row = WorkHistoryRow.new
     @work_history_row.candidate_id = params[:candidate_id]
+    return if check_candidate_access(Candidate.find_by(id: params[:candidate_id]))
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,19 +40,21 @@ class WorkHistoryRowsController < ApplicationController
   # GET /work_history_rows/1/edit
   def edit
     @work_history_row = WorkHistoryRow.find(params[:id])
+    return if check_candidate_access(@work_history_row.candidate)
   end
 
   # POST /work_history_rows
   # POST /work_history_rows.json
   def create
     @work_history_row = WorkHistoryRow.new(user_params)
+    return if check_candidate_access(@work_history_row.candidate)
 
     respond_to do |format|
       if @work_history_row.save
         format.html { redirect_to @work_history_row, notice: 'Work history row was successfully created.' }
         format.json { render json: @work_history_row, status: :created, location: @work_history_row }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", status: :unprocessable_entity }
         format.json { render json: @work_history_row.errors, status: :unprocessable_entity }
       end
     end
@@ -58,13 +64,14 @@ class WorkHistoryRowsController < ApplicationController
   # PUT /work_history_rows/1.json
   def update
     @work_history_row = WorkHistoryRow.find(params[:id])
+    return if check_candidate_access(@work_history_row.candidate)
 
     respond_to do |format|
       if @work_history_row.update(user_params)
         format.html { redirect_to @work_history_row, notice: 'Work history row was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit", status: :unprocessable_entity }
         format.json { render json: @work_history_row.errors, status: :unprocessable_entity }
       end
     end
@@ -74,6 +81,8 @@ class WorkHistoryRowsController < ApplicationController
   # DELETE /work_history_rows/1.json
   def destroy
     @work_history_row = WorkHistoryRow.find(params[:id])
+    return if check_candidate_access(@work_history_row.candidate)
+
     @work_history_row.destroy
 
     respond_to do |format|
