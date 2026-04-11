@@ -5,9 +5,6 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     @target = Group.create!(name: 'Engineering', active: true)
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   test 'unauthenticated index redirects to login' do
     get groups_path

@@ -8,6 +8,14 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   fixtures :all
+end
 
-  # Add more helper methods to be used by all tests here...
+class ActionDispatch::IntegrationTest
+  # Shared login helper for all controller / integration tests. The fixture
+  # users (admin, manager, hruser, regular, self_candidate_user, inactive)
+  # all share the bcrypt password "password"; passing one of those user_names
+  # is enough to get an authenticated session.
+  def login_as(username)
+    post login_attempt_login_path, params: { username: username, password: 'password' }
+  end
 end

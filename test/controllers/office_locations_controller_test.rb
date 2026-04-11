@@ -5,9 +5,6 @@ class OfficeLocationsControllerTest < ActionDispatch::IntegrationTest
     @target = OfficeLocation.create!(code: 'YYC', name: 'Calgary', description: 'Calgary office')
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   test 'unauthenticated index redirects to login' do
     get office_locations_path

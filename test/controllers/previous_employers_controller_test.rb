@@ -5,9 +5,6 @@ class PreviousEmployersControllerTest < ActionDispatch::IntegrationTest
     @target = PreviousEmployer.create!(code: 'ACME', name: 'Acme Corp', description: 'Acme Corporation')
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   test 'unauthenticated index redirects to login' do
     get previous_employers_path

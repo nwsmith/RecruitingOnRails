@@ -5,9 +5,6 @@ class RegistriesControllerTest < ActionDispatch::IntegrationTest
     @target = Registry.create!(key: 'test.config.value', value: 'original')
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   # ----- admin gate: every action requires admin -----
 

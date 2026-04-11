@@ -72,13 +72,13 @@ class CandidatesController < ApplicationController
       if parts.empty?
         Candidate.none
       elsif parts.length == 1
-        term = "%#{escape_like(parts[0])}%"
+        term = "%#{Candidate.sanitize_sql_like(parts[0])}%"
         Candidate.where('first_name LIKE ? OR last_name LIKE ?', term, term)
       else
         # Treat the first token as first name and the rest as last name, but
         # also accept the reverse so "Doe John" and "John Marie Doe" both work.
-        first_term = "#{escape_like(parts.first)}%"
-        last_term  = "#{escape_like(parts.last)}%"
+        first_term = "#{Candidate.sanitize_sql_like(parts.first)}%"
+        last_term  = "#{Candidate.sanitize_sql_like(parts.last)}%"
         Candidate.where(
           '(first_name LIKE ? AND last_name LIKE ?) OR (first_name LIKE ? AND last_name LIKE ?)',
           first_term, last_term, last_term, first_term
@@ -179,11 +179,6 @@ class CandidatesController < ApplicationController
   def requested_status_codes
     return ['HIRED'] if params[:status].nil?
     params[:status].split(',')
-  end
-
-  # Escape LIKE wildcards so user input can't widen the match.
-  def escape_like(str)
-    str.to_s.gsub(/[\\%_]/) { |c| "\\#{c}" }
   end
 
   def candidate_params

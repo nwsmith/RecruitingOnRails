@@ -5,9 +5,6 @@ class ExperienceLevelsControllerTest < ActionDispatch::IntegrationTest
     @target = ExperienceLevel.create!(code: 'JR', name: 'Junior', description: 'Junior level', color: '#aabbcc')
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   test 'unauthenticated index redirects to login' do
     get experience_levels_path

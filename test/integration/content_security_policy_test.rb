@@ -6,9 +6,6 @@ require 'test_helper'
 # the nonce mechanism that lets importmap-rails inline scripts run under
 # a strict policy.
 class ContentSecurityPolicyTest < ActionDispatch::IntegrationTest
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   test 'CSP header is present on every authenticated page' do
     login_as 'admin'

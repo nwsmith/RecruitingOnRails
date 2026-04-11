@@ -5,9 +5,6 @@ class PositionsControllerTest < ActionDispatch::IntegrationTest
     @target = Position.create!(code: 'ENG', name: 'Engineer', description: 'Software engineer')
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   # ----- staff gate: regular user cannot reach any action -----
 

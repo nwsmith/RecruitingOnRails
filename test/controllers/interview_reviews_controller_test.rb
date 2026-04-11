@@ -28,9 +28,6 @@ class InterviewReviewsControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   # ----- login required -----
 

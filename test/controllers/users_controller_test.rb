@@ -6,9 +6,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @target = users(:regular)
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   # ----- admin gate: every action requires an admin user -----
 

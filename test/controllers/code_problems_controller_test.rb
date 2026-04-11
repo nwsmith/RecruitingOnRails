@@ -5,9 +5,6 @@ class CodeProblemsControllerTest < ActionDispatch::IntegrationTest
     @target = CodeProblem.create!(code: 'FIZZ', name: 'FizzBuzz', description: 'Classic FizzBuzz')
   end
 
-  def login_as(username)
-    post login_attempt_login_path, params: { username: username, password: 'password' }
-  end
 
   test 'unauthenticated index redirects to login' do
     get code_problems_path
