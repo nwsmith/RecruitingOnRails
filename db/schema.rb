@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_11_000002) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -39,20 +39,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "associated_budgets", charset: "utf8mb3", force: :cascade do |t|
+  create_table "associated_budgets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.boolean "active"
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "auth_config_types", charset: "utf8mb3", force: :cascade do |t|
+  create_table "auth_config_types", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "auth_configs", charset: "utf8mb3", force: :cascade do |t|
+  create_table "auth_configs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "auth_config_type_id"
     t.datetime "created_at", null: false
     t.string "ldap_base"
@@ -64,31 +64,31 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.index ["auth_config_type_id"], name: "index_auth_configs_on_auth_config_type_id"
   end
 
-  create_table "budgeting_types", charset: "utf8mb3", force: :cascade do |t|
+  create_table "budgeting_types", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "candidate_attachments", charset: "utf8mb3", force: :cascade do |t|
+  create_table "candidate_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "candidate_id"
     t.string "notes"
     t.index ["candidate_id"], name: "index_candidate_attachments_on_candidate_id"
   end
 
-  create_table "candidate_sources", charset: "utf8mb3", force: :cascade do |t|
+  create_table "candidate_sources", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "candidate_statuses", charset: "utf8mb3", force: :cascade do |t|
+  create_table "candidate_statuses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "candidates", charset: "utf8mb3", force: :cascade do |t|
+  create_table "candidates", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.date "application_date"
     t.bigint "associated_budget_id"
     t.bigint "budgeting_type_id"
@@ -106,7 +106,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.string "last_name"
     t.bigint "leave_reason_id"
     t.string "middle_name"
-    t.text "notes"
+    t.text "notes", size: :medium
     t.date "offer_accept_date"
     t.date "offer_date"
     t.date "offer_turndown_date"
@@ -137,16 +137,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.index ["user_id"], name: "index_candidates_on_user_id"
   end
 
-  create_table "code_problems", charset: "utf8mb3", force: :cascade do |t|
+  create_table "code_problems", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "code_submission_reviews", charset: "utf8mb3", force: :cascade do |t|
+  create_table "code_submission_reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "code_submission_id"
     t.datetime "created_at", null: false
-    t.text "notes"
+    t.text "notes", size: :medium
     t.bigint "review_result_id"
     t.datetime "updated_at", null: false
     t.bigint "user_id"
@@ -155,11 +155,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.index ["user_id"], name: "index_code_submission_reviews_on_user_id"
   end
 
-  create_table "code_submissions", charset: "utf8mb3", force: :cascade do |t|
+  create_table "code_submissions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "candidate_id"
     t.bigint "code_problem_id"
     t.datetime "created_at", null: false
-    t.text "notes"
+    t.text "notes", size: :medium
     t.date "sent_date"
     t.date "submission_date"
     t.datetime "updated_at", null: false
@@ -167,18 +167,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.index ["code_problem_id"], name: "index_code_submissions_on_code_problem_id"
   end
 
-  create_table "diary_entries", charset: "utf8mb3", force: :cascade do |t|
+  create_table "diary_entries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "candidate_id"
     t.bigint "diary_entry_type_id"
     t.date "entry_date"
-    t.text "notes"
+    t.text "notes", size: :medium
     t.bigint "user_id"
     t.index ["candidate_id"], name: "index_diary_entries_on_candidate_id"
     t.index ["diary_entry_type_id"], name: "index_diary_entries_on_diary_entry_type_id"
     t.index ["user_id"], name: "index_diary_entries_on_user_id"
   end
 
-  create_table "diary_entry_types", charset: "utf8mb3", force: :cascade do |t|
+  create_table "diary_entry_types", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
@@ -186,7 +186,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.boolean "positive"
   end
 
-  create_table "education_levels", charset: "utf8mb3", force: :cascade do |t|
+  create_table "education_levels", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.datetime "created_at", null: false
     t.string "description"
@@ -194,35 +194,35 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "experience_levels", charset: "utf8mb3", force: :cascade do |t|
+  create_table "experience_levels", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "color"
     t.string "description"
     t.string "name"
   end
 
-  create_table "genders", charset: "utf8mb3", force: :cascade do |t|
+  create_table "genders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "groups", charset: "utf8mb3", force: :cascade do |t|
+  create_table "groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.boolean "active"
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
   end
 
-  create_table "groups_users", id: false, charset: "utf8mb3", force: :cascade do |t|
+  create_table "groups_users", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "group_id"
     t.integer "user_id"
   end
 
-  create_table "interview_reviews", charset: "utf8mb3", force: :cascade do |t|
+  create_table "interview_reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "interview_id"
-    t.text "notes"
+    t.text "notes", size: :medium
     t.bigint "review_result_id"
     t.datetime "updated_at", null: false
     t.bigint "user_id"
@@ -231,34 +231,34 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.index ["user_id"], name: "index_interview_reviews_on_user_id"
   end
 
-  create_table "interview_types", charset: "utf8mb3", force: :cascade do |t|
+  create_table "interview_types", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "interviews", charset: "utf8mb3", force: :cascade do |t|
+  create_table "interviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "candidate_id"
     t.bigint "interview_type_id"
     t.date "meeting_time"
-    t.text "notes"
+    t.text "notes", size: :medium
     t.index ["candidate_id"], name: "index_interviews_on_candidate_id"
     t.index ["interview_type_id"], name: "index_interviews_on_interview_type_id"
   end
 
-  create_table "leave_reasons", charset: "utf8mb3", force: :cascade do |t|
+  create_table "leave_reasons", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "office_locations", charset: "utf8mb3", force: :cascade do |t|
+  create_table "office_locations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "positions", charset: "utf8mb3", force: :cascade do |t|
+  create_table "positions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.datetime "created_at", null: false
     t.string "description"
@@ -266,18 +266,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "previous_employers", charset: "utf8mb3", force: :cascade do |t|
+  create_table "previous_employers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.string "name"
   end
 
-  create_table "reference_checks", charset: "utf8mb3", force: :cascade do |t|
+  create_table "reference_checks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "candidate_id"
     t.string "company"
     t.string "email"
     t.string "name"
-    t.text "notes"
+    t.text "notes", size: :medium
     t.string "phone"
     t.string "relationship"
     t.bigint "review_result_id"
@@ -287,14 +287,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.index ["review_result_id"], name: "index_reference_checks_on_review_result_id"
   end
 
-  create_table "registries", charset: "utf8mb3", force: :cascade do |t|
+  create_table "registries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "key"
     t.datetime "updated_at", null: false
     t.string "value"
   end
 
-  create_table "review_results", charset: "utf8mb3", force: :cascade do |t|
+  create_table "review_results", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.string "description"
     t.boolean "is_approval"
@@ -302,7 +302,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.string "name"
   end
 
-  create_table "schools", charset: "utf8mb3", force: :cascade do |t|
+  create_table "schools", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "code"
     t.datetime "created_at", null: false
     t.string "description"
@@ -310,7 +310,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", charset: "utf8mb3", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.boolean "active"
     t.boolean "admin"
     t.string "api_key"
@@ -327,7 +327,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000001) do
     t.index ["auth_config_id"], name: "index_users_on_auth_config_id"
   end
 
-  create_table "work_history_rows", charset: "utf8mb3", force: :cascade do |t|
+  create_table "work_history_rows", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "candidate_id"
     t.date "end_date"
     t.bigint "previous_employer_id"
