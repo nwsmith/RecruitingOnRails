@@ -73,6 +73,24 @@ class Candidate < ApplicationRecord
     Candidate.where(candidate_status_id: status_ids)
   end
 
+  # Find the active (PEND/VERBAL) candidate record whose first.last name
+  # matches the given user's user_name. Used by the dashboard to show a
+  # self.candidate user their own application without exposing anyone else's.
+  #
+  # Returns an ActiveRecord relation so callers can chain or .first it.
+  # Returns Candidate.none if the user is nil or has no first.last user_name.
+  def Candidate.for_self_user(user)
+    return Candidate.none unless user
+    parts = user.user_name.to_s.split('.', 2)
+    return Candidate.none unless parts.length == 2 && parts.all?(&:present?)
+
+    active_status_ids = CandidateStatus.where(code: %w[PEND VERBAL]).pluck(:id)
+    return Candidate.none if active_status_ids.empty?
+
+    where('LOWER(first_name) = ? AND LOWER(last_name) = ?', parts[0], parts[1])
+      .where(candidate_status_id: active_status_ids)
+  end
+
   def Candidate.by_associated_budget_code(budget_code)
     associated_budget = AssociatedBudget.find_by(code: budget_code)
     return Candidate.none unless associated_budget

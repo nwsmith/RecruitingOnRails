@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   # Returns true if access is denied and a redirect has been issued.
   # Callers MUST `return if check_staff` to avoid double-render.
   def check_staff
-    return false if current_user&.admin? || current_user&.manager? || current_user&.hr?
+    return false if current_user&.staff?
 
     redirect_to(controller: 'dashboard', action: :index)
     true
@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
   # Callers MUST `return if check_candidate_access(candidate)` to avoid
   # double-render.
   def check_candidate_access(candidate)
-    return false if current_user&.admin? || current_user&.manager? || current_user&.hr?
+    return false if current_user&.staff?
 
     if candidate.nil?
       redirect_to(controller: 'dashboard', action: :index)

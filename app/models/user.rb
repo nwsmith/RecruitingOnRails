@@ -9,6 +9,13 @@ class User < ApplicationRecord
     [first_name, last_name].compact.join(' ')
   end
 
+  # Staff = anyone on the recruiting team (admin, manager, or HR). This is the
+  # rule behind the check_staff gate in ApplicationController, lifted to the
+  # model so views and other helpers can share the same predicate.
+  def staff?
+    !!(admin? || manager? || hr?)
+  end
+
   def User.fetch_by_auth_name(auth_name)
     User.where(auth_name: auth_name).first
   end

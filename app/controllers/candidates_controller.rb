@@ -1,5 +1,16 @@
 class CandidatesController < ApplicationController
 
+  # Staff-only gate on the collection actions. These routes enumerate
+  # candidates in bulk (index/list/timeline/events/calendar/search) or
+  # create new ones (new/create), none of which should be reachable by
+  # regular or self.candidate users. Per-record actions stay on the
+  # check_candidate_access helper below so a self.candidate user can
+  # still reach their own /candidates/:id while their application is
+  # PEND or VERBAL.
+  before_action :check_staff, only: [
+    :index, :list, :timeline, :events, :calendar, :search, :new, :create
+  ]
+
   # Per-candidate access check. Delegates to ApplicationController's shared
   # helper so the rule stays in one place across candidates_controller and
   # the related-resource controllers (interviews, code_submissions,

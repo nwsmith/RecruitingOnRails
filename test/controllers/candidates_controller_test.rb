@@ -279,4 +279,112 @@ class CandidatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_no_match 'Unrelated', response.body
   end
+
+  # ----- collection-action staff gate -----
+  #
+  # The dashboard enumeration fix closed the candidates_table leak on the
+  # dashboard; these tests guard the matching controller-side gate that
+  # keeps regular / self.candidate users from bypassing the dashboard and
+  # hitting the routes directly. Per-record actions (show/edit/update/
+  # destroy) keep the check_candidate_access helper so self.candidate can
+  # still view their own pending record.
+
+  test 'regular user cannot list candidates' do
+    login_as 'regular'
+    get candidates_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot hit the list collection action' do
+    login_as 'regular'
+    get list_candidates_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot hit the timeline collection action' do
+    login_as 'regular'
+    get timeline_candidates_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot hit the events collection action' do
+    login_as 'regular'
+    get events_candidates_path(format: :json)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot hit the calendar collection action' do
+    login_as 'regular'
+    get calendar_candidates_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot search candidates' do
+    login_as 'regular'
+    get search_candidates_path(q: 'anything')
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot open the new candidate form' do
+    login_as 'regular'
+    get new_candidate_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot create a candidate' do
+    login_as 'regular'
+    assert_no_difference -> { Candidate.count } do
+      post candidates_path, params: {
+        candidate: {
+          first_name: 'Intruder',
+          last_name: 'Persona',
+          candidate_status_id: @hired_status.id
+        }
+      }
+    end
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'self candidate user cannot enumerate others via index' do
+    login_as 'self.candidate'
+    get candidates_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'self candidate user cannot hit the timeline either' do
+    login_as 'self.candidate'
+    get timeline_candidates_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'self candidate user can still view their own pending candidate' do
+    # Regression: the new before_action :check_staff must only apply to
+    # collection actions. Per-record :show must keep the check_candidate_access
+    # branch so self.candidate can reach their own application while pending.
+    login_as 'self.candidate'
+    get candidate_path(@self_candidate)
+    assert_response :success
+  end
+
+  test 'hr can still hit all collection actions after the gate' do
+    login_as 'hruser'
+
+    get candidates_path
+    assert_response :success
+
+    get list_candidates_path
+    assert_response :success
+
+    get timeline_candidates_path
+    assert_response :success
+
+    get events_candidates_path(format: :json)
+    assert_response :success
+
+    get search_candidates_path(q: 'x')
+    assert_response :success
+
+    get new_candidate_path
+    assert_response :success
+  end
 end

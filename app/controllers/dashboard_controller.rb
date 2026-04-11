@@ -1,5 +1,20 @@
 class DashboardController < ApplicationController
   def index
+    if current_user&.staff?
+      load_staff_dashboard
+    else
+      # Non-staff users must not see candidate listings — that was the
+      # dashboard enumeration gap. If the user happens to be a candidate
+      # themselves (self.candidate-style user_name matching an active
+      # application), expose only their own record so they can click
+      # through to their application page.
+      @self_candidate = Candidate.for_self_user(current_user).first
+    end
+  end
+
+  private
+
+  def load_staff_dashboard
     @dashboard_data = Hash.new
 
     headcount_targets = Hash.new
