@@ -4,7 +4,7 @@ Diary Entry for <%= @diary_entry.candidate.name %> by <%= @diary_entry.user.name
 
 <p>
   <strong>Reason:</strong>
-  <%= @diary_entry.diary_entry_type.name %>
+  <%= @diary_entry.diary_entry_type&.name %>
 </p>
 
 <p>
