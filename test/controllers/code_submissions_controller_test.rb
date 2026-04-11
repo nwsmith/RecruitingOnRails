@@ -117,4 +117,64 @@ class CodeSubmissionsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to code_submissions_path
   end
+
+  # ----- per-candidate auth gates -----
+
+  test 'regular user cannot list submissions (staff only)' do
+    login_as 'regular'
+    get code_submissions_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot view another candidates submission' do
+    login_as 'regular'
+    get code_submission_path(@submission)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot update another candidates submission' do
+    login_as 'regular'
+    patch code_submission_path(@submission),
+          params: { code_submission: { notes: 'Hacked' } }
+    assert_redirected_to controller: 'dashboard', action: 'index'
+    assert_equal 'Initial send', @submission.reload.notes
+  end
+
+  test 'regular user cannot destroy another candidates submission' do
+    login_as 'regular'
+    assert_no_difference -> { CodeSubmission.count } do
+      delete code_submission_path(@submission)
+    end
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot create a submission for another candidate' do
+    login_as 'regular'
+    assert_no_difference -> { CodeSubmission.count } do
+      post code_submissions_path, params: {
+        code_submission: {
+          candidate_id: @candidate.id,
+          code_problem_id: @problem.id,
+          sent_date: Date.today
+        }
+      }
+    end
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'self candidate user can view their own pending candidates submission' do
+    self_candidate = Candidate.create!(
+      first_name: 'Self',
+      last_name: 'Candidate',
+      candidate_status: @status
+    )
+    own_submission = CodeSubmission.create!(
+      candidate: self_candidate,
+      code_problem: @problem,
+      sent_date: Date.today
+    )
+    login_as 'self.candidate'
+    get code_submission_path(own_submission)
+    assert_response :success
+  end
 end

@@ -131,4 +131,63 @@ class CandidateAttachmentsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to candidate_attachments_path
   end
+
+  # ----- per-candidate auth gates -----
+
+  test 'regular user cannot list attachments (staff only)' do
+    login_as 'regular'
+    get candidate_attachments_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot view another candidates attachment' do
+    login_as 'regular'
+    get candidate_attachment_path(@attachment)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot update another candidates attachment' do
+    login_as 'regular'
+    patch candidate_attachment_path(@attachment),
+          params: { candidate_attachment: { notes: 'Hacked' } }
+    assert_redirected_to controller: 'dashboard', action: 'index'
+    assert_equal 'Initial resume', @attachment.reload.notes
+  end
+
+  test 'regular user cannot destroy another candidates attachment' do
+    login_as 'regular'
+    assert_no_difference -> { CandidateAttachment.count } do
+      delete candidate_attachment_path(@attachment)
+    end
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot upload an attachment for another candidate' do
+    login_as 'regular'
+    assert_no_difference -> { CandidateAttachment.count } do
+      post candidate_attachments_path, params: {
+        candidate_attachment: {
+          candidate_id: @candidate.id,
+          notes: 'Hacked',
+          attachment: upload(content_type: 'application/pdf')
+        }
+      }
+    end
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'self candidate user can view their own pending candidates attachment' do
+    self_candidate = Candidate.create!(
+      first_name: 'Self',
+      last_name: 'Candidate',
+      candidate_status: @status
+    )
+    own_attachment = CandidateAttachment.create!(
+      candidate: self_candidate,
+      notes: 'Own resume'
+    )
+    login_as 'self.candidate'
+    get candidate_attachment_path(own_attachment)
+    assert_response :success
+  end
 end

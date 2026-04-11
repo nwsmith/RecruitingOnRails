@@ -1,18 +1,11 @@
 class CandidatesController < ApplicationController
 
-  # Returns true if access is denied and a redirect has been issued.
-  # Callers MUST `return if check_access(...)` to avoid double-render.
+  # Per-candidate access check. Delegates to ApplicationController's shared
+  # helper so the rule stays in one place across candidates_controller and
+  # the related-resource controllers (interviews, code_submissions,
+  # candidate_attachments).
   def check_access(candidate)
-    return false if current_user&.hr? || current_user&.manager? || current_user&.admin?
-
-    candidate_status_code = candidate.candidate_status&.code
-    is_self = current_user&.user_name.to_s == candidate.username
-    self_allowed = is_self && (candidate_status_code == 'PEND' || candidate_status_code == 'VERBAL')
-
-    return false if self_allowed
-
-    redirect_to(controller: 'dashboard', action: :index)
-    true
+    check_candidate_access(candidate)
   end
 
   # GET /candidates

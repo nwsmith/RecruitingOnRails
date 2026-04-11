@@ -119,4 +119,98 @@ class InterviewsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to interviews_path
   end
+
+  # ----- per-candidate auth gates -----
+
+  test 'regular user cannot list interviews (staff only)' do
+    login_as 'regular'
+    get interviews_path
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'hr can list interviews' do
+    login_as 'hruser'
+    get interviews_path
+    assert_response :success
+  end
+
+  test 'manager can list interviews' do
+    login_as 'manager'
+    get interviews_path
+    assert_response :success
+  end
+
+  test 'regular user cannot view another candidates interview' do
+    login_as 'regular'
+    get interview_path(@interview)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot edit another candidates interview' do
+    login_as 'regular'
+    get edit_interview_path(@interview)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot update another candidates interview' do
+    login_as 'regular'
+    patch interview_path(@interview), params: { interview: { notes: 'Hacked' } }
+    assert_redirected_to controller: 'dashboard', action: 'index'
+    assert_equal 'Initial chat', @interview.reload.notes
+  end
+
+  test 'regular user cannot destroy another candidates interview' do
+    login_as 'regular'
+    assert_no_difference -> { Interview.count } do
+      delete interview_path(@interview)
+    end
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'regular user cannot create an interview for another candidate' do
+    login_as 'regular'
+    assert_no_difference -> { Interview.count } do
+      post interviews_path, params: {
+        interview: {
+          candidate_id: @candidate.id,
+          interview_type_id: @interview_type.id,
+          meeting_time: 1.day.from_now
+        }
+      }
+    end
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
+
+  test 'self candidate user can view their own pending candidates interview' do
+    self_candidate = Candidate.create!(
+      first_name: 'Self',
+      last_name: 'Candidate',
+      candidate_status: @status
+    )
+    own_interview = Interview.create!(
+      candidate: self_candidate,
+      interview_type: @interview_type,
+      meeting_time: Time.current
+    )
+    login_as 'self.candidate'
+    get interview_path(own_interview)
+    assert_response :success
+  end
+
+  test 'self candidate user cannot view their own interview after hire' do
+    hired = CandidateStatus.create!(code: 'HIRED', name: 'Hired')
+    self_candidate = Candidate.create!(
+      first_name: 'Self',
+      last_name: 'Candidate',
+      candidate_status: hired
+    )
+    own_interview = Interview.create!(
+      candidate: self_candidate,
+      interview_type: @interview_type,
+      meeting_time: Time.current
+    )
+    login_as 'self.candidate'
+    get interview_path(own_interview)
+    assert_redirected_to controller: 'dashboard', action: 'index'
+  end
 end

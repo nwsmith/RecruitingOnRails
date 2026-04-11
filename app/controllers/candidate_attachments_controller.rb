@@ -2,6 +2,8 @@ class CandidateAttachmentsController < ApplicationController
   # GET /candidate_attachments
   # GET /candidate_attachments.json
   def index
+    return if check_staff
+
     @candidate_attachments = CandidateAttachment.all
 
     respond_to do |format|
@@ -14,6 +16,7 @@ class CandidateAttachmentsController < ApplicationController
   # GET /candidate_attachments/1.json
   def show
     @candidate_attachment = CandidateAttachment.find(params[:id])
+    return if check_candidate_access(@candidate_attachment.candidate)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,6 +29,7 @@ class CandidateAttachmentsController < ApplicationController
   def new
     @candidate_attachment = CandidateAttachment.new
     @candidate_attachment.candidate_id = params[:candidate_id]
+    return if check_candidate_access(Candidate.find_by(id: params[:candidate_id]))
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,12 +40,14 @@ class CandidateAttachmentsController < ApplicationController
   # GET /candidate_attachments/1/edit
   def edit
     @candidate_attachment = CandidateAttachment.find(params[:id])
+    return if check_candidate_access(@candidate_attachment.candidate)
   end
 
   # POST /candidate_attachments
   # POST /candidate_attachments.json
   def create
     @candidate_attachment = CandidateAttachment.new(user_params)
+    return if check_candidate_access(@candidate_attachment.candidate)
 
     respond_to do |format|
       if @candidate_attachment.save
@@ -58,6 +64,7 @@ class CandidateAttachmentsController < ApplicationController
   # PUT /candidate_attachments/1.json
   def update
     @candidate_attachment = CandidateAttachment.find(params[:id])
+    return if check_candidate_access(@candidate_attachment.candidate)
 
     respond_to do |format|
       if @candidate_attachment.update(user_params)
@@ -74,6 +81,8 @@ class CandidateAttachmentsController < ApplicationController
   # DELETE /candidate_attachments/1.json
   def destroy
     @candidate_attachment = CandidateAttachment.find(params[:id])
+    return if check_candidate_access(@candidate_attachment.candidate)
+
     @candidate_attachment.destroy
 
     respond_to do |format|

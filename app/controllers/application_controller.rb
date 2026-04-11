@@ -53,6 +53,46 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Staff gate: anyone in admin / manager / hr. Used for index actions on
+  # candidate-related resources (interviews, code submissions, attachments)
+  # where there's no per-record candidate to scope by.
+  #
+  # Returns true if access is denied and a redirect has been issued.
+  # Callers MUST `return if check_staff` to avoid double-render.
+  def check_staff
+    return false if current_user&.admin? || current_user&.manager? || current_user&.hr?
+
+    redirect_to(controller: 'dashboard', action: :index)
+    true
+  end
+
+  # Per-candidate gate: admin/manager/hr always pass; otherwise the user can
+  # only view records belonging to their OWN candidate while that candidate
+  # is still in PEND or VERBAL status. Used by candidates_controller and the
+  # related-resource controllers (interviews, code_submissions, attachments)
+  # so a regular user can't enumerate someone else's hiring data.
+  #
+  # Returns true if access is denied and a redirect has been issued.
+  # Callers MUST `return if check_candidate_access(candidate)` to avoid
+  # double-render.
+  def check_candidate_access(candidate)
+    return false if current_user&.admin? || current_user&.manager? || current_user&.hr?
+
+    if candidate.nil?
+      redirect_to(controller: 'dashboard', action: :index)
+      return true
+    end
+
+    candidate_status_code = candidate.candidate_status&.code
+    is_self = current_user&.user_name.to_s == candidate.username
+    self_allowed = is_self && (candidate_status_code == 'PEND' || candidate_status_code == 'VERBAL')
+
+    return false if self_allowed
+
+    redirect_to(controller: 'dashboard', action: :index)
+    true
+  end
+
 
   def bearer_token_from_header
     header = request.headers['Authorization'].to_s

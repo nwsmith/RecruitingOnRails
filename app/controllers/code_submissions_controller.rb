@@ -2,6 +2,8 @@ class CodeSubmissionsController < ApplicationController
   # GET /code_submissions
   # GET /code_submissions.json
   def index
+    return if check_staff
+
     @code_submissions = CodeSubmission.all
 
     respond_to do |format|
@@ -14,6 +16,7 @@ class CodeSubmissionsController < ApplicationController
   # GET /code_submissions/1.json
   def show
     @code_submission = CodeSubmission.find(params[:id])
+    return if check_candidate_access(@code_submission.candidate)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,6 +29,7 @@ class CodeSubmissionsController < ApplicationController
   def new
     @code_submission = CodeSubmission.new
     @code_submission.candidate_id = params[:candidate_id]
+    return if check_candidate_access(Candidate.find_by(id: params[:candidate_id]))
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,19 +40,21 @@ class CodeSubmissionsController < ApplicationController
   # GET /code_submissions/1/edit
   def edit
     @code_submission = CodeSubmission.find(params[:id])
+    return if check_candidate_access(@code_submission.candidate)
   end
 
   # POST /code_submissions
   # POST /code_submissions.json
   def create
     @code_submission = CodeSubmission.new(user_params)
+    return if check_candidate_access(@code_submission.candidate)
 
     respond_to do |format|
       if @code_submission.save
         format.html { redirect_to @code_submission, notice: 'Code submission was successfully created.' }
         format.json { render json: @code_submission, status: :created, location: @code_submission }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", status: :unprocessable_entity }
         format.json { render json: @code_submission.errors, status: :unprocessable_entity }
       end
     end
@@ -58,13 +64,14 @@ class CodeSubmissionsController < ApplicationController
   # PUT /code_submissions/1.json
   def update
     @code_submission = CodeSubmission.find(params[:id])
+    return if check_candidate_access(@code_submission.candidate)
 
     respond_to do |format|
       if @code_submission.update(user_params)
         format.html { redirect_to @code_submission, notice: 'Code submission was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit", status: :unprocessable_entity }
         format.json { render json: @code_submission.errors, status: :unprocessable_entity }
       end
     end
@@ -74,6 +81,8 @@ class CodeSubmissionsController < ApplicationController
   # DELETE /code_submissions/1.json
   def destroy
     @code_submission = CodeSubmission.find(params[:id])
+    return if check_candidate_access(@code_submission.candidate)
+
     @code_submission.destroy
 
     respond_to do |format|
