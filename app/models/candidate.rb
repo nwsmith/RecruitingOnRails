@@ -1,4 +1,11 @@
 class Candidate < ApplicationRecord
+  include Trackable
+
+  # The audited candidate IS this record.
+  def audit_candidate_id
+    id
+  end
+
   belongs_to :gender, optional: true
   belongs_to :candidate_status, optional: true
   belongs_to :candidate_source, optional: true

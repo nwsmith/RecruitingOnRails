@@ -1,7 +1,10 @@
 class DashboardController < ApplicationController
+  RECENT_ACTIVITY_LIMIT = 10
+
   def index
     if current_user&.staff?
       load_staff_dashboard
+      @recent_activities = Activity.recent.limit(RECENT_ACTIVITY_LIMIT).includes(:actor)
     else
       # Non-staff users must not see candidate listings — that was the
       # dashboard enumeration gap. If the user happens to be a candidate

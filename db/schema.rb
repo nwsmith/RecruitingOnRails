@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_11_000003) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_11_000004) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -37,6 +37,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_000003) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "activities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "action", null: false
+    t.bigint "actor_id"
+    t.bigint "candidate_id"
+    t.text "changes_json"
+    t.datetime "created_at", null: false
+    t.bigint "target_id", null: false
+    t.string "target_type", null: false
+    t.index ["actor_id"], name: "index_activities_on_actor_id"
+    t.index ["candidate_id"], name: "index_activities_on_candidate_id"
+    t.index ["created_at"], name: "index_activities_on_created_at"
+    t.index ["target_type", "target_id"], name: "index_activities_on_target_type_and_target_id"
   end
 
   create_table "associated_budgets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

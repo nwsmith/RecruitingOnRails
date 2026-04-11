@@ -106,6 +106,8 @@ class CandidatesController < ApplicationController
 
     return if check_access(@candidate)
 
+    @activities = Activity.where(candidate_id: @candidate.id).recent.limit(50).includes(:actor)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @candidate }

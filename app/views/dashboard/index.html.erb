@@ -30,6 +30,8 @@
         </tr>
     <% end %>
   </table>
+
+  <%= render 'dashboard/recent_activity', activities: @recent_activities %>
 <% elsif @self_candidate %>
   <p>Welcome, <%= current_user.first_name %>.</p>
   <p>

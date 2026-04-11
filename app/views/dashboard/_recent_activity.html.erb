@@ -1,0 +1,22 @@
+<section class="recent-activity">
+  <h2>Recent Activity</h2>
+
+  <% if activities.empty? %>
+    <p><em>No recent activity.</em></p>
+  <% else %>
+    <ul>
+      <% activities.each do |activity| %>
+        <li>
+          <small><%= activity.created_at.strftime('%Y-%m-%d %H:%M') %></small>
+          &mdash;
+          <strong><%= activity.actor&.name || 'system' %></strong>
+          <%= activity.action_verb %>
+          <%= activity.target_type %>#<%= activity.target_id %>
+        </li>
+      <% end %>
+    </ul>
+    <% if current_user&.admin? %>
+      <p><small><%= link_to 'View full activity log →', activities_path %></small></p>
+    <% end %>
+  <% end %>
+</section>

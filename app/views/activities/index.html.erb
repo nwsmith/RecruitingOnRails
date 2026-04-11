@@ -1,0 +1,63 @@
+<h1>Activity Log</h1>
+
+<p>
+  <small>
+    Append-only audit trail. Showing
+    <%= @activities.length %> of <%= @total %> total entries.
+  </small>
+</p>
+
+<%= form_with url: activities_path, method: :get, local: true do |f| %>
+  <div class="grid">
+    <label>
+      Actor (user id)
+      <%= f.text_field :actor_id, value: params[:actor_id], placeholder: 'e.g. 1' %>
+    </label>
+    <label>
+      Target type
+      <%= f.text_field :target_type, value: params[:target_type], placeholder: 'e.g. Candidate' %>
+    </label>
+    <label>
+      Candidate id
+      <%= f.text_field :candidate_id, value: params[:candidate_id], placeholder: 'e.g. 42' %>
+    </label>
+    <label>&nbsp;<br/><%= f.submit 'Filter' %></label>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>When</th>
+      <th>Actor</th>
+      <th>Action</th>
+      <th>Target</th>
+      <th>Changes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @activities.includes(:actor).each do |activity| %>
+      <%= render 'activity', activity: activity %>
+    <% end %>
+    <% if @activities.empty? %>
+      <tr><td colspan="5"><em>No activities match the current filter.</em></td></tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @total > ActivitiesController::PAGE_SIZE %>
+  <nav class="pagination">
+    <% prev_page = [ @page - 1, 1 ].max %>
+    <% next_page = @page + 1 %>
+    <% has_next = (@page * ActivitiesController::PAGE_SIZE) < @total %>
+    <% if @page > 1 %>
+      <%= link_to '&larr; Newer'.html_safe,
+                  activities_path(request.query_parameters.merge(page: prev_page)) %>
+    <% end %>
+    <span>Page <%= @page %></span>
+    <% if has_next %>
+      <%= link_to 'Older &rarr;'.html_safe,
+                  activities_path(request.query_parameters.merge(page: next_page)) %>
+    <% end %>
+  </nav>
+<% end %>

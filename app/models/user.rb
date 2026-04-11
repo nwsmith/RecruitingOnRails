@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Trackable
+
   has_secure_password
 
   has_and_belongs_to_many :groups

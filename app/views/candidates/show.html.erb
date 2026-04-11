@@ -204,5 +204,21 @@
 <%= link_to 'Add Reference Check', new_reference_check_path(:candidate_id => @candidate.id) %>
 <hr>
 
+<% if current_user&.staff? && @activities.present? %>
+  <h1>Activity Timeline</h1>
+  <ul class="activity-timeline">
+    <% @activities.each do |activity| %>
+      <li>
+        <small><%= activity.created_at.strftime('%Y-%m-%d %H:%M') %></small>
+        &mdash;
+        <strong><%= activity.actor&.name || 'system' %></strong>
+        <%= activity.action_verb %>
+        <%= activity.target_type %>#<%= activity.target_id %>
+      </li>
+    <% end %>
+  </ul>
+  <hr>
+<% end %>
+
 <%= link_to 'Edit', edit_candidate_path(@candidate) %> |
 <%= link_to 'Back', candidates_path %>

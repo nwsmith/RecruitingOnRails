@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       user = User.find_by_api_key(api_key)
       if user&.active?
         @current_user = user
+        Current.user = user
         return
       else
         redirect_to root_path
@@ -40,6 +41,7 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     else
       session[:expires_at] = Time.current + 2.hours
+      Current.user = current_user
     end
   end
 

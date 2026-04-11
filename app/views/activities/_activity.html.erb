@@ -1,0 +1,39 @@
+<tr>
+  <td><small><%= activity.created_at.strftime('%Y-%m-%d %H:%M:%S') %></small></td>
+  <td>
+    <% if activity.actor %>
+      <%= activity.actor.name %>
+    <% else %>
+      <em>system</em>
+    <% end %>
+  </td>
+  <td><%= activity.action_verb %></td>
+  <td>
+    <%= activity.target_type %>#<%= activity.target_id %>
+    <% if activity.candidate_id.present? && activity.target_type != 'Candidate' %>
+      <br/><small>candidate #<%= activity.candidate_id %></small>
+    <% end %>
+  </td>
+  <td>
+    <% changes = activity.changes_hash %>
+    <% if changes.empty? %>
+      <em>—</em>
+    <% else %>
+      <details>
+        <summary><%= changes.keys.length %> field<%= 's' if changes.keys.length != 1 %></summary>
+        <dl>
+          <% changes.each do |field, value| %>
+            <dt><%= field %></dt>
+            <dd>
+              <% if value.is_a?(Array) && value.length == 2 %>
+                <code><%= value[0].inspect %></code> &rarr; <code><%= value[1].inspect %></code>
+              <% else %>
+                <code><%= value.inspect %></code>
+              <% end %>
+            </dd>
+          <% end %>
+        </dl>
+      </details>
+    <% end %>
+  </td>
+</tr>

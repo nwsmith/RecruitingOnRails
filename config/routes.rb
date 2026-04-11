@@ -67,4 +67,6 @@ RecruitingOnRails::Application.routes.draw do
       post :regenerate_api_key
     end
   end
+
+  resources :activities, only: [ :index ]
 end

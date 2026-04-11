@@ -1,7 +1,13 @@
 class CandidateAttachment < ApplicationRecord
+  include Trackable
+
   belongs_to :candidate
 
   has_one_attached :attachment
+
+  def audit_candidate_id
+    candidate_id
+  end
 
   ALLOWED_CONTENT_TYPES = %w[application/pdf application/msword text/plain].freeze
   MAX_ATTACHMENT_BYTES = 10.megabytes
