@@ -62,8 +62,32 @@ function initCandidateTimeline() {
     });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initCandidateTimeline);
+// Dark-mode toggle. Pico CSS 2 renders the entire UI in dark mode when
+// <html data-theme="dark">. The server reads a "theme" cookie to render
+// the initial page with the right attribute (no flash). This handler flips
+// the attribute, updates the cookie, and swaps the toggle label.
+function initThemeToggle() {
+  var toggle = document.getElementById("theme-toggle");
+  if (!toggle) return;
+
+  toggle.addEventListener("click", function (e) {
+    e.preventDefault();
+    var html = document.documentElement;
+    var current = html.getAttribute("data-theme") || "light";
+    var next = current === "dark" ? "light" : "dark";
+
+    html.setAttribute("data-theme", next);
+    document.cookie = "theme=" + next + "; path=/; max-age=31536000; SameSite=Lax";
+    toggle.textContent = next === "dark" ? "Light mode" : "Dark mode";
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", function () {
+    initCandidateTimeline();
+    initThemeToggle();
+  });
 } else {
   initCandidateTimeline();
+  initThemeToggle();
 }

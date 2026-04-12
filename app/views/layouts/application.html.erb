@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="<%= cookies[:theme].presence || 'light' %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,6 +31,9 @@
       <% if current_user %>
         <li><span class="user-chip"><%= current_user.name %></span></li>
       <% end %>
+      <li><a href="#" id="theme-toggle" role="button" class="outline secondary" data-theme-toggle>
+        <%= cookies[:theme] == "dark" ? "Light mode" : "Dark mode" %>
+      </a></li>
     </ul>
   </nav>
 </header>

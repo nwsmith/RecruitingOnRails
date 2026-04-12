@@ -63,6 +63,14 @@ header.container nav {
   font-weight: 600;
 }
 
+// Theme toggle: Pico's [role="button"].outline.secondary gives us a
+// low-prominence button that doesn't compete with nav links.
+#theme-toggle {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  margin: 0;
+}
+
 footer.container {
   margin-top: 2rem;
   padding-top: 1rem;
