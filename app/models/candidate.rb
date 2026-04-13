@@ -30,12 +30,17 @@ class Candidate < ApplicationRecord
   has_many :reference_checks
   has_many :candidate_attachments
   has_many :diary_entries
+  has_many :status_changes, class_name: "CandidateStatusChange", dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   # New candidates must enter the pipeline with a status. Legacy records may
   # still have nil here, so this only fires on create — backfill before tightening.
   validates :candidate_status_id, presence: true, on: :create
+
+  # ----- status change tracking -----
+  after_create :record_initial_status, if: -> { candidate_status_id.present? }
+  after_update :record_status_change,  if: :saved_change_to_candidate_status_id?
 
   def start_time=(start_time)
     @start_time = start_time
@@ -133,5 +138,26 @@ class Candidate < ApplicationRecord
     return nil unless start_date
     e = end_date.nil? ? date : ((end_date < date) ? end_date : date)
     ((e - start_date).numerator/365.0).round(2)
+  end
+
+  private
+
+  def record_initial_status
+    CandidateStatusChange.create!(
+      candidate:   self,
+      from_status: nil,
+      to_status:   candidate_status,
+      changed_by:  Current.user
+    )
+  end
+
+  def record_status_change
+    from_id, to_id = saved_change_to_candidate_status_id
+    CandidateStatusChange.create!(
+      candidate_id:       id,
+      from_status_id:     from_id,
+      to_status_id:       to_id,
+      changed_by_user_id: Current.user&.id
+    )
   end
 end

@@ -73,6 +73,25 @@
   <%= get_name @candidate.candidate_status %>
 </p>
 
+<% if @status_changes.present? %>
+  <details>
+    <summary><b>Status History</b> (<%= @status_changes.size %> change<%= "s" if @status_changes.size != 1 %>)</summary>
+    <ul>
+      <% @status_changes.each do |sc| %>
+        <li>
+          <small><%= sc.created_at.strftime("%Y-%m-%d %H:%M") %></small>
+          &mdash;
+          <strong><%= sc.changed_by&.name || "system" %></strong>
+          changed status: <em><%= sc.summary %></em>
+          <% if sc.notes.present? %>
+            <br/><small><%= sc.notes %></small>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </details>
+<% end %>
+
 <p>
   <b>Education Level:</b>
   <%= get_name @candidate.education_level %>

@@ -107,6 +107,7 @@ class CandidatesController < ApplicationController
     return if check_access(@candidate)
 
     @activities = Activity.where(candidate_id: @candidate.id).recent.limit(50).includes(:actor)
+    @status_changes = @candidate.status_changes.recent.includes(:from_status, :to_status, :changed_by)
 
     respond_to do |format|
       format.html # show.html.erb
