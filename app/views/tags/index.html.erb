@@ -1,0 +1,29 @@
+<h1>Tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Color</th>
+      <th>Candidates</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tags.each do |tag| %>
+      <tr>
+        <td><%= render "tags/chip", tag: tag %></td>
+        <td><code><%= tag.chip_color %></code></td>
+        <td><%= tag.candidates.count %></td>
+        <td><%= link_to "Show", tag %></td>
+        <td><%= link_to "Edit", edit_tag_path(tag) %></td>
+        <td><%= button_to "Destroy", tag, method: :delete, form: { data: { confirm: "Delete tag '#{tag.name}'?" } } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+<%= link_to "New Tag", new_tag_path %>

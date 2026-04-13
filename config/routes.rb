@@ -69,4 +69,5 @@ RecruitingOnRails::Application.routes.draw do
   end
 
   resources :activities, only: [ :index ]
+  resources :tags
 end

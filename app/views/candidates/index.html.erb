@@ -7,6 +7,7 @@
     <th>First name</th>
     <th>Middle name</th>
     <th>Last name</th>
+    <th>Tags</th>
     <th>Office Location</th>
     <th>Position</th>
     <th>Experience Level</th>
@@ -36,6 +37,7 @@
     <td><%= candidate.first_name %></td>
     <td><%= candidate.middle_name %></td>
     <td><%= candidate.last_name %></td>
+    <td><% candidate.tags.each do |tag| %><%= render "tags/chip", tag: tag %> <% end %></td>
     <td><%= candidate.office_location %></td>
     <td><%= get_name candidate.position %></td>
     <td><%= get_name candidate.experience_level %></td>

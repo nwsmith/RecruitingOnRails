@@ -194,6 +194,18 @@
       <br/>
       <%= f.text_area :notes %>
     </div>
+
+    <% if Tag.any? %>
+      <div class="field">
+        <b>Tags</b><br/>
+        <%= f.collection_check_boxes(:tag_ids, Tag.alphabetical, :id, :name) do |b| %>
+          <label style="display: inline-block; margin-right: 1rem;">
+            <%= b.check_box %> <%= render "tags/chip", tag: b.object %>
+          </label>
+        <% end %>
+      </div>
+    <% end %>
+
     <div class="actions">
       <%= f.submit %>
     </div>

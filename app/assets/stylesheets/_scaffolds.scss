@@ -71,6 +71,18 @@ header.container nav {
   margin: 0;
 }
 
+// Tag chips — colored pills used on candidate show/index and the tags CRUD.
+// Background color is set inline from the tag's color attribute.
+.tag-chip {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
 footer.container {
   margin-top: 2rem;
   padding-top: 1rem;

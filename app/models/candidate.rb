@@ -31,6 +31,8 @@ class Candidate < ApplicationRecord
   has_many :candidate_attachments
   has_many :diary_entries
   has_many :status_changes, class_name: "CandidateStatusChange", dependent: :destroy
+  has_many :candidate_tags, dependent: :destroy
+  has_many :tags, through: :candidate_tags
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -77,7 +79,7 @@ class Candidate < ApplicationRecord
   scope :for_table, -> {
     includes(
       :office_location, :candidate_status, :candidate_source,
-      :position, :experience_level,
+      :position, :experience_level, :tags,
       :reference_checks,
       interviews: [ :interview_type, :interview_reviews ],
       code_submissions: [ :code_problem, :code_submission_reviews ]

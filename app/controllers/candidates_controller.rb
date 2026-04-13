@@ -199,7 +199,8 @@ class CandidatesController < ApplicationController
       :position_id, :office_location_id, :education_level_id, :school_id,
       :gender_id, :leave_reason_id, :associated_budget_id, :budgeting_type_id,
       :user_id,
-      :status_change_notes
+      :status_change_notes,
+      tag_ids: []
     )
   end
 

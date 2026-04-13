@@ -73,6 +73,15 @@
   <%= get_name @candidate.candidate_status %>
 </p>
 
+<% if @candidate.tags.any? %>
+  <p>
+    <b>Tags:</b>
+    <% @candidate.tags.each do |tag| %>
+      <%= render "tags/chip", tag: tag %>
+    <% end %>
+  </p>
+<% end %>
+
 <% if @status_changes.present? %>
   <details>
     <summary><b>Status History</b> (<%= @status_changes.size %> change<%= "s" if @status_changes.size != 1 %>)</summary>

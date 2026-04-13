@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= render "tags/chip", tag: @tag %></h1>
+
+<p><b>Name:</b> <%= @tag.name %></p>
+<p><b>Color:</b> <code><%= @tag.chip_color %></code></p>
+
+<% if @tag.candidates.any? %>
+  <h2>Candidates with this tag</h2>
+  <ul>
+    <% @tag.candidates.each do |candidate| %>
+      <li><%= link_to candidate.name, candidate_path(candidate) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><em>No candidates have this tag yet.</em></p>
+<% end %>
+
+<%= link_to "Edit", edit_tag_path(@tag) %> |
+<%= link_to "Back", tags_path %>
