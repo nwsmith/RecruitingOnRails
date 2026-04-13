@@ -39,6 +39,12 @@ class Candidate < ApplicationRecord
   validates :candidate_status_id, presence: true, on: :create
 
   # ----- status change tracking -----
+  # Virtual attribute: the candidate form can set this when the admin
+  # changes the status dropdown. The after_update callback reads it and
+  # attaches it to the CandidateStatusChange row. Not persisted on
+  # Candidate itself.
+  attr_accessor :status_change_notes
+
   after_create :record_initial_status, if: -> { candidate_status_id.present? }
   after_update :record_status_change,  if: :saved_change_to_candidate_status_id?
 
@@ -157,7 +163,9 @@ class Candidate < ApplicationRecord
       candidate_id:       id,
       from_status_id:     from_id,
       to_status_id:       to_id,
-      changed_by_user_id: Current.user&.id
+      changed_by_user_id: Current.user&.id,
+      notes:              status_change_notes.presence
     )
+    self.status_change_notes = nil # consumed; don't carry over to the next save
   end
 end

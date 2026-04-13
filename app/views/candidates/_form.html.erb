@@ -93,7 +93,14 @@
           id = status.nil? ? -1 : status.id
         end
       %>
-      <%= f.collection_select(:candidate_status_id, CandidateStatus.order('name'), :id, :name, :include_blank => false, :selected => id) %>
+      <%= f.collection_select(:candidate_status_id, CandidateStatus.order("name"), :id, :name,
+            { include_blank: false, selected: id },
+            { data: { original_status: id } }) %>
+    </div>
+    <div class="field" id="status-change-notes-wrapper" style="display: none;">
+      <%= f.label :status_change_notes, "Reason for status change (optional)" %>
+      <%= f.text_area :status_change_notes, rows: 2,
+            placeholder: "e.g. Passed final interview, extending offer" %>
     </div>
     <div class="field">
       <%= f.label :education_level_id %>

@@ -82,12 +82,32 @@ function initThemeToggle() {
   });
 }
 
+// Status-change notes: show the "Reason for status change" textarea when
+// the status dropdown changes from its original value, hide it when it's
+// set back. Gated on the presence of the wrapper div so it's a no-op on
+// every page except the candidate edit form.
+function initStatusChangeNotes() {
+  var wrapper = document.getElementById("status-change-notes-wrapper");
+  if (!wrapper) return;
+
+  var select = document.querySelector("select[data-original-status]");
+  if (!select) return;
+
+  var original = select.getAttribute("data-original-status");
+
+  select.addEventListener("change", function () {
+    wrapper.style.display = select.value !== original ? "" : "none";
+  });
+}
+
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", function () {
     initCandidateTimeline();
     initThemeToggle();
+    initStatusChangeNotes();
   });
 } else {
   initCandidateTimeline();
   initThemeToggle();
+  initStatusChangeNotes();
 }

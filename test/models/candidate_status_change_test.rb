@@ -111,4 +111,43 @@ class CandidateStatusChangeTest < ActiveSupport::TestCase
     sc = CandidateStatusChange.recent.first
     assert_nil sc.changed_by_user_id
   end
+
+  # ----- notes from virtual attribute -----
+
+  test "status_change_notes virtual attribute flows through to the CandidateStatusChange notes" do
+    candidate = Candidate.create!(first_name: "Jack", last_name: "Jones", candidate_status: @pending)
+    CandidateStatusChange.delete_all
+
+    candidate.status_change_notes = "Passed final interview, extending verbal offer"
+    candidate.update!(candidate_status: @verbal)
+
+    sc = CandidateStatusChange.recent.first
+    assert_equal "Passed final interview, extending verbal offer", sc.notes
+  end
+
+  test "blank status_change_notes stores nil (not empty string)" do
+    candidate = Candidate.create!(first_name: "Kate", last_name: "King", candidate_status: @pending)
+    CandidateStatusChange.delete_all
+
+    candidate.status_change_notes = "   "
+    candidate.update!(candidate_status: @hired)
+
+    sc = CandidateStatusChange.recent.first
+    assert_nil sc.notes, "blank notes should be stored as nil, not whitespace"
+  end
+
+  test "status_change_notes is cleared after consumption (does not carry to next save)" do
+    candidate = Candidate.create!(first_name: "Leo", last_name: "Lane", candidate_status: @pending)
+    CandidateStatusChange.delete_all
+
+    candidate.status_change_notes = "First change reason"
+    candidate.update!(candidate_status: @verbal)
+
+    # Second update without setting notes — should not inherit the first reason
+    candidate.update!(candidate_status: @hired)
+
+    changes = CandidateStatusChange.for_candidate(candidate).order(:created_at).to_a
+    assert_equal "First change reason", changes[0].notes
+    assert_nil changes[1].notes, "notes should not carry over to subsequent saves"
+  end
 end
