@@ -453,4 +453,37 @@ class CandidatesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal users(:regular).id, Candidate.last.user_id
   end
+
+  # ----- CSV export -----
+
+  test "admin can export candidates index as CSV" do
+    login_as "admin"
+    get candidates_path(format: :csv)
+    assert_response :success
+    assert_equal "text/csv; charset=utf-8", response.content_type
+    assert_match "First Name", response.body
+    assert_match @other_candidate.first_name, response.body
+  end
+
+  test "admin can export filtered list as CSV" do
+    login_as "admin"
+    get list_candidates_path(format: :csv, status: "HIRED")
+    assert_response :success
+    assert_equal "text/csv; charset=utf-8", response.content_type
+    assert_match @other_candidate.first_name, response.body
+  end
+
+  test "CSV includes association names not raw ids" do
+    login_as "admin"
+    get candidates_path(format: :csv)
+    body = response.body
+    assert_match @hired_status.name, body
+    refute_match(/candidate_status_id/, body)
+  end
+
+  test "regular user cannot export CSV" do
+    login_as "regular"
+    get candidates_path(format: :csv)
+    assert_redirected_to controller: "dashboard", action: "index"
+  end
 end

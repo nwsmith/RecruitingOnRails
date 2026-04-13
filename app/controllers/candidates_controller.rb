@@ -24,6 +24,7 @@ class CandidatesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @candidates }
+      format.csv  { send_candidates_csv(@candidates, "candidates") }
     end
   end
 
@@ -93,6 +94,7 @@ class CandidatesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @candidates, include: { candidate_status: { only: :code }, candidate_source: { only: :code } } }
+      format.csv  { send_candidates_csv(@candidates, "candidates-#{requested_status_codes.join('-').downcase}") }
     end
   end
 
@@ -199,5 +201,40 @@ class CandidatesController < ApplicationController
       :user_id,
       :status_change_notes
     )
+  end
+
+  CSV_HEADERS = [
+    "First Name", "Last Name", "Middle Name",
+    "Status", "Source", "Position", "Experience Level", "Office Location",
+    "Application Date", "First Contact", "Start Date", "End Date",
+    "Offer Date", "Offer Accepted", "Offer Declined",
+    "Rejection Notified", "Fire Date", "Quit Date",
+    "Referral?", "Referred By", "Notes"
+  ].freeze
+
+  def send_candidates_csv(candidates, basename)
+    require "csv"
+
+    csv_data = CSV.generate do |csv|
+      csv << CSV_HEADERS
+      candidates.each do |c|
+        csv << [
+          c.first_name, c.last_name, c.middle_name,
+          c.candidate_status&.name, c.candidate_source&.name,
+          c.position&.name, c.experience_level&.name, c.office_location&.name,
+          c.application_date, c.first_contact_date, c.start_date, c.end_date,
+          c.offer_date, c.offer_accept_date, c.offer_turndown_date,
+          c.rejection_notification_date, c.fire_date, c.quit_date,
+          c.is_referral ? "Yes" : "No", c.referred_by, c.notes
+        ]
+      end
+    end
+
+    # UTF-8 BOM so Excel auto-detects the encoding on Windows.
+    bom = "\xEF\xBB\xBF"
+    send_data bom + csv_data,
+              filename:    "#{basename}-#{Date.today}.csv",
+              type:        "text/csv; charset=utf-8",
+              disposition: "attachment"
   end
 end
